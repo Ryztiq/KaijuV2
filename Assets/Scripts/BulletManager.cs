@@ -75,11 +75,7 @@ public class BulletManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("EnemySphere"))
-        {
-            print("hit enemy");
-            // other.GetComponent<BallEnemyController>().DeathStart();
-        }
+
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -94,7 +90,6 @@ public class BulletManager : MonoBehaviour
         if(collision.gameObject.CompareTag("Shield"))
             Destroy(gameObject);
         if(collisionVfx!= null)Instantiate(collisionVfx, transform.position, transform.rotation);
-        print("Bullet Hit a thing.");
         // Destroy(gameObject);
     }
 }

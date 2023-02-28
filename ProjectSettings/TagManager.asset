@@ -18,8 +18,8 @@ TagManager:
   - IgnoreParticles
   - Shield
   - Bullet
-  - 
-  - 
+  - Player
+  - Interactable
   - 
   - 
   - 

@@ -10,23 +10,37 @@ public class DroneController : MonoBehaviour
     public List<Rigidbody> droneBodyPartsRigidbodies;
     public List<Collider> droneBodyPartsColliders;
     public List<RotationMatcher> droneBodyPartsRotationMatchers;
+    public List<Collider> enableAfterShieldBreak;
+    public ShieldController shield;
 
     [HideInInspector] public GameObject followTarget;
     // Start is called before the first frame update
     void Start()
     {
+        foreach (Transform child in transform)
+        {
+            //retrieve rigidbodies
+            Rigidbody rb = child.GetComponent<Rigidbody>();
+            if(rb != null && !rb.isKinematic)droneBodyPartsRigidbodies.Add(child.GetComponent<Rigidbody>());
+            //retrieve child-matching components
+            RotationMatcher matcher = child.GetComponent<RotationMatcher>();
+            if(matcher != null)droneBodyPartsRotationMatchers.Add(child.GetComponent<RotationMatcher>());
+        }
+
         foreach (var obj in droneBodyParts)
         {
-            droneBodyPartsColliders.Add(obj.transform.GetComponentInChildren<Collider>());
-            foreach (Transform child in obj.transform)
-            {
-                Collider col = child.gameObject.GetComponent<Collider>();
-                if(col != null)droneBodyPartsColliders.Add(col);
-            }
-            Rigidbody rb = obj.GetComponent<Rigidbody>();
-            if(rb != null)droneBodyPartsRigidbodies.Add(obj.GetComponent<Rigidbody>());
-            RotationMatcher matcher = obj.GetComponent<RotationMatcher>();
-            if(matcher != null)droneBodyPartsRotationMatchers.Add(obj.GetComponent<RotationMatcher>());
+            if(obj.name != "DroneArmature")
+                RecursiveColliderFetch(obj.transform);
+        }
+    }
+
+    public void RecursiveColliderFetch(Transform transform)
+    {
+        Collider col = transform.GetComponent<Collider>();
+        if(col != null)droneBodyPartsColliders.Add(col);
+        foreach (Transform child in transform)
+        {
+            RecursiveColliderFetch(child);
         }
     }
 
@@ -38,6 +52,10 @@ public class DroneController : MonoBehaviour
 
     public void Kill()
     {
+        foreach (var col in enableAfterShieldBreak)
+        {
+            col.enabled = false;
+        }
         foreach (var obj in droneBodyParts)
         {
             LeanTween.cancel(obj);
@@ -73,5 +91,26 @@ public class DroneController : MonoBehaviour
     public void SetFollowTarget()
     {
         
+    }
+
+    public void ShieldBreak()
+    {
+        foreach (var collider in enableAfterShieldBreak)
+        {
+            collider.enabled = true;
+        }
+    }
+
+    public void ExternalHit(Collision collision)
+    {
+        print("body recieved hit call from " + collision.gameObject.name);
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            foreach (var col in enableAfterShieldBreak)
+            {
+                col.enabled = false;
+            }
+            Kill();
+        }
     }
 }
