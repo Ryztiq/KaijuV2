@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6605552643491662078}
   - component: {fileID: 3236962904272568318}
   - component: {fileID: 8456281648516643140}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: TestBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -244,4 +244,4 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 1
+  m_CollisionDetection: 2

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 public class DroneEnemyController : MonoBehaviour
@@ -12,23 +13,22 @@ public class DroneEnemyController : MonoBehaviour
     public Vector3 moveDelta;
     float timer;
     Vector3 originalPos;
-    float waitTime = 1;
-    public float followSpeed = 1;
     public bool invertLook;
     
     //references
-    [HideInInspector]public GameObject objectUsingLookTarget;
-    public GameObject ObjTarget;
-    [HideInInspector]public Transform followTarget;
+    [FormerlySerializedAs("objectUsingLookTarget")] [HideInInspector]public Transform transformController;
+    public Transform ObjTarget;
+    public Transform followTarget;
 
     private MovementStateMode savedMovementState;
     private BehaviorStateMode savedBehaviorState;
     private ViewfinderMode savedViewfinderMode;
+    private Transform savedFollowTarget;
     public enum ViewfinderMode
     {
         GameObject,
         Forward,
-        None
+        Free
     };
     [FormerlySerializedAs("lookTarget")] public ViewfinderMode viewfinderMode = ViewfinderMode.Forward;
     public enum BehaviorStateMode
@@ -51,13 +51,9 @@ public class DroneEnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (objectUsingLookTarget == null)
-            objectUsingLookTarget = gameObject;
-
+        if (transformController == null)transformController = gameObject.transform;
         prevPos = transform.position;
-        lookVec3 = objectUsingLookTarget.transform.position + objectUsingLookTarget.transform.forward.normalized;
-
-        if(followTarget == null)followTarget = new GameObject($"{gameObject.name} Follow Target").transform;
+        lookVec3 = transformController.position + transformController.forward.normalized;
     }
 
     // Update is called once per frame
@@ -86,6 +82,12 @@ public class DroneEnemyController : MonoBehaviour
         switch (movementStateMode)
         {
             case MovementStateMode.followTarget:
+                if(followTarget != null) followTarget.rotation = quaternion.Euler(Vector3.zero);
+                if (followTarget != savedFollowTarget)
+                {
+                    transformController.parent = followTarget;
+                    transformController.localPosition = Vector3.zero;
+                }
                 break;
             case MovementStateMode.patrol:
                 break;
@@ -94,21 +96,25 @@ public class DroneEnemyController : MonoBehaviour
         }
 
         //get a line showing how far the object moved each frame
-        moveDelta = objectUsingLookTarget.transform.position - prevPos;
+        moveDelta = transformController.position - prevPos;
         switch (viewfinderMode)
         {
             case ViewfinderMode.Forward:
                 //if the object moved more than 0.02 units, update a vector 3 showing which direction it's moving in.
                 if (moveDelta.magnitude > 0.02f)
                     //center the origin of the movement-per-frame line on the game object and make a new vector3 from it.
-                    lookVec3 = objectUsingLookTarget.transform.position + moveDelta.normalized;
+                    lookVec3 = transformController.position + moveDelta.normalized;
                 //update the previous known position of the object to the current location.
-                prevPos = objectUsingLookTarget.transform.position;
+                prevPos = transformController.position;
                 break;
             case ViewfinderMode.GameObject:
                 if (ObjTarget != null)
                 {
-                    lookVec3 = ObjTarget.transform.position;
+                    lookVec3 = ObjTarget.position;
+                }
+                else
+                {
+                    viewfinderMode = ViewfinderMode.Free;
                 }
                 break;
         }
@@ -116,15 +122,18 @@ public class DroneEnemyController : MonoBehaviour
         
         //state initialization
         
-        // if(movementStateMode != savedMovementState)
-        //     InitializeMovementState(movementStateMode);
+        if(movementStateMode != savedMovementState)
+            InitializeMovementState(movementStateMode);
         // if(behaviorStateMode != savedBehaviorState)
         //     InitializeBehaviorState(behaviorStateMode);
         if(viewfinderMode != savedViewfinderMode)
             InitializeLookState(viewfinderMode);
+        
+        //update saved states
         savedViewfinderMode = viewfinderMode;
         savedBehaviorState = behaviorStateMode;
         savedMovementState = movementStateMode;
+        savedFollowTarget = followTarget;
     }
     public void InitializeLookState(ViewfinderMode stateToInitialize)
     {
@@ -137,7 +146,7 @@ public class DroneEnemyController : MonoBehaviour
             case ViewfinderMode.GameObject:
                 
                 break;
-            case ViewfinderMode.None:
+            case ViewfinderMode.Free:
                 
                 break;
         }
@@ -148,19 +157,45 @@ public class DroneEnemyController : MonoBehaviour
         print($"state switched to {stateToInitialize}, initializing");
             switch (stateToInitialize)
         {
-            // case MovementStateMode.followTarget:
-            //     foreach (var obj in bodyObjects)
-            //     {
-            //         if(LeanTween.isTweening(obj)) LeanTween.cancel(obj);
-            //         LeanTween.followDamp(obj.transform, followTarget, LeanProp.position, 0.5f/followSpeed);
-            //     }
-            //     break;
-            // case MovementStateMode.idle:
-            //     foreach (var obj in bodyObjects)
-            //     {
-            //         if(LeanTween.isTweening(obj)) LeanTween.cancel(obj);
-            //     }                break;
+            case MovementStateMode.followTarget:
+                if (followTarget == null)
+                {
+                    movementStateMode = MovementStateMode.idle;
+                    Debug.LogWarning("No follow target assigned, switching to idle state");
+                }
+                else
+                {
+                    transformController.parent = followTarget;
+                    transformController.localPosition = Vector3.zero;
+                }
+                break;
+            case MovementStateMode.idle:
+                transformController.parent = null;
+                break;
             case MovementStateMode.patrol:
+                
+                break;
+        }
+    }
+    
+    public void InitializeBehaviorState(BehaviorStateMode stateToInitialize)
+    {
+        print($"state switched to {stateToInitialize}, initializing");
+        switch (stateToInitialize)
+        {
+            case BehaviorStateMode.Idle:
+                
+                break;
+            case BehaviorStateMode.Chase:
+                
+                break;
+            case BehaviorStateMode.Attack:
+                
+                break;
+            case BehaviorStateMode.Dead:
+                
+                break;
+            case BehaviorStateMode.Searching:
                 
                 break;
         }
@@ -168,9 +203,11 @@ public class DroneEnemyController : MonoBehaviour
 
     private void LookToTarget()
     {
-        var targetRotation = invertLook ? Quaternion.LookRotation(objectUsingLookTarget.transform.position - lookVec3) : Quaternion.LookRotation(lookVec3 - objectUsingLookTarget.transform.position);
+        var targetRotation = invertLook ? Quaternion.LookRotation(transformController.position - lookVec3) : Quaternion.LookRotation(lookVec3 - transformController.position);
+        Debug.DrawRay(transformController.position, lookVec3-transformController.position, Color.cyan);
         // Smoothly rotate towards the target point.
-        transform.rotation = Quaternion.Slerp(objectUsingLookTarget.transform.rotation, targetRotation, lookSpeed * Time.deltaTime);
+        //if(Vector3.Angle(targetRotation.eulerAngles,transform.rotation.eulerAngles) > 1)
+        transform.rotation = Quaternion.Slerp(transformController.rotation, targetRotation, lookSpeed * Time.deltaTime);
         
         // //get a line in the direction that the object should be looking.
         // Vector3 lookAngle = (lookVec3 - objectUsingLookTarget.transform.position).normalized;
@@ -185,7 +222,7 @@ public class DroneEnemyController : MonoBehaviour
     }
     public void SetLookObject(GameObject obj)
     {
-        ObjTarget = obj;
+        ObjTarget = obj.transform;
         viewfinderMode = ViewfinderMode.GameObject;
     }
 
@@ -215,25 +252,13 @@ public class DroneEnemyController : MonoBehaviour
         //TODO: Make the enemy shrink and dissappear when they hit the ground/major collision.
     }
 
-    // public void DeathStart()
-    // {
-    //     print("Death Started");
-    //     behaviorStateMode = BehaviorStateMode.Dead;
-    //     lookTarget = LookTargets.Forward;
-    //     GameObject boss = GameObject.Find("BossBody");
-    //     // if (boss != null) GameObject.Find("BossBody").GetComponent<SphereSpawner>().spheres.Remove(gameObject);
-    //     if(LeanTween.isTweening(gameObject)) LeanTween.cancel(gameObject);
-    //     Rb.isKinematic = false;
-    //     Rb.useGravity = true;
-    //     deathInitialized = true;
-    // }
-
-    // private void OnGUI()
-    // {
-    //     //a button to run the death function
-    //     if (GUI.Button(new Rect(10, 10, 100, 30), "Death"))
-    //     {
-    //         DeathStart();
-    //     }
-    // }
+    public void OnGUI()
+    {
+        //a button to set the follow target to the player.
+        if (GUI.Button(new Rect(110, 10, 100, 30), "Follow Player"))
+        {
+            followTarget = GameObject.Find("FollowCube").transform;
+            movementStateMode = MovementStateMode.followTarget;
+        }
+    }
 }

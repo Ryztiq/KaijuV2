@@ -34,15 +34,15 @@ public class BulletManager : MonoBehaviour
         LifeTimeDestroy();
         RaycastHit hit;
 
-        Physics.SphereCast(transform.position, SphereSize, Vector3.forward, out hit);
-        try
-        {
-            print("HIT");
-        }
-        catch
-        {
-            print("Something went wrong");
-        }
+        // Physics.SphereCast(transform.position, SphereSize, Vector3.forward, out hit);
+        // try
+        // {
+        //     print("HIT");
+        // }
+        // catch
+        // {
+        //     print("Something went wrong");
+        // }
         //TODO: Refactor the above code into the checksphere below as it's more performant.
 
         //if (Physics.CheckSphere(transform.position, 0.1f, bulletCollisions))
@@ -91,7 +91,8 @@ public class BulletManager : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Restart"))
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
+        if(collision.gameObject.CompareTag("Shield"))
+            Destroy(gameObject);
         if(collisionVfx!= null)Instantiate(collisionVfx, transform.position, transform.rotation);
         print("Bullet Hit a thing.");
         // Destroy(gameObject);

@@ -10,6 +10,8 @@ public class DroneController : MonoBehaviour
     public List<Rigidbody> droneBodyPartsRigidbodies;
     public List<Collider> droneBodyPartsColliders;
     public List<RotationMatcher> droneBodyPartsRotationMatchers;
+
+    [HideInInspector] public GameObject followTarget;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,5 +68,10 @@ public class DroneController : MonoBehaviour
         {
             Kill();
         }
+    }
+
+    public void SetFollowTarget()
+    {
+        
     }
 }
