@@ -12,24 +12,31 @@ public class DroneController : MonoBehaviour
     public List<RotationMatcher> droneBodyPartsRotationMatchers;
     public List<Collider> enableAfterShieldBreak;
     public ShieldController shield;
+    public bool deathStarted;
+    public bool shieldUp = true;
 
     [HideInInspector] public GameObject followTarget;
     // Start is called before the first frame update
     void Start()
     {
+        DroneSetup();
+    }
+
+    private void DroneSetup()
+    {
         foreach (Transform child in transform)
         {
             //retrieve rigidbodies
             Rigidbody rb = child.GetComponent<Rigidbody>();
-            if(rb != null && !rb.isKinematic)droneBodyPartsRigidbodies.Add(child.GetComponent<Rigidbody>());
+            if (rb != null && !rb.isKinematic) droneBodyPartsRigidbodies.Add(child.GetComponent<Rigidbody>());
             //retrieve child-matching components
             RotationMatcher matcher = child.GetComponent<RotationMatcher>();
-            if(matcher != null)droneBodyPartsRotationMatchers.Add(child.GetComponent<RotationMatcher>());
+            if (matcher != null) droneBodyPartsRotationMatchers.Add(child.GetComponent<RotationMatcher>());
         }
 
         foreach (var obj in droneBodyParts)
         {
-            if(obj.name != "DroneArmature")
+            if (obj.name != "DroneArmature")
                 RecursiveColliderFetch(obj.transform);
         }
     }
@@ -47,31 +54,20 @@ public class DroneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(droneBodyParts[0] == null) Destroy(gameObject);
+        if(droneBodyParts.Count == 0) Destroy(gameObject);
+
     }
 
     public void Kill()
     {
-        foreach (var col in enableAfterShieldBreak)
-        {
-            col.enabled = false;
-        }
         foreach (var obj in droneBodyParts)
         {
-            LeanTween.cancel(obj);
-            obj.AddComponent<LifeTimeDespawn>();
+            if(obj.name != "BodyMain")
+                obj.AddComponent<LifeTimeDespawn>();
         }
-
-        foreach (var collider in droneBodyPartsColliders)
-        {
-            collider.enabled = true;
-        }
-
-        foreach (var rb in droneBodyPartsRigidbodies)
-        {
-            rb.useGravity = true;
-        }
-
+        foreach (var col in enableAfterShieldBreak)col.enabled = false;
+        foreach (var collider in droneBodyPartsColliders)collider.enabled = true;
+        foreach (var rb in droneBodyPartsRigidbodies)rb.useGravity = true;
         foreach (var matcher in droneBodyPartsRotationMatchers)
         {
             matcher.rotate = false;
@@ -95,6 +91,7 @@ public class DroneController : MonoBehaviour
 
     public void ShieldBreak()
     {
+        shieldUp = false;
         foreach (var collider in enableAfterShieldBreak)
         {
             collider.enabled = true;
@@ -104,8 +101,9 @@ public class DroneController : MonoBehaviour
     public void ExternalHit(Collision collision)
     {
         print("body recieved hit call from " + collision.gameObject.name);
-        if (collision.gameObject.CompareTag("Bullet"))
+        if (collision.gameObject.CompareTag("Bullet") && !deathStarted && !shieldUp)
         {
+            deathStarted = true;
             foreach (var col in enableAfterShieldBreak)
             {
                 col.enabled = false;

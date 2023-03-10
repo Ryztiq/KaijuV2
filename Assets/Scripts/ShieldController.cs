@@ -6,7 +6,6 @@ using UnityEngine;
 public class ShieldController : MonoBehaviour
 {
     public GameObject rippleVfx;
-
     private Material mat;
     private static readonly int HitPoint = Shader.PropertyToID("_HitPoint");
     public float health = 100;

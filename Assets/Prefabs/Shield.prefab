@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 581490880633412128}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.76, y: 2.76, z: 2.76}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -72,7 +72,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 581490880633412128}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -1272481795433867914, guid: bd5063f2346d5bc43a783243d0bec47e, type: 3}
 --- !u!23 &5610576515542156028
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -129,3 +129,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rippleVfx: {fileID: 2863773247921790780, guid: a7d64ce8b25d83a42ac1d56406d5da4e,
     type: 3}
+  health: 100
+  droneController: {fileID: 0}
