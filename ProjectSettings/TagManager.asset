@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Restart
   - Shield
+  - Ground
+  - Debris
   layers:
   - Default
   - TransparentFX
