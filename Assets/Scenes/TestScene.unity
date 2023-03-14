@@ -1258,12 +1258,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b994e13a4071b674abea09e239bf44ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1584635226 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1164436077619418970, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-    type: 3}
-  m_PrefabInstance: {fileID: 7944152494194937413}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1705603770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33160,7 +33154,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ShootAngleReference
       value: 
-      objectReference: {fileID: 1584635226}
+      objectReference: {fileID: 7944152494194937414}
     - target: {fileID: 6962274988149966605, guid: 0307a0e7c0fc3694aa49a0983a88f958,
         type: 3}
       propertyPath: m_RootOrder
@@ -33233,6 +33227,12 @@ PrefabInstance:
       objectReference: {fileID: 1109880817}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0307a0e7c0fc3694aa49a0983a88f958, type: 3}
+--- !u!1 &7944152494194937414 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2626305926135039779, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+    type: 3}
+  m_PrefabInstance: {fileID: 7944152494194937413}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7953920844277889404
 GameObject:
   m_ObjectHideFlags: 0
