@@ -83,6 +83,7 @@ public class DroneEnemyController : MonoBehaviour
             case BehaviorStateMode.Chase:
                 break;
             case BehaviorStateMode.Attack:
+                InitializeAttackState();
                 break;
             case BehaviorStateMode.Dead:
                 break;
@@ -203,7 +204,6 @@ public class DroneEnemyController : MonoBehaviour
             case BehaviorStateMode.Attack:
                 Debug.Log("Is Attacking");
 
-                InitializeAttackState();
                 break;
             case BehaviorStateMode.Dead:
                 Debug.Log("Is Dead");
@@ -218,36 +218,40 @@ public class DroneEnemyController : MonoBehaviour
 
     public void InitializeAttackState()
     {
-        Debug.Log("Can Attack");
-        //if (canShoot)
-        //{
+        if (canShoot)
+        {
             int choice = UnityEngine.Random.Range(0, 2);
             Debug.Log(choice);
-            if (choice == 0)
-            {
+            //if (ObjTarget != null)
+            //{
+            //    Debug.Log("'Homing' Shot");
+            //    Vector3 homingTarget = ShootAngleReference.gameObject.transform.position - ObjTarget.gameObject.transform.position;
+            //    homingTarget = homingTarget.normalized;
+            //    var targetRotation = invertLook ? Quaternion.LookRotation(transformController.position - lookVec3) : Quaternion.LookRotation(lookVec3 - transformController.position);
+            //    Debug.DrawRay(transformController.position, lookVec3 - transformController.position, Color.magenta);
+            //    // Smoothly rotate towards the target point.
+            //    //if(Vector3.Angle(targetRotation.eulerAngles,transform.rotation.eulerAngles) > 1)
+            //    Quaternion bulletRotatePosition = Quaternion.RotateTowards(transformController.rotation, targetRotation, 360);
+            //    Instantiate(Lazer, this.gameObject.transform.position, bulletRotatePosition);
+            //}
+        //else
+        //    {
+
                 Debug.Log("Shooting Forward");
-            Instantiate(Lazer, this.gameObject.transform.position, ShootAngleReference.gameObject.transform.rotation * new Quaternion(0, 180, 0, 0));
+                Instantiate(Lazer, this.gameObject.transform.position, ShootAngleReference.gameObject.transform.rotation * new Quaternion(0, 180, 0, 0));
 
-
+            //}
+        canShoot = false; 
         }
         else
+        {
+            shootTimer += Time.deltaTime;
+            if (shootTimer >= shootTimerMax)
             {
-                Debug.Log("'Homing' Shot");
-            Instantiate(Lazer, this.gameObject.transform.position, ShootAngleReference.gameObject.transform.rotation * new Quaternion(0, 180, 0, 0));
-
-
+                canShoot = true;
+                shootTimer = 0;
+            }
         }
-        canShoot = false; 
-        //}
-        //else
-        //{
-        //    shootTimer += Time.deltaTime;
-        //    if(shootTimer >= shootTimerMax)
-        //    {
-        //        canShoot = true;
-        //        shootTimer = 0;
-        //    }
-        //}
 
     }
 

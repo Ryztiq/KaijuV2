@@ -7509,8 +7509,9 @@ MonoBehaviour:
   ObjTarget: {fileID: 0}
   followTarget: {fileID: 0}
   Lazer: {fileID: 9089088571927259877, guid: 4e14a91613a0177409d097f3a99e4cdb, type: 3}
+  ShootAngleReference: {fileID: 1164436077619418970}
   viewfinderMode: 1
-  behaviorStateMode: 2
+  behaviorStateMode: 0
   movementStateMode: 2
 --- !u!1 &7808252584418704512
 GameObject:
@@ -7726,6 +7727,7 @@ MonoBehaviour:
   ObjTarget: {fileID: 0}
   followTarget: {fileID: 0}
   Lazer: {fileID: 0}
+  ShootAngleReference: {fileID: 0}
   viewfinderMode: 0
   behaviorStateMode: 0
   movementStateMode: 2
