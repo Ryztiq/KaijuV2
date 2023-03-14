@@ -11,6 +11,11 @@ public class LaserManager : MonoBehaviour
     public LayerMask laserMask;
 
     // Update is called once per frame
+    private void Start()
+    {
+        Debug.Log("I AM HERE!!!");
+    }
+
     void Update()
     {
         lineRenderer.SetPosition(0, transform.position);

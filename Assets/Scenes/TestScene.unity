@@ -1046,6 +1046,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paintRange: 0.6
   paintColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!4 &1480326115 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e2b7e3fa7285e5644a09f1ffc9350760,
+    type: 3}
+  m_PrefabInstance: {fileID: 1705603770}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1510218840
 GameObject:
   m_ObjectHideFlags: 0
@@ -33128,6 +33134,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1792254464724334261, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+        type: 3}
+      propertyPath: Lazer
+      value: 
+      objectReference: {fileID: 9089088571927259877, guid: 4e14a91613a0177409d097f3a99e4cdb,
+        type: 3}
+    - target: {fileID: 1792254464724334261, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+        type: 3}
+      propertyPath: ObjTarget
+      value: 
+      objectReference: {fileID: 1480326115}
+    - target: {fileID: 1792254464724334261, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+        type: 3}
+      propertyPath: ShootAngleReference
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6962274988149966605, guid: 0307a0e7c0fc3694aa49a0983a88f958,
         type: 3}
       propertyPath: m_RootOrder

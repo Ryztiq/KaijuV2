@@ -7429,6 +7429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6962274988149966605}
   - component: {fileID: 6962274988149966604}
+  - component: {fileID: 1792254464724334261}
   m_Layer: 0
   m_Name: EyeDrone
   m_TagString: Untagged
@@ -7488,6 +7489,29 @@ MonoBehaviour:
   deathStarted: 0
   shieldUp: 1
   followTarget: {fileID: 0}
+--- !u!114 &1792254464724334261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7770161375396257207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7a481f0058f9144b2916e3f43a9030, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookSpeed: 6
+  moveDelta: {x: 0, y: 0, z: 0}
+  shootTimerMax: 5
+  invertLook: 0
+  transformController: {fileID: 0}
+  ObjTarget: {fileID: 0}
+  followTarget: {fileID: 0}
+  Lazer: {fileID: 9089088571927259877, guid: 4e14a91613a0177409d097f3a99e4cdb, type: 3}
+  viewfinderMode: 1
+  behaviorStateMode: 2
+  movementStateMode: 2
 --- !u!1 &7808252584418704512
 GameObject:
   m_ObjectHideFlags: 0
@@ -7696,10 +7720,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookSpeed: 6
   moveDelta: {x: 0, y: 0, z: 0}
+  shootTimerMax: 5
   invertLook: 1
   transformController: {fileID: 0}
   ObjTarget: {fileID: 0}
   followTarget: {fileID: 0}
+  Lazer: {fileID: 0}
   viewfinderMode: 0
   behaviorStateMode: 0
   movementStateMode: 2

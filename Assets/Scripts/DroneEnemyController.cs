@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Serialization;
 public class DroneEnemyController : MonoBehaviour
 {
@@ -12,6 +13,11 @@ public class DroneEnemyController : MonoBehaviour
     private Vector3 lookVec3;
     public Vector3 moveDelta;
     float timer;
+    float shootTimer = 0;
+    public float shootTimerMax = 5;
+    bool canShoot = true;
+
+
     Vector3 originalPos;
     public bool invertLook;
     
@@ -19,6 +25,8 @@ public class DroneEnemyController : MonoBehaviour
     [FormerlySerializedAs("objectUsingLookTarget")] [HideInInspector]public Transform transformController;
     public Transform ObjTarget;
     public Transform followTarget;
+    public GameObject Lazer;
+    public GameObject ShootAngleReference;
 
     private MovementStateMode savedMovementState;
     private BehaviorStateMode savedBehaviorState;
@@ -55,6 +63,8 @@ public class DroneEnemyController : MonoBehaviour
         prevPos = transform.position;
         lookVec3 = transformController.position + transformController.forward.normalized;
     }
+
+
 
     // Update is called once per frame
     void FixedUpdate()
@@ -124,8 +134,8 @@ public class DroneEnemyController : MonoBehaviour
         
         if(movementStateMode != savedMovementState)
             InitializeMovementState(movementStateMode);
-        // if(behaviorStateMode != savedBehaviorState)
-        //     InitializeBehaviorState(behaviorStateMode);
+         if(behaviorStateMode != savedBehaviorState)
+             InitializeBehaviorState(behaviorStateMode);
         if(viewfinderMode != savedViewfinderMode)
             InitializeLookState(viewfinderMode);
         
@@ -184,21 +194,61 @@ public class DroneEnemyController : MonoBehaviour
         switch (stateToInitialize)
         {
             case BehaviorStateMode.Idle:
-                
+                Debug.Log("Is Idle");
                 break;
             case BehaviorStateMode.Chase:
-                
+                Debug.Log("Is Chasing");
+
                 break;
             case BehaviorStateMode.Attack:
-                
+                Debug.Log("Is Attacking");
+
+                InitializeAttackState();
                 break;
             case BehaviorStateMode.Dead:
-                
+                Debug.Log("Is Dead");
+
                 break;
             case BehaviorStateMode.Searching:
-                
+                Debug.Log("Is Searching");
+
                 break;
         }
+    }
+
+    public void InitializeAttackState()
+    {
+        Debug.Log("Can Attack");
+        //if (canShoot)
+        //{
+            int choice = UnityEngine.Random.Range(0, 2);
+            Debug.Log(choice);
+            if (choice == 0)
+            {
+                Debug.Log("Shooting Forward");
+            Instantiate(Lazer, this.gameObject.transform.position, ShootAngleReference.gameObject.transform.rotation * new Quaternion(0, 180, 0, 0));
+
+
+        }
+        else
+            {
+                Debug.Log("'Homing' Shot");
+            Instantiate(Lazer, this.gameObject.transform.position, ShootAngleReference.gameObject.transform.rotation * new Quaternion(0, 180, 0, 0));
+
+
+        }
+        canShoot = false; 
+        //}
+        //else
+        //{
+        //    shootTimer += Time.deltaTime;
+        //    if(shootTimer >= shootTimerMax)
+        //    {
+        //        canShoot = true;
+        //        shootTimer = 0;
+        //    }
+        //}
+
     }
 
     private void LookToTarget()
