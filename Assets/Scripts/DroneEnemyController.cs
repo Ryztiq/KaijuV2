@@ -238,7 +238,7 @@ public class DroneEnemyController : MonoBehaviour
         //    {
 
                 Debug.Log("Shooting Forward");
-                Instantiate(Lazer, this.gameObject.transform.position, ShootAngleReference.gameObject.transform.rotation * new Quaternion(0, 180, 0, 0));
+                Instantiate(Lazer, ShootAngleReference.transform.position, ShootAngleReference.transform.rotation);
 
             //}
         canShoot = false; 
