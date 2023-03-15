@@ -10,6 +10,8 @@ public class DroneController : MonoBehaviour
     public float lookSpeed = 6;
     public float laserDistance;
     public bool invertViewfindAngle;
+    public GameObject bulletPrefab;
+    public Transform firePoint;
     public Transform positionController;
     public Transform rotationController;
     public Transform ViewfinderTarget;
@@ -23,10 +25,12 @@ public class DroneController : MonoBehaviour
     public LaserManager laser;
     public bool shieldUp = true;
     public bool deathStarted;
-    
+
     private Vector3 prevPos;
     private Vector3 viewVector;
     [SerializeField]private Vector3 moveDelta;
+    private float timer;
+    public float fireRate = 2;
     
     private MovementStateMode savedMovementState;
     private BehaviorStateMode savedBehaviorState;
@@ -113,7 +117,12 @@ public class DroneController : MonoBehaviour
             case BehaviorStateMode.Chase:
                 break;
             case BehaviorStateMode.Attack:
-                // InitializeAttackState();
+                timer += Time.deltaTime;
+                if (timer > 1 / fireRate)
+                {
+                    GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+                    timer = 0;
+                }
                 break;
             case BehaviorStateMode.Dead:
                 break;
@@ -224,18 +233,22 @@ public class DroneController : MonoBehaviour
     private void InitializeBehaviorState(BehaviorStateMode stateToInitialize)
     {
         print($"state switched to {stateToInitialize}, initializing");
+        timer = 0;
         switch (stateToInitialize)
         {
             case BehaviorStateMode.Idle:
                 Debug.Log("Is Idle");
+                viewfinderMode = ViewfinderMode.Forward;
+                movementStateMode = MovementStateMode.idle;
                 break;
             case BehaviorStateMode.Chase:
                 Debug.Log("Is Chasing");
-
+                viewfinderMode = ViewfinderMode.Forward;
                 break;
             case BehaviorStateMode.Attack:
                 Debug.Log("Is Attacking");
-
+                if(ViewfinderTarget == null) behaviorStateMode = BehaviorStateMode.Idle;
+                viewfinderMode = ViewfinderMode.GameObject;
                 break;
             case BehaviorStateMode.Dead:
                 Debug.Log("Is Dead");
@@ -246,6 +259,13 @@ public class DroneController : MonoBehaviour
 
                 break;
         }
+    }
+    
+    private IEnumerator FireBullet(float delay)
+    {
+        
+
+        yield return new WaitForSeconds(delay);
     }
     
     private void LookToTarget(Transform trans)
