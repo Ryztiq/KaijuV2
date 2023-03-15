@@ -33,7 +33,7 @@ public class SineWaveMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.parent != null) transform.rotation = Quaternion.Euler(Vector3.zero);
+        // if (transform.parent != null) transform.rotation = Quaternion.Euler(Vector3.zero);
         CalculateWave();
         // Apply position wobbling using Perlin noise if the boolean is enabled
         if (positionWobble)Wobble();

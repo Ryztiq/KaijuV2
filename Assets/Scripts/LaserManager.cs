@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+
 public class LaserManager : MonoBehaviour
 {
     public LineRenderer lineRenderer;
     public Transform target;
     private static readonly int Origin = Shader.PropertyToID("_Origin");
     private static readonly int Range = Shader.PropertyToID("_LaserRange");
-    private float laserMaxRange = 30;
+    [FormerlySerializedAs("laserMaxRange")] public float maxRange = 30;
     public LayerMask laserMask;
 
     // Update is called once per frame
@@ -23,7 +25,7 @@ public class LaserManager : MonoBehaviour
         {
             //cast a ray from the laser toward the target going 100 units and set the laser to the point of impact
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, target.position - transform.position, out hit, laserMaxRange, laserMask))
+            if (Physics.Raycast(transform.position, target.position - transform.position, out hit, maxRange, laserMask))
             {
                 lineRenderer.material.SetVector(Origin, hit.point);
                 lineRenderer.SetPosition(1, hit.point);
@@ -31,10 +33,10 @@ public class LaserManager : MonoBehaviour
             }
             else
             {
-                Vector3 origin = transform.position + ((target.position - transform.position).normalized * laserMaxRange);
+                Vector3 origin = transform.position + ((target.position - transform.position).normalized * maxRange);
                 lineRenderer.material.SetVector(Origin, origin);
                 lineRenderer.SetPosition(1, origin);
-                lineRenderer.material.SetFloat(Range, laserMaxRange);
+                lineRenderer.material.SetFloat(Range, maxRange);
             }
         }
         else
@@ -42,7 +44,7 @@ public class LaserManager : MonoBehaviour
             //cast a ray forward from the laser going 10 units
             RaycastHit hit;
             //if the ray hits something set the laser range to that distance and position 1 of the line renderer to the hit point
-            if (Physics.Raycast(transform.position, transform.forward, out hit, laserMaxRange, laserMask))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, maxRange, laserMask))
             {
                 lineRenderer.material.SetVector(Origin, hit.point);
                 lineRenderer.SetPosition(1, hit.point);
@@ -51,10 +53,10 @@ public class LaserManager : MonoBehaviour
             else
             {
                 //if the ray doesn't hit anything set the laser range to 10 and position 1 of the line renderer to 10 units forward
-                Vector3 origin = transform.position + transform.forward * laserMaxRange;
+                Vector3 origin = transform.position + transform.forward * maxRange;
                 lineRenderer.material.SetVector(Origin, origin);
                 lineRenderer.SetPosition(1, origin);
-                lineRenderer.material.SetFloat(Range, laserMaxRange);
+                lineRenderer.material.SetFloat(Range, maxRange);
             }
         }
     }
