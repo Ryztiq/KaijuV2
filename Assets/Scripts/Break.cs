@@ -20,52 +20,37 @@ public class Break : MonoBehaviour
 
     private void Shatter()
     {
+        print($"Shattering {gameObject.name}");
         GetComponent<Collider>().enabled = false;
         var velocity = rb.velocity;
         GameObject brokenObj = Instantiate(prefab, transform.position, transform.rotation);
         brokenObj.transform.localScale = transform.localScale;
-        foreach (Transform child in brokenObj.transform)
-        {
-            child.GetComponent<Rigidbody>().AddForce(velocity* (velocityBreakCarryoverPercent/100), ForceMode.VelocityChange);
-        }
-        AddLifeTimeScript(brokenObj.transform);
-        Destroy(this.GameObject());
+        // foreach (Transform child in brokenObj.transform)
+        // {
+        //     child.GetComponent<Rigidbody>().AddForce(velocity* (velocityBreakCarryoverPercent/100), ForceMode.VelocityChange);
+        // }
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         Rigidbody otherRb = collision.gameObject.GetComponent<Rigidbody>();
-        print($"Object Velocity: {Mathf.Clamp01(rb.velocity.magnitude / velocityToBreak)*100}%"); 
-        if(otherRb != null) print($"External Object:{collision.gameObject.name} Velocity: {Mathf.Clamp01(otherRb.velocity.magnitude/ velocityToBreak)*100}%");
-        if (breakOnImpact)
-        {
-            if(otherRb != null && rb.velocity.magnitude > velocityToBreak) 
-                Shatter();
-            else if(rb.velocity.magnitude > velocityToBreak)
-                Shatter();
-        }
+        print($"{gameObject.name} Velocity: {Mathf.Clamp01(rb.velocity.magnitude / velocityToBreak)*100}% Collided with: {collision.gameObject.name}"); 
+        if(otherRb != null) print($"{collision.gameObject.name} collider velocity: {Mathf.Clamp01(otherRb.velocity.magnitude/ velocityToBreak)*100}%");
+        if (breakOnImpact && rb.velocity.magnitude > velocityToBreak) Shatter();
     }
 
     public void OnTriggerEnter(Collider other)
     {
         Rigidbody otherRb = other.gameObject.GetComponent<Rigidbody>();
         print($"Object Velocity: {Mathf.Clamp01(rb.velocity.magnitude / velocityToBreak)*100}%"); 
-        if(otherRb != null) print($"External Object:{other.gameObject.name} Velocity: {Mathf.Clamp01(otherRb.velocity.magnitude/ velocityToBreak)*100}%");
+        if(otherRb != null) print($"{other.gameObject.name} trigger velocity: {Mathf.Clamp01(otherRb.velocity.magnitude/ velocityToBreak)*100}%");
         if (breakOnImpact)
         {
-            if(otherRb != null && rb.velocity.magnitude > velocityToBreak) 
+            if(otherRb != null && otherRb.velocity.magnitude > velocityToBreak) 
                 Shatter();
             else if(rb.velocity.magnitude > velocityToBreak)
                 Shatter();
-        }
-    }
-
-    public void AddLifeTimeScript(Transform trans)
-    {
-        foreach (Transform child in trans)
-        {
-            child.AddComponent<LifeTimeDespawn>();
-            AddLifeTimeScript(child);
         }
     }
 }
