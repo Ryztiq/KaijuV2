@@ -51,7 +51,7 @@ public class BulletManager : MonoBehaviour
         transform.localScale = Vector3.one * bulletStats.SphereSize;
         //setup hit collider
         hitCollider.height = ((bulletStats.speed / 0.18f) / bulletStats.SphereSize)/100;
-        hitCollider.center = new Vector3(0,0, hitCollider.height / 2);
+        hitCollider.center = new Vector3(0,0, Mathf.Clamp(hitCollider.height / 2, 0.01f, 99999));
         
         lifeTimeDespawn = GetComponent<LifeTimeDespawn>();
         lifeTimeDespawn.LastingTime = bulletStats.LastingTime;
@@ -67,7 +67,7 @@ public class BulletManager : MonoBehaviour
         //make the object always face the direction it's moving if the velocity is greater than 0.1
         if (rb.velocity.magnitude > 0.9f && !bulletStats.homing)
             transform.rotation = Quaternion.LookRotation(rb.velocity);
-        else if(bulletStats.target != null)
+        if(bulletStats.target != null && bulletStats.homing)
         {
             //homing logic
             HomeToTarget();
@@ -123,6 +123,7 @@ public class BulletManager : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+        print("Collided with " + collision.gameObject.name);
         if (collision.gameObject.CompareTag("Enemy"))
         {
             print("hit enemy");

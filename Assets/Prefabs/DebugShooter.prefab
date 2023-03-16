@@ -45,3 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 9089088571927259877, guid: e30f97b6d3ea7f14da7bbf035cb0f750, type: 3}
+  bulletStats:
+    tag: Bullet
+    SphereSize: 0.1
+    Damage: 1
+    speed: 24
+    LastingTime: 2
+    homing: 0
+    homingAccuracy: 1
+    target: {fileID: 0}
+    collisionVfx: {fileID: 0}
