@@ -272,6 +272,80 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &193834759
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4839569072966992467, guid: cb613b7c6625e55468bf100ec7046ef7,
+        type: 3}
+      propertyPath: m_Name
+      value: SceneLoader
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839569072966992472, guid: cb613b7c6625e55468bf100ec7046ef7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839569072966992472, guid: cb613b7c6625e55468bf100ec7046ef7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839569072966992472, guid: cb613b7c6625e55468bf100ec7046ef7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839569072966992472, guid: cb613b7c6625e55468bf100ec7046ef7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839569072966992472, guid: cb613b7c6625e55468bf100ec7046ef7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.88496155
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839569072966992472, guid: cb613b7c6625e55468bf100ec7046ef7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.003387883
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839569072966992472, guid: cb613b7c6625e55468bf100ec7046ef7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.4655895
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839569072966992472, guid: cb613b7c6625e55468bf100ec7046ef7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.0076106694
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839569072966992472, guid: cb613b7c6625e55468bf100ec7046ef7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0.062
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839569072966992472, guid: cb613b7c6625e55468bf100ec7046ef7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -55.498
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839569072966992472, guid: cb613b7c6625e55468bf100ec7046ef7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0.953
+      objectReference: {fileID: 0}
+    - target: {fileID: 6638746746377937543, guid: cb613b7c6625e55468bf100ec7046ef7,
+        type: 3}
+      propertyPath: TransitionTo
+      value: THERANGE
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cb613b7c6625e55468bf100ec7046ef7, type: 3}
 --- !u!1 &428010363
 GameObject:
   m_ObjectHideFlags: 0
@@ -7054,16 +7128,6 @@ PrefabInstance:
       propertyPath: ViewfinderTarget
       value: 
       objectReference: {fileID: 428010367}
-    - target: {fileID: 2153904302905517805, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5554450155579327977, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0307a0e7c0fc3694aa49a0983a88f958, type: 3}
 --- !u!1 &148145476546388427
@@ -16208,6 +16272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &3058446324199091938
 GameObject:
   m_ObjectHideFlags: 0
@@ -16722,6 +16787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &3179784604632079884
 Transform:
   m_ObjectHideFlags: 0
@@ -19697,6 +19763,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &4078317700439779206
 GameObject:
   m_ObjectHideFlags: 0
@@ -19987,6 +20054,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &4129221232582418713
 GameObject:
   m_ObjectHideFlags: 0
@@ -20402,6 +20470,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
+        type: 3}
+      propertyPath: bulletStats.speed
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2de75d4f0943a84d81773023c734505, type: 3}
@@ -21599,6 +21672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &4614335778334134010
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21770,6 +21844,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &4627329689545608120
 Transform:
   m_ObjectHideFlags: 0
@@ -22001,6 +22076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &4696528722369404867
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -22943,6 +23019,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &4898435578459272488
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23091,6 +23168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &4917107107829020664
 Transform:
   m_ObjectHideFlags: 0
@@ -23487,6 +23565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &5128428726102011603
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -24042,6 +24121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &5275082828193547024
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -24158,6 +24238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &5309205734455353280
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -24372,6 +24453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &5377303265757294688
 Transform:
   m_ObjectHideFlags: 0
@@ -24720,6 +24802,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &5451961696856928702
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -24806,6 +24889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &5473374626282713973
 GameObject:
   m_ObjectHideFlags: 0
@@ -24884,6 +24968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &5476116006050061720
 Transform:
   m_ObjectHideFlags: 0
@@ -25294,6 +25379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &5569479705770648014
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -26193,6 +26279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &5747177160381701146
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -26291,6 +26378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &5749495846635416404
 GameObject:
   m_ObjectHideFlags: 0
@@ -26902,6 +26990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &5968090491144973792
 Transform:
   m_ObjectHideFlags: 0
@@ -27018,6 +27107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &6042007569150858444
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -27469,6 +27559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &6123567404938906053
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -28077,6 +28168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &6193090916115264797
 GameObject:
   m_ObjectHideFlags: 0
@@ -28509,6 +28601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &6277163283201054359
 GameObject:
   m_ObjectHideFlags: 0
@@ -29533,6 +29626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &6461788623334146288
 GameObject:
   m_ObjectHideFlags: 0
@@ -30709,6 +30803,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &6715750392919187162
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -30851,6 +30946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &6764979090542700148
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -30957,6 +31053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &6772354473754576072
 Transform:
   m_ObjectHideFlags: 0
@@ -31169,6 +31266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &6799909107710015301
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -31586,6 +31684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &6844054542113762601
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -31765,6 +31864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &6866166087876673279
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -31943,6 +32043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &6879687056766903937
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -32041,6 +32142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &6880904386271523434
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -32105,6 +32207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &6882011351918230343
 Transform:
   m_ObjectHideFlags: 0
@@ -32292,6 +32395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &6938497268638916032
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -32772,6 +32876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &7070486631601983556
 Transform:
   m_ObjectHideFlags: 0
@@ -33196,6 +33301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &7145036214107741167
 GameObject:
   m_ObjectHideFlags: 0
@@ -33289,6 +33395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &7188538796069320184
 Transform:
   m_ObjectHideFlags: 0
@@ -33750,6 +33857,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &7256474695315807479
 GameObject:
   m_ObjectHideFlags: 0
@@ -34940,6 +35048,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &7440199647757070070
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -35012,6 +35121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &7471256149334496477
 GameObject:
   m_ObjectHideFlags: 0
@@ -35219,6 +35329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &7520057962919812813
 GameObject:
   m_ObjectHideFlags: 0
@@ -35362,6 +35473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &7554539231131563121
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -35596,6 +35708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &7600990983296949103
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -35807,6 +35920,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &7627563402143738521
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -35983,6 +36097,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &7638608930982689298
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -36204,11 +36319,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LaserGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 9066767052180550647, guid: 7bba73d6cb1feed468d2d0deada87691,
-        type: 3}
-      propertyPath: m_MovementType
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9066767052180550647, guid: 7bba73d6cb1feed468d2d0deada87691,
         type: 3}
@@ -36887,6 +36997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &7790167209380189971
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -37699,6 +37810,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &7844262377151247448
 Transform:
   m_ObjectHideFlags: 0
@@ -37919,6 +38031,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &7902528205690771125
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -38352,6 +38465,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &7970854540448852909
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -38450,6 +38564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &7978468616540836988
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -39146,6 +39261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &8078050165679985048
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -39210,6 +39326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &8082171314100720289
 GameObject:
   m_ObjectHideFlags: 0
@@ -39288,6 +39405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &8087859694981794931
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -39515,6 +39633,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &8101389532341137615
 GameObject:
   m_ObjectHideFlags: 0
@@ -39754,6 +39873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &8117368445594758432
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -39903,6 +40023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &8135584019800149745
 Transform:
   m_ObjectHideFlags: 0
@@ -39974,6 +40095,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &8142236111488502373
 GameObject:
   m_ObjectHideFlags: 0
@@ -40101,6 +40223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &8182864628106930397
 Transform:
   m_ObjectHideFlags: 0
@@ -40172,6 +40295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &8191120327486128539
 Transform:
   m_ObjectHideFlags: 0
@@ -40462,6 +40586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &8219835926049214308
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -40560,6 +40685,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &8231384505208691630
 Transform:
   m_ObjectHideFlags: 0
@@ -40631,6 +40757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &8240447373293292546
 GameObject:
   m_ObjectHideFlags: 0
@@ -40758,6 +40885,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &8260045924284825540
 GameObject:
   m_ObjectHideFlags: 0
@@ -41420,6 +41548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &8381199532967355856
 Transform:
   m_ObjectHideFlags: 0
@@ -41548,6 +41677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &8410400374625717980
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -41882,6 +42012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &8475978814355118376
 GameObject:
   m_ObjectHideFlags: 0
@@ -42095,6 +42226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &8506585065568200692
 Transform:
   m_ObjectHideFlags: 0
@@ -42166,6 +42298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &8512196644730002183
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -42386,6 +42519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &8552477011403552166
 GameObject:
   m_ObjectHideFlags: 0
@@ -42464,6 +42598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &8553033749839363941
 Transform:
   m_ObjectHideFlags: 0
@@ -42535,6 +42670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &8560136560830633396
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -42918,6 +43054,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &8614411440942650987
 Transform:
   m_ObjectHideFlags: 0
@@ -43054,6 +43191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &8640032535267624830
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -43202,6 +43340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &8654034779108521731
 Transform:
   m_ObjectHideFlags: 0
@@ -43288,6 +43427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &8662565167925220817
 GameObject:
   m_ObjectHideFlags: 0
@@ -43583,6 +43723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &8721114372557689637
 Transform:
   m_ObjectHideFlags: 0
@@ -44065,6 +44206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &8801060494896178392
 GameObject:
   m_ObjectHideFlags: 0
@@ -44340,6 +44482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &8814942809023059274
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -44637,6 +44780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &8868575310636399281
 GameObject:
   m_ObjectHideFlags: 0
@@ -44715,6 +44859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &8869900762573842982
 Transform:
   m_ObjectHideFlags: 0
@@ -44836,6 +44981,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &8886016389480320562
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -44900,6 +45046,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &8889049726351025151
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -45268,6 +45415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &8923590030885696983
 Transform:
   m_ObjectHideFlags: 0
@@ -45389,6 +45537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &8942507387313306399
 Transform:
   m_ObjectHideFlags: 0
@@ -45544,6 +45693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &8951177477631667205
 GameObject:
   m_ObjectHideFlags: 0
@@ -45909,6 +46059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &8990729001691410954
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -46007,6 +46158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &8991289095518489419
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -46226,6 +46378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &9010721193199570545
 Transform:
   m_ObjectHideFlags: 0
@@ -46752,6 +46905,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &9042097365734690360
 GameObject:
   m_ObjectHideFlags: 0
@@ -46936,6 +47090,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!4 &9046291681711393675
 Transform:
   m_ObjectHideFlags: 0
@@ -47007,6 +47162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!23 &9048633072209495302
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -47473,6 +47629,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &9086885404773294964
 GameObject:
   m_ObjectHideFlags: 0
@@ -47854,6 +48011,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &9109600258223051254
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -48018,6 +48176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!1 &9117451621846696604
 GameObject:
   m_ObjectHideFlags: 0
@@ -48407,6 +48566,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &9158439874986930433
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -48628,6 +48788,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &9172523512801928519
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -48692,6 +48853,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &9178716618870509623
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -48756,6 +48918,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &9199528350604482532
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -48870,6 +49033,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  waitForRB: 1
 --- !u!33 &9210118425352413106
 MeshFilter:
   m_ObjectHideFlags: 0

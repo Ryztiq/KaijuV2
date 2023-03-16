@@ -41,46 +41,25 @@ public class BulletManager : MonoBehaviour
         StartCoroutine(DelayedFire());
     }
 
-    public void Initialize(float sphereSize, int damage, float speed, float lastingTime)
-    {
-        bulletStats.SphereSize = sphereSize;
-        bulletStats.Damage = damage;
-        bulletStats.speed = speed;
-        bulletStats.LastingTime = lastingTime;
-    }
-    
-    public void Initialize(float sphereSize, int damage, float speed)
-    {
-        bulletStats.SphereSize = sphereSize;
-        bulletStats.Damage = damage;
-        bulletStats.speed = speed;
-    }
-    
-    public void Initialize(float sphereSize, int damage, float speed, float lastingTime, Transform targetTrans, float homeSpeed)
-    {
-        bulletStats.SphereSize = sphereSize;
-        bulletStats.Damage = damage;
-        bulletStats.speed = speed;
-        bulletStats.LastingTime = lastingTime;
-        bulletStats.target = targetTrans;
-        bulletStats.homing = true;
-        bulletStats.homingSpeed = homeSpeed;
-    }
-
     public IEnumerator DelayedFire()
     {
         //wait for one frame
         yield return 0;
+        //apply size
+        transform.localScale = Vector3.one * bulletStats.SphereSize;
+        //setup hit collider
+        hitCollider.height = ((bulletStats.speed / 0.18f) / bulletStats.SphereSize)/100;
+        hitCollider.center = new Vector3(0,0, hitCollider.height / 2);
         //apply velocity
         if (!bulletStats.homing)
             rb.velocity = transform.forward * bulletStats.speed;
     }
     private void FixedUpdate()
     {
-        hitCollider.height = bulletStats.speed / 2.4f;
-        hitCollider.center = new Vector3(0,0, hitCollider.height / 2);
-        //make the object always face the direction it's moving
-        if (rb.velocity != Vector3.zero)
+
+        //make the object always face the direction it's moving if the velocity is greater than 0.1
+        
+        if (rb.velocity.magnitude > 0.9f)
             transform.rotation = Quaternion.LookRotation(rb.velocity);
         trailRenderer.widthMultiplier = transform.localScale.x;
         RaycastHit hit;
