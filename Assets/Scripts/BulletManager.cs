@@ -11,18 +11,18 @@ public class BulletManager : MonoBehaviour
 {
     //variables
     public BulletStats bulletStats;
-    private bool initialized;
     private Rigidbody rb;
     private TrailRenderer trailRenderer;
     public Transform target;
+    private LifeTimeDespawn lifeTimeDespawn;
+    public CapsuleCollider hitCollider;
 
     [Serializable]public class BulletStats
     {
         public float SphereSize = 0.1f;
         public int Damage = 1;
-        public float Speed = 5f;
-        public float LastingTime = 0.5f;
-        public float lifeTime = 2f;
+        public float speed = 5f;
+        public float LastingTime = 2;
         public bool homing = false;
         public float homingSpeed = 0.1f;
         public Transform target;
@@ -32,6 +32,8 @@ public class BulletManager : MonoBehaviour
 
     private void Awake()
     {
+        lifeTimeDespawn = GetComponent<LifeTimeDespawn>();
+        lifeTimeDespawn.LastingTime = bulletStats.LastingTime;
         rb = GetComponent<Rigidbody>();
         transform.localScale = Vector3.one * bulletStats.SphereSize;
         trailRenderer = GetComponent<TrailRenderer>();
@@ -43,7 +45,7 @@ public class BulletManager : MonoBehaviour
     {
         bulletStats.SphereSize = sphereSize;
         bulletStats.Damage = damage;
-        bulletStats.Speed = speed;
+        bulletStats.speed = speed;
         bulletStats.LastingTime = lastingTime;
     }
     
@@ -51,14 +53,14 @@ public class BulletManager : MonoBehaviour
     {
         bulletStats.SphereSize = sphereSize;
         bulletStats.Damage = damage;
-        bulletStats.Speed = speed;
+        bulletStats.speed = speed;
     }
     
     public void Initialize(float sphereSize, int damage, float speed, float lastingTime, Transform targetTrans, float homeSpeed)
     {
         bulletStats.SphereSize = sphereSize;
         bulletStats.Damage = damage;
-        bulletStats.Speed = speed;
+        bulletStats.speed = speed;
         bulletStats.LastingTime = lastingTime;
         bulletStats.target = targetTrans;
         bulletStats.homing = true;
@@ -71,15 +73,16 @@ public class BulletManager : MonoBehaviour
         yield return 0;
         //apply velocity
         if (!bulletStats.homing)
-            rb.velocity = transform.forward * bulletStats.Speed;
-        else
-            HomeToTarget();
+            rb.velocity = transform.forward * bulletStats.speed;
     }
     private void FixedUpdate()
     {
-        
+        hitCollider.height = bulletStats.speed / 2.4f;
+        hitCollider.center = new Vector3(0,0, hitCollider.height / 2);
+        //make the object always face the direction it's moving
+        if (rb.velocity != Vector3.zero)
+            transform.rotation = Quaternion.LookRotation(rb.velocity);
         trailRenderer.widthMultiplier = transform.localScale.x;
-        LifeTimeDestroy();
         RaycastHit hit;
 
         // Physics.SphereCast(transform.position, SphereSize, Vector3.forward, out hit);
@@ -107,18 +110,7 @@ public class BulletManager : MonoBehaviour
     {
         Vector3 goal = target.position - transform.position;
         Vector3 direction = goal.normalized;
-        rb.velocity = direction * bulletStats.Speed;
-    }
-
-    private void LifeTimeDestroy()
-    {
-        bulletStats.lifeTime += Time.deltaTime;
-        if (bulletStats.lifeTime > bulletStats.LastingTime && !LeanTween.isTweening(gameObject))
-        {
-            LeanTween.scale(gameObject, Vector3.zero, 1).setEaseInExpo();
-        }
-        if (transform.localScale.x < 0.01f)
-            Destroy(gameObject);
+        rb.velocity = direction * bulletStats.speed;
     }
 
     //[ExecuteAlways]

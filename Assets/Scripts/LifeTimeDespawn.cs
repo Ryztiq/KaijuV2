@@ -9,6 +9,7 @@ public class LifeTimeDespawn : MonoBehaviour
     public float despawnTime = 0.5f;
     private float lifeTime;
     private Rigidbody rb;
+    public bool waitForRB = true;
 
     private void Awake()
     {
@@ -30,7 +31,7 @@ public class LifeTimeDespawn : MonoBehaviour
     private void LifeTimeDestroy()
     {
         lifeTime += Time.deltaTime;
-        if (rb != null && lifeTime >= 1)
+        if (rb != null && lifeTime >= 1 && waitForRB)
         {
             if (rb.velocity.magnitude < 0.1f && rb.angularVelocity.magnitude < 0.1f && rb.useGravity && !rb.isKinematic)
             {
