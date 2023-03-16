@@ -20,6 +20,7 @@ public class BulletManager : MonoBehaviour
 
     [Serializable]public class BulletStats
     {
+        public string tag = "Bullet";
         public float SphereSize = 0.1f;
         public int Damage = 1;
         public float speed = 5f;
@@ -28,10 +29,9 @@ public class BulletManager : MonoBehaviour
         public float homingAccuracy = 0.1f;
         public Transform target;
         public GameObject collisionVfx;
-        public LayerMask bulletCollisions;
-
         public BulletStats(BulletStats bulletStats1)
         {
+            tag = bulletStats1.tag;
             SphereSize = bulletStats1.SphereSize;
             Damage = bulletStats1.Damage;
             speed = bulletStats1.speed;
@@ -40,49 +40,40 @@ public class BulletManager : MonoBehaviour
             homingAccuracy = bulletStats1.homingAccuracy;
             target = bulletStats1.target;
             collisionVfx = bulletStats1.collisionVfx;
-            bulletCollisions = bulletStats1.bulletCollisions;
         }
     }
 
-    private void Awake()
+    private void Start()
     {
+        //apply tag
+        if(bulletStats.tag != null || bulletStats.tag != "") gameObject.tag = bulletStats.tag;
+        //apply size
+        transform.localScale = Vector3.one * bulletStats.SphereSize;
+        //setup hit collider
+        hitCollider.height = ((bulletStats.speed / 0.18f) / bulletStats.SphereSize)/100;
+        hitCollider.center = new Vector3(0,0, Mathf.Clamp(hitCollider.height / 2, 0.01f, 99999));
+        
         lifeTimeDespawn = GetComponent<LifeTimeDespawn>();
         lifeTimeDespawn.LastingTime = bulletStats.LastingTime;
         rb = GetComponent<Rigidbody>();
         transform.localScale = Vector3.one * bulletStats.SphereSize;
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.widthMultiplier = transform.localScale.x;
-        StartCoroutine(DelayedFire());
-    }
-
-    public IEnumerator DelayedFire()
-    {
-        //wait for one frame
-        yield return 0;
-        //apply size
-        transform.localScale = Vector3.one * bulletStats.SphereSize;
-        //setup hit collider
-        hitCollider.height = ((bulletStats.speed / 0.18f) / bulletStats.SphereSize)/100;
-        hitCollider.center = new Vector3(0,0, hitCollider.height / 2);
-        //apply velocity
         rb.velocity = transform.forward * bulletStats.speed;
-        initialized = true;
+        // StartCoroutine(DelayedFire());
     }
     private void FixedUpdate()
     {
-        if (initialized)
+        //make the object always face the direction it's moving if the velocity is greater than 0.1
+        if (rb.velocity.magnitude > 0.9f && !bulletStats.homing)
+            transform.rotation = Quaternion.LookRotation(rb.velocity);
+        if(bulletStats.target != null && bulletStats.homing)
         {
-            //make the object always face the direction it's moving if the velocity is greater than 0.1
-            if (rb.velocity.magnitude > 0.9f && !bulletStats.homing)
-                transform.rotation = Quaternion.LookRotation(rb.velocity);
-            else if(bulletStats.target != null)
-            {
-                //homing logic
-                HomeToTarget();
-            }
-            trailRenderer.widthMultiplier = transform.localScale.x;
-            RaycastHit hit;
+            //homing logic
+            HomeToTarget();
         }
+        trailRenderer.widthMultiplier = transform.localScale.x;
+        RaycastHit hit;
         // Physics.SphereCast(transform.position, SphereSize, Vector3.forward, out hit);
         // try
         // {
@@ -132,6 +123,7 @@ public class BulletManager : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
+        print("Collided with " + collision.gameObject.name);
         if (collision.gameObject.CompareTag("Enemy"))
         {
             print("hit enemy");

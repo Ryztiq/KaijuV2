@@ -10,6 +10,7 @@ TagManager:
   - Shield
   - Ground
   - Debris
+  - DroneBullet
   layers:
   - Default
   - TransparentFX

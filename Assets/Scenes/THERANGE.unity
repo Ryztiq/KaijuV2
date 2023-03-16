@@ -661,11 +661,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DebugShooter
       objectReference: {fileID: 0}
-    - target: {fileID: 4258456864118366024, guid: b2de75d4f0943a84d81773023c734505,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4258456864118366026, guid: b2de75d4f0943a84d81773023c734505,
         type: 3}
       propertyPath: m_RootOrder
@@ -723,24 +718,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
         type: 3}
-      propertyPath: bulletStats.speed
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
-        type: 3}
-      propertyPath: bulletStats.homing
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
-        type: 3}
       propertyPath: bulletStats.target
       value: 
       objectReference: {fileID: 1790174514610301}
-    - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
-        type: 3}
-      propertyPath: bulletStats.homingAccuracy
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2de75d4f0943a84d81773023c734505, type: 3}
 --- !u!1 &269663169 stripped
