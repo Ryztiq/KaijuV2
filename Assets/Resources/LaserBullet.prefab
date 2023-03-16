@@ -208,15 +208,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c46381225eaa624795ad8c897e0bf46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SphereSize: 0.1
-  Damage: 1
-  Speed: 5
-  LastingTime: 0.5
-  bulletCollisions:
-    serializedVersion: 2
-    m_Bits: 65
-  rb: {fileID: 8456281648516643140}
-  collisionVfx: {fileID: 0}
+  bulletStats:
+    SphereSize: 0.1
+    Damage: 1
+    Speed: 5
+    LastingTime: 0.5
+    lifeTime: 2
+    homing: 0
+    homingSpeed: 0.1
+    target: {fileID: 0}
+    collisionVfx: {fileID: 0}
+    bulletCollisions:
+      serializedVersion: 2
+      m_Bits: 2035
 --- !u!135 &3236962904272568318
 SphereCollider:
   m_ObjectHideFlags: 0
