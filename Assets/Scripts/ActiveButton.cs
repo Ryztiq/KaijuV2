@@ -8,9 +8,18 @@ public class ActiveButton : MonoBehaviour
     public float speed = 5f;
     public float distance = 0.1f;
     
+    
     public List<GameObject> PersonTargets = new List<GameObject>();
     private List<Vector3> PersonTargetPositions = new List<Vector3>();
     public GameObject PersonTargetPrefab;
+
+    public List<GameObject> Targets = new List<GameObject>();
+    private List<Vector3> TargetsPos = new List<Vector3>();
+    public GameObject TargetPrefab;
+
+    public List<GameObject> BoxTargets = new List<GameObject>();
+    private List<Vector3> BoxTargetPos = new List<Vector3>();
+    public GameObject BoxTargetPrefab;
 
     private Vector3 originalPosition;
 
@@ -26,21 +35,40 @@ public class ActiveButton : MonoBehaviour
         }
     }
 
-    public void ResetPersonTargets()
+    public void ResetTargets()
     {
+        //Person targets
         if(PersonTargets.Count >0) foreach (var target in PersonTargets) Destroy(target);
         
         for (int i = 0; i < PersonTargetPositions.Count; i++)
         {
             Instantiate(PersonTargetPrefab, PersonTargetPositions[i], Quaternion.identity);
         }
+
+        //Targets
+        if (Targets.Count > 0) foreach (var target in Targets) Destroy(target);
+
+        for (int i = 0; i < TargetsPos.Count; i++)
+        {
+            Instantiate(TargetPrefab, TargetsPos[i], Quaternion.identity);
+        }
+
+
+        //Boxes
+        if (BoxTargets.Count > 0) foreach (var target in BoxTargets) Destroy(target);
+
+        for (int i = 0; i < BoxTargetPos.Count; i++)
+        {
+            Instantiate(BoxTargetPrefab, BoxTargetPos[i], Quaternion.identity);
+        }
     }
+
+    
 
     // Update is called once per frame
     void Update()
     {
        
-
         if (isMovingDown)
         {
             float step = speed * Time.deltaTime;
@@ -65,7 +93,7 @@ public class ActiveButton : MonoBehaviour
    
    public void ButtonAnimation()
     {
-        LeanTween.moveY(gameObject, transform.position.y - 0.06f, 0.1f).setEase(LeanTweenType.easeInOutSine).setLoopPingPong(1).setOnComplete(() => ResetPersonTargets());
+        LeanTween.moveY(gameObject, transform.position.y - 0.06f, 0.1f).setEase(LeanTweenType.easeInOutSine).setLoopPingPong(1).setOnComplete(() => ResetTargets());
     }
 
     public void ResetPosition()
