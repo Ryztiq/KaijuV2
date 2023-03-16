@@ -1365,6 +1365,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paintRange: 0.6
   paintColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!4 &1480326115 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e2b7e3fa7285e5644a09f1ffc9350760,
+    type: 3}
+  m_PrefabInstance: {fileID: 1705603770}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1510218840
 GameObject:
   m_ObjectHideFlags: 0
@@ -7125,9 +7131,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
         type: 3}
+      propertyPath: followTarget
+      value: 
+      objectReference: {fileID: 1109880817}
+    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+        type: 3}
       propertyPath: ViewfinderTarget
       value: 
       objectReference: {fileID: 428010367}
+    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+        type: 3}
+      propertyPath: droneBullet.target
+      value: 
+      objectReference: {fileID: 1480326115}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0307a0e7c0fc3694aa49a0983a88f958, type: 3}
 --- !u!1 &148145476546388427
@@ -20473,8 +20489,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
         type: 3}
+      propertyPath: bulletStats.tag
+      value: Bullet
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
+        type: 3}
       propertyPath: bulletStats.speed
       value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
+        type: 3}
+      propertyPath: bulletStats.Damage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
+        type: 3}
+      propertyPath: bulletStats.homing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
+        type: 3}
+      propertyPath: bulletStats.target
+      value: 
+      objectReference: {fileID: 1480326115}
+    - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
+        type: 3}
+      propertyPath: bulletStats.SphereSize
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
+        type: 3}
+      propertyPath: bulletStats.LastingTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
+        type: 3}
+      propertyPath: bulletStats.homingAccuracy
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2de75d4f0943a84d81773023c734505, type: 3}

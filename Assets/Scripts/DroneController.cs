@@ -7,43 +7,36 @@ using UnityEngine.Serialization;
 
 public class DroneController : MonoBehaviour
 {
+    //Base Variables
     public float lookSpeed = 6;
     public float laserDistance;
+    public float fireRate = 2;
     public bool invertViewfindAngle;
-    public GameObject bulletPrefab;
-    public Transform firePoint;
-    public Transform positionController;
-    public Transform rotationController;
     public Transform ViewfinderTarget;
     public Transform followTarget;
-    public ShieldController shield;
-    public List<GameObject> droneBodyParts;
-    public List<Collider> enableAfterShieldBreak;
-    [SerializeField]private List<Rigidbody> droneBodyPartsRigidbodies;
-    [SerializeField]private List<Collider> droneBodyPartsColliders;
-    [SerializeField]private List<TransformMatcher> droneBodyPartsRotationMatchers;
-    public LaserManager laser;
-    public bool shieldUp = true;
-    public bool deathStarted;
+    //Bullet Variables
+    public BulletManager.BulletStats droneBullet;
+    //Behavior Controls
+    [FormerlySerializedAs("lookTarget")] public ViewfinderMode viewfinderMode = ViewfinderMode.Forward;
+    [FormerlySerializedAs("stateMode")] public BehaviorStateMode behaviorStateMode = BehaviorStateMode.Idle;
+    public MovementStateMode movementStateMode = MovementStateMode.idle;
 
+    [HideInInspector]public bool shieldUp = true;
+    [HideInInspector]public bool deathStarted;
     private Vector3 prevPos;
     private Vector3 viewVector;
-    [SerializeField]private Vector3 moveDelta;
+    private Vector3 moveDelta;
     private float timer;
-    public float fireRate = 2;
-    
     private MovementStateMode savedMovementState;
     private BehaviorStateMode savedBehaviorState;
     private ViewfinderMode savedViewfinderMode;
     private Transform savedFollowTarget;
-    
     public enum ViewfinderMode
     {
         GameObject,
         Forward,
         Free
     };
-    [FormerlySerializedAs("lookTarget")] public ViewfinderMode viewfinderMode = ViewfinderMode.Forward;
     public enum BehaviorStateMode
     {
         Idle,
@@ -52,14 +45,24 @@ public class DroneController : MonoBehaviour
         Dead,
         Searching
     };
-    [FormerlySerializedAs("stateMode")] public BehaviorStateMode behaviorStateMode = BehaviorStateMode.Idle;
     public enum MovementStateMode
     {
         followTarget,
         patrol,
         idle
     };
-    public MovementStateMode movementStateMode = MovementStateMode.idle;
+    //references
+    public GameObject bulletPrefab;
+    public Transform firePoint;
+    public Transform positionController;
+    public Transform rotationController;
+    public ShieldController shield;
+    public LaserManager laser;
+    public List<GameObject> droneBodyParts;
+    public List<Collider> enableAfterShieldBreak;
+    private List<Rigidbody> droneBodyPartsRigidbodies = new();
+    private List<Collider> droneBodyPartsColliders = new();
+    private List<TransformMatcher> droneBodyPartsRotationMatchers = new();
 
     // Start is called before the first frame update
     void Start()
@@ -120,7 +123,7 @@ public class DroneController : MonoBehaviour
                 timer += Time.deltaTime;
                 if (timer > 1 / fireRate)
                 {
-                    GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+                    Shoot();
                     timer = 0;
                 }
                 break;
@@ -187,7 +190,17 @@ public class DroneController : MonoBehaviour
         savedMovementState = movementStateMode;
         savedFollowTarget = followTarget;
     }
-        
+
+    private void Shoot()
+    {
+        GameObject
+            spawnObject =
+                Instantiate(bulletPrefab, firePoint.position,
+                    firePoint.rotation); // spawn the object at the mouse click position with the correct rotation
+        //create a copy of bulletstats and assign it to the bulletstats of spawnobject
+        spawnObject.GetComponent<BulletManager>().bulletStats = new BulletManager.BulletStats(droneBullet);
+    }
+
     private void InitializeLookState(ViewfinderMode stateToInitialize)
     {
         print($"state switched to {stateToInitialize}, initializing");
