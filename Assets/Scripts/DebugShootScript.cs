@@ -21,7 +21,8 @@ public class DebugShootScript : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             GameObject spawnObject = Instantiate(bullet, camera.transform.position, GetAimDirection()); // spawn the object at the mouse click position with the correct rotation
-            spawnObject.GetComponent<BulletManager>().bulletStats = bulletStats; // set the bullet stats
+            //create a copy of bulletstats and assign it to the bulletstats of spawnobject
+            spawnObject.GetComponent<BulletManager>().bulletStats = new BulletManager.BulletStats(bulletStats);
         }
     }
 

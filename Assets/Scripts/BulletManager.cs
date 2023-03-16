@@ -13,9 +13,10 @@ public class BulletManager : MonoBehaviour
     public BulletStats bulletStats;
     private Rigidbody rb;
     private TrailRenderer trailRenderer;
-    public Transform target;
     private LifeTimeDespawn lifeTimeDespawn;
     public CapsuleCollider hitCollider;
+    private bool initialized = false;
+
 
     [Serializable]public class BulletStats
     {
@@ -24,10 +25,23 @@ public class BulletManager : MonoBehaviour
         public float speed = 5f;
         public float LastingTime = 2;
         public bool homing = false;
-        public float homingSpeed = 0.1f;
+        public float homingAccuracy = 0.1f;
         public Transform target;
         public GameObject collisionVfx;
         public LayerMask bulletCollisions;
+
+        public BulletStats(BulletStats bulletStats1)
+        {
+            SphereSize = bulletStats1.SphereSize;
+            Damage = bulletStats1.Damage;
+            speed = bulletStats1.speed;
+            LastingTime = bulletStats1.LastingTime;
+            homing = bulletStats1.homing;
+            homingAccuracy = bulletStats1.homingAccuracy;
+            target = bulletStats1.target;
+            collisionVfx = bulletStats1.collisionVfx;
+            bulletCollisions = bulletStats1.bulletCollisions;
+        }
     }
 
     private void Awake()
@@ -51,19 +65,24 @@ public class BulletManager : MonoBehaviour
         hitCollider.height = ((bulletStats.speed / 0.18f) / bulletStats.SphereSize)/100;
         hitCollider.center = new Vector3(0,0, hitCollider.height / 2);
         //apply velocity
-        if (!bulletStats.homing)
-            rb.velocity = transform.forward * bulletStats.speed;
+        rb.velocity = transform.forward * bulletStats.speed;
+        initialized = true;
     }
     private void FixedUpdate()
     {
-
-        //make the object always face the direction it's moving if the velocity is greater than 0.1
-        
-        if (rb.velocity.magnitude > 0.9f)
-            transform.rotation = Quaternion.LookRotation(rb.velocity);
-        trailRenderer.widthMultiplier = transform.localScale.x;
-        RaycastHit hit;
-
+        if (initialized)
+        {
+            //make the object always face the direction it's moving if the velocity is greater than 0.1
+            if (rb.velocity.magnitude > 0.9f && !bulletStats.homing)
+                transform.rotation = Quaternion.LookRotation(rb.velocity);
+            else if(bulletStats.target != null)
+            {
+                //homing logic
+                HomeToTarget();
+            }
+            trailRenderer.widthMultiplier = transform.localScale.x;
+            RaycastHit hit;
+        }
         // Physics.SphereCast(transform.position, SphereSize, Vector3.forward, out hit);
         // try
         // {
@@ -87,9 +106,16 @@ public class BulletManager : MonoBehaviour
 
     public void HomeToTarget()
     {
-        Vector3 goal = target.position - transform.position;
-        Vector3 direction = goal.normalized;
-        rb.velocity = direction * bulletStats.speed;
+        // Determine the direction towards the target
+        Vector3 targetDirection = bulletStats.target.position - transform.position;
+
+        // Calculate the rotation towards the target using Quaternion.LookRotation
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+
+        // Smoothly rotate towards the target using Quaternion.Slerp
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * bulletStats.homingAccuracy);
+        //use the magnitude of the rigidbody's velocity to accelerate it forward
+        rb.velocity = transform.forward * rb.velocity.magnitude;
     }
 
     //[ExecuteAlways]
@@ -97,11 +123,6 @@ public class BulletManager : MonoBehaviour
     {
         Gizmos.color = new Color(1, 0, 0, 0.5f);
         Gizmos.DrawSphere(transform.position, transform.localScale.magnitude*1.1f);
-        if (bulletStats.homing == true)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, target.position);
-        }
     }
 
     private void OnTriggerEnter(Collider other)
