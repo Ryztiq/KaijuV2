@@ -37,8 +37,9 @@ public class ActiveButton : MonoBehaviour
 
     public void ResetTargets()
     {
+        StartCoroutine(Delay());
         //Person targets
-        if(PersonTargets.Count >0) foreach (var target in PersonTargets) Destroy(target);
+        if (PersonTargets.Count >0) foreach (var target in PersonTargets) Destroy(target);
         
         for (int i = 0; i < PersonTargetPositions.Count; i++)
         {
@@ -98,7 +99,6 @@ public class ActiveButton : MonoBehaviour
 
     public void ResetPosition()
     {
-        StartCoroutine(Delay());
         transform.position = originalPosition;
         isMovingDown = false;
     }
