@@ -226,12 +226,28 @@ public class DroneEnemyController : MonoBehaviour
         {
             int choice = UnityEngine.Random.Range(0, 2);
             Debug.Log(choice);
+
+            Quaternion targetRotation = Quaternion.LookRotation(ObjTarget.forward, ObjTarget.up);
+            Quaternion currentRotation = transform.rotation;
+
+
+            float rotationDifference = Quaternion.Angle(targetRotation, Quaternion.Inverse(currentRotation));
+            Debug.Log(rotationDifference);
+            
+            
+
+
+
+
             if (ObjTarget != null)
             {
-                Lazer.GetComponent<BulletManager>().target = ObjTarget.transform;
-                Lazer.GetComponent<BulletManager>().bulletStats.homing = true;
-                Debug.Log("'Homing' Shot");
-                Instantiate(Lazer, ShootAngleReference.transform.position, ShootAngleReference.transform.rotation);
+                if (rotationDifference <= 90f || rotationDifference >= -90f)
+                {
+                    Lazer.GetComponent<BulletManager>().target = ObjTarget.transform;
+                    Lazer.GetComponent<BulletManager>().bulletStats.homing = true;
+                    Debug.Log("'Homing' Shot");
+                    Instantiate(Lazer, ShootAngleReference.transform.position, ShootAngleReference.transform.rotation);
+                }
             }
             else
             {

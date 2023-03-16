@@ -6930,7 +6930,7 @@ MonoBehaviour:
   followTarget: {fileID: 0}
   Lazer: {fileID: 9089088571927259877, guid: e30f97b6d3ea7f14da7bbf035cb0f750, type: 3}
   ShootAngleReference: {fileID: 139040662957082111}
-  viewfinderMode: 1
+  viewfinderMode: 0
   behaviorStateMode: 0
   movementStateMode: 2
 --- !u!1 &148145476546388427
