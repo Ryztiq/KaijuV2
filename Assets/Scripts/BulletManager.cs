@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -13,6 +14,7 @@ public class BulletManager : MonoBehaviour
     private bool initialized;
     private Rigidbody rb;
     private TrailRenderer trailRenderer;
+    public Transform target;
 
     [Serializable]public class BulletStats
     {
@@ -70,13 +72,12 @@ public class BulletManager : MonoBehaviour
         //apply velocity
         if (!bulletStats.homing)
             rb.velocity = transform.forward * bulletStats.Speed;
+        else
+            HomeToTarget();
     }
     private void FixedUpdate()
     {
-        if (bulletStats.homing && bulletStats.target != null)
-        {
-            HomeToTarget();
-        }
+        
         trailRenderer.widthMultiplier = transform.localScale.x;
         LifeTimeDestroy();
         RaycastHit hit;
@@ -104,8 +105,9 @@ public class BulletManager : MonoBehaviour
 
     public void HomeToTarget()
     {
-        Vector3 goal = bulletStats.target.position - transform.position;
-        rb.velocity = goal * Time.deltaTime;
+        Vector3 goal = target.position - transform.position;
+        Vector3 direction = goal.normalized;
+        rb.velocity = direction * bulletStats.Speed;
     }
 
     private void LifeTimeDestroy()
@@ -124,6 +126,11 @@ public class BulletManager : MonoBehaviour
     {
         Gizmos.color = new Color(1, 0, 0, 0.5f);
         Gizmos.DrawSphere(transform.position, transform.localScale.magnitude*1.1f);
+        if (bulletStats.homing == true)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, target.position);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -142,7 +149,11 @@ public class BulletManager : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         if(collision.gameObject.CompareTag("Shield"))
             Destroy(gameObject);
-        if(bulletStats.collisionVfx!= null)Instantiate(bulletStats.collisionVfx, transform.position, transform.rotation);
+        if(bulletStats.homing)
+        {
+            bulletStats.homing = false;
+        }
+        if (bulletStats.collisionVfx!= null)Instantiate(bulletStats.collisionVfx, transform.position, transform.rotation);
         // Destroy(gameObject);
     }
 }

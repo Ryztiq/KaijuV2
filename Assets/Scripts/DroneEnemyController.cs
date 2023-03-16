@@ -111,23 +111,27 @@ public class DroneEnemyController : MonoBehaviour
         switch (viewfinderMode)
         {
             case ViewfinderMode.Forward:
-                //if the object moved more than 0.02 units, update a vector 3 showing which direction it's moving in.
-                if (moveDelta.magnitude > 0.02f)
-                    //center the origin of the movement-per-frame line on the game object and make a new vector3 from it.
-                    lookVec3 = transformController.position + moveDelta.normalized;
-                //update the previous known position of the object to the current location.
-                prevPos = transformController.position;
-                break;
+                {
+                    //if the object moved more than 0.02 units, update a vector 3 showing which direction it's moving in.
+                    if (moveDelta.magnitude > 0.02f)
+                        //center the origin of the movement-per-frame line on the game object and make a new vector3 from it.
+                        lookVec3 = transformController.position + moveDelta.normalized;
+                    //update the previous known position of the object to the current location.
+                    prevPos = transformController.position;
+                    break;
+                }
             case ViewfinderMode.GameObject:
-                if (ObjTarget != null)
                 {
-                    lookVec3 = ObjTarget.position;
+                    if (ObjTarget != null)
+                    {
+                        lookVec3 = ObjTarget.position;
+                    }
+                    else
+                    {
+                        viewfinderMode = ViewfinderMode.Free;
+                    }
+                    break;
                 }
-                else
-                {
-                    viewfinderMode = ViewfinderMode.Free;
-                }
-                break;
         }
         LookToTarget();
         
@@ -222,26 +226,23 @@ public class DroneEnemyController : MonoBehaviour
         {
             int choice = UnityEngine.Random.Range(0, 2);
             Debug.Log(choice);
-            //if (ObjTarget != null)
-            //{
-            //    Debug.Log("'Homing' Shot");
-            //    Vector3 homingTarget = ShootAngleReference.gameObject.transform.position - ObjTarget.gameObject.transform.position;
-            //    homingTarget = homingTarget.normalized;
-            //    var targetRotation = invertLook ? Quaternion.LookRotation(transformController.position - lookVec3) : Quaternion.LookRotation(lookVec3 - transformController.position);
-            //    Debug.DrawRay(transformController.position, lookVec3 - transformController.position, Color.magenta);
-            //    // Smoothly rotate towards the target point.
-            //    //if(Vector3.Angle(targetRotation.eulerAngles,transform.rotation.eulerAngles) > 1)
-            //    Quaternion bulletRotatePosition = Quaternion.RotateTowards(transformController.rotation, targetRotation, 360);
-            //    Instantiate(Lazer, this.gameObject.transform.position, bulletRotatePosition);
-            //}
-        //else
-        //    {
+            if (ObjTarget != null)
+            {
+                Lazer.GetComponent<BulletManager>().target = ObjTarget.transform;
+                Lazer.GetComponent<BulletManager>().bulletStats.homing = true;
+                Debug.Log("'Homing' Shot");
+                Instantiate(Lazer, ShootAngleReference.transform.position, ShootAngleReference.transform.rotation);
+            }
+            else
+            {
+                Lazer.GetComponent<BulletManager>().target = null;
+                Lazer.GetComponent<BulletManager>().bulletStats.homing = false;
 
                 Debug.Log("Shooting Forward");
                 Instantiate(Lazer, ShootAngleReference.transform.position, ShootAngleReference.transform.rotation);
 
-            //}
-        canShoot = false; 
+            }
+            canShoot = false; 
         }
         else
         {
