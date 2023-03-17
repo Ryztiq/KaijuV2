@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,7 @@ public class DebugShootScript : MonoBehaviour
 {
     public GameObject bullet;
     private Camera camera;
+    public BulletManager.BulletStats bulletStats; 
 
     private void Awake()
     {
@@ -33,6 +35,8 @@ public class DebugShootScript : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 GameObject spawnObject = Instantiate(bullet, camera.transform.position, rotation); // spawn the object at the mouse click position with the correct rotation
+                //create a copy of bulletstats and assign it to the bulletstats of spawnobject
+                spawnObject.GetComponent<BulletManager>().bulletStats = new BulletManager.BulletStats(bulletStats);
             }
         }
     }
