@@ -34,6 +34,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _SampleTexture2D_0ff797ef16dc488ea6a273a6ffc8a1b8_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 72fe024d0db84d244830e79634e95c52, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_e1211adefb1a4cfc91611cb70dc9e091_Texture_1:
         m_Texture: {fileID: 2800000, guid: 3a635d7bfeba3a14b959b56fe1948671, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -54,7 +58,8 @@ Material:
     m_Floats:
     - _ChargeAmount: 1
     - _FillAmount: 0
-    - _Fuzzy: 0.02
+    - _Float: 0.4
+    - _Fuzzy: 0.84
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Range: 0.001
@@ -62,6 +67,6 @@ Material:
     - _ChargeColor: {r: 2.6082377, g: 0.8739645, b: 0, a: 0}
     - _InValues: {r: -0.46, g: 1, b: 0, a: 0}
     - _RemapIn: {r: 0.1, g: 0.7, b: 0, a: 0}
-    - _TestColor: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 0}
-    - _Vector2: {r: 0.662, g: 1.161, b: 0, a: 0}
+    - _TestColor: {r: 0.745283, g: 0.7359084, b: 0.7359084, a: 0}
+    - _Vector2: {r: 0.073, g: 0.707, b: 0, a: 0}
   m_BuildTextureStacks: []

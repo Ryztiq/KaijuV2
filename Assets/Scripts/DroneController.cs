@@ -31,6 +31,10 @@ public class DroneController : MonoBehaviour
     private BehaviorStateMode savedBehaviorState;
     private ViewfinderMode savedViewfinderMode;
     private Transform savedFollowTarget;
+
+    //Barrett's Additions
+    public Material ChargeMat;
+
     public enum ViewfinderMode
     {
         GameObject,
@@ -121,6 +125,10 @@ public class DroneController : MonoBehaviour
                 break;
             case BehaviorStateMode.Attack:
                 timer += Time.deltaTime;
+                //Barrett's Change
+                ChargeMat.SetFloat("_ChargeAmount", (timer / (1 / fireRate)));
+                Debug.Log(timer);
+
                 if (timer > 1 / fireRate)
                 {
                     Shoot();
