@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -14,7 +15,8 @@ public class DroneController : MonoBehaviour
     public bool invertViewfindAngle;
     public Transform ViewfinderTarget;
     public Transform followTarget;
-    //Bullet Variables
+    public AudioSource FiringAudio;
+    public AudioSource DeathSound;
     public BulletManager.BulletStats droneBullet;
     //Behavior Controls
     [FormerlySerializedAs("lookTarget")] public ViewfinderMode viewfinderMode = ViewfinderMode.Forward;
@@ -199,6 +201,7 @@ public class DroneController : MonoBehaviour
                     firePoint.rotation); // spawn the object at the mouse click position with the correct rotation
         //create a copy of bulletstats and assign it to the bulletstats of spawnobject
         spawnObject.GetComponent<BulletManager>().bulletStats = new BulletManager.BulletStats(droneBullet);
+        FiringAudio.Play();
     }
 
     private void InitializeLookState(ViewfinderMode stateToInitialize)
@@ -294,6 +297,8 @@ public class DroneController : MonoBehaviour
 
     public void Kill()
     {
+        FiringAudio.clip = null;
+        DeathSound.Play();
         foreach (var obj in droneBodyParts)
         {
             if(obj.name != "Body")

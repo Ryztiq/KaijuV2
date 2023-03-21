@@ -6,6 +6,13 @@ using UnityEngine;
 public class BrokenObjectController : MonoBehaviour
 {
     private float timer;
+    private AudioSource audioSource;
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.pitch = Random.Range(.8f, 1.2f);
+        audioSource.Play();
+    }
 
     void Start()
     {
