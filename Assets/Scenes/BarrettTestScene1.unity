@@ -6884,71 +6884,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: EyeDrone
       objectReference: {fileID: 0}
-    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: ChargeMat
-      value: 
-      objectReference: {fileID: 2100000, guid: 77027a9ab6f03c741bc5a39d3b0781de, type: 2}
-    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: ViewfinderTarget
-      value: 
-      objectReference: {fileID: 428010367}
-    - target: {fileID: 2153904302905517805, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4490412675333105147, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 77027a9ab6f03c741bc5a39d3b0781de, type: 2}
-    - target: {fileID: 4490412675333105147, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: 77027a9ab6f03c741bc5a39d3b0781de, type: 2}
-    - target: {fileID: 4490412675333105147, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: m_Materials.Array.data[2]
-      value: 
-      objectReference: {fileID: 2100000, guid: 77027a9ab6f03c741bc5a39d3b0781de, type: 2}
-    - target: {fileID: 4490412675333105147, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: m_Materials.Array.data[3]
-      value: 
-      objectReference: {fileID: 2100000, guid: 77027a9ab6f03c741bc5a39d3b0781de, type: 2}
-    - target: {fileID: 4490412675333105147, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: m_Materials.Array.data[4]
-      value: 
-      objectReference: {fileID: 2100000, guid: 77027a9ab6f03c741bc5a39d3b0781de, type: 2}
-    - target: {fileID: 5554450155579327977, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0307a0e7c0fc3694aa49a0983a88f958, type: 3}
---- !u!1 &139040662957082110 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 949293525577856584, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-    type: 3}
-  m_PrefabInstance: {fileID: 139040662957082109}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &139040662957082112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 139040662957082110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b7a481f0058f9144b2916e3f43a9030, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &148145476546388427
 GameObject:
   m_ObjectHideFlags: 0

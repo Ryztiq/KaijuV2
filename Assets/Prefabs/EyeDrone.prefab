@@ -388,6 +388,7 @@ MonoBehaviour:
   movementStateMode: 0
   shieldUp: 1
   deathStarted: 0
+  ChargeMat: {fileID: 0}
   bulletPrefab: {fileID: 9089088571927259877, guid: e30f97b6d3ea7f14da7bbf035cb0f750,
     type: 3}
   firePoint: {fileID: 4100467732928079423}
@@ -722,7 +723,7 @@ SkinnedMeshRenderer:
   - {fileID: 2100000, guid: 44c4bf9044aa0b1449f84b235d712d50, type: 2}
   - {fileID: 2100000, guid: 8ecda91f649df4040bd2818efe4437f2, type: 2}
   - {fileID: 2100000, guid: 8f9069e7323940c45adcee7ab33a6833, type: 2}
-  - {fileID: 2100000, guid: b8a6c5f2eabaf984fb3e52a0f70baa11, type: 2}
+  - {fileID: 2100000, guid: 77027a9ab6f03c741bc5a39d3b0781de, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
