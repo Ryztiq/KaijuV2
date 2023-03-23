@@ -48,8 +48,8 @@ Material:
     - _SphereSmooth: 0.25
     m_Colors:
     - _HitPoint: {r: 0, g: 0.69, b: 0, a: 0}
-    - _ShieldColor: {r: 2.9960785, g: 1.1484969, b: 0, a: 1}
-    - _ShieldColor2: {r: 5.6568537, g: 1.1897612, b: 0, a: 0}
+    - _ShieldColor: {r: 0, g: 0.9595914, b: 2.9960785, a: 1}
+    - _ShieldColor2: {r: 0, g: 1.1113657, b: 5.6568537, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4404448626238282924
 MonoBehaviour:

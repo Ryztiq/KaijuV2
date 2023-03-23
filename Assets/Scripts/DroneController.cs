@@ -33,7 +33,9 @@ public class DroneController : MonoBehaviour
     private Transform savedFollowTarget;
 
     //Barrett's Additions
-    public Material ChargeMat;
+    [FormerlySerializedAs("bodyShader")] public Material bodyMat;
+    [FormerlySerializedAs("chargeShader")] public Material chargeMat;
+    [FormerlySerializedAs("glowShader")] public Material glowMat;
 
     public enum ViewfinderMode
     {
@@ -67,6 +69,7 @@ public class DroneController : MonoBehaviour
     private List<Rigidbody> droneBodyPartsRigidbodies = new();
     private List<Collider> droneBodyPartsColliders = new();
     private List<TransformMatcher> droneBodyPartsRotationMatchers = new();
+    private static readonly int ChargeAmount = Shader.PropertyToID("_ChargeAmount");
 
     // Start is called before the first frame update
     void Start()
@@ -126,8 +129,9 @@ public class DroneController : MonoBehaviour
             case BehaviorStateMode.Attack:
                 timer += Time.deltaTime;
                 //Barrett's Change
-                ChargeMat.SetFloat("_ChargeAmount", (timer / (1 / fireRate)));
-                Debug.Log(timer);
+                bodyMat.SetFloat(ChargeAmount, (timer / (1 / fireRate)));
+                chargeMat.SetFloat(ChargeAmount, (timer / (1 / fireRate)));
+                glowMat.SetFloat(ChargeAmount, (timer / (1 / fireRate)));
 
                 if (timer > 1 / fireRate)
                 {
