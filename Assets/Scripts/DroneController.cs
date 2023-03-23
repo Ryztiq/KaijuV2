@@ -78,8 +78,18 @@ public class DroneController : MonoBehaviour
         prevPos = transform.position;
         viewVector = positionController.position + positionController.forward.normalized;
         
+        DroneCleanup();
+
         //Error Catches
         if (rotationController == null) rotationController = positionController;
+    }
+
+    private void DroneCleanup()
+    {
+        //material Reset
+        bodyMat.SetFloat(ChargeAmount, 0);
+        chargeMat.SetFloat(ChargeAmount, 0);
+        glowMat.SetFloat(ChargeAmount, 0);
     }
 
     private void DroneSetup()
@@ -306,6 +316,9 @@ public class DroneController : MonoBehaviour
 
     public void Kill()
     {
+        behaviorStateMode = BehaviorStateMode.Dead;
+        movementStateMode = MovementStateMode.idle;
+        viewfinderMode = ViewfinderMode.Free;
         foreach (var obj in droneBodyParts)
         {
             if(obj.name != "Body")
@@ -358,6 +371,13 @@ public class DroneController : MonoBehaviour
         }
     }
     
+    //debug
+
+    public void OnApplicationQuit()
+    {
+        DroneCleanup();
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(0, 1, 0, 0.5f);

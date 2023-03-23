@@ -42,6 +42,7 @@ Material:
     - _PulseFreq: 2
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _ShieldHealth: 1
     - _ShieldPower: 1.03
     - _ShieldPulseAmount: 0.05
     - _SphereRadius: 0.4

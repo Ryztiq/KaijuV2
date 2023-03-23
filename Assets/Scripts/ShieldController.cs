@@ -10,6 +10,13 @@ public class ShieldController : MonoBehaviour
     private static readonly int HitPoint = Shader.PropertyToID("_HitPoint");
     public float health = 100;
     public DroneController droneController;
+    public Renderer shieldRenderer;
+    private static readonly int ShieldHealth = Shader.PropertyToID("_ShieldHealth");
+    
+    private void Start()
+    {
+        shieldRenderer.material.SetFloat(ShieldHealth, health/100);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -18,10 +25,11 @@ public class ShieldController : MonoBehaviour
             var ripple = Instantiate(rippleVfx, transform) as GameObject;
             var psr = ripple.GetComponent<ParticleSystemRenderer>();
             mat = psr.material;
-            mat.SetVector(HitPoint, collision.contacts[0].point);
+            shieldRenderer.material.SetVector(HitPoint, collision.contacts[0].point);
             print("destroying ripple in 2s");
             Destroy(ripple, 2f);
-            health -= 20;
+            health -= 10f;
+            shieldRenderer.material.SetFloat(ShieldHealth, health/100);
             if(health <= 0)
             {
                 Destroy(gameObject);
@@ -30,15 +38,8 @@ public class ShieldController : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnApplicationQuit()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        shieldRenderer.material.SetFloat(ShieldHealth, health/100);
     }
 }
