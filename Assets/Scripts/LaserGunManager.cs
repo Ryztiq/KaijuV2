@@ -7,6 +7,7 @@ public class LaserGunManager : MonoBehaviour
 {
     public GameObject bullet;
     public Transform firePoint;
+    //The AudioSource Variable for the firing sound.
     public AudioSource FiringAudio;
     
     //references
@@ -17,6 +18,7 @@ public class LaserGunManager : MonoBehaviour
     public void Fire()
     {
         Instantiate(bullet, firePoint.position, firePoint.rotation);
+        //Plays the FiringAudio when the gun is fired.
         FiringAudio.Play();
     }
 

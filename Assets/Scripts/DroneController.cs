@@ -15,6 +15,7 @@ public class DroneController : MonoBehaviour
     public bool invertViewfindAngle;
     public Transform ViewfinderTarget;
     public Transform followTarget;
+    //Steven's Audio Variables
     public AudioSource FiringAudio;
     public AudioSource DeathSound;
     public AudioSource ShieldSound;
@@ -202,6 +203,7 @@ public class DroneController : MonoBehaviour
                     firePoint.rotation); // spawn the object at the mouse click position with the correct rotation
         //create a copy of bulletstats and assign it to the bulletstats of spawnobject
         spawnObject.GetComponent<BulletManager>().bulletStats = new BulletManager.BulletStats(droneBullet);
+        //Plays the FireAudio variable
         FiringAudio.Play();
     }
 
@@ -298,6 +300,7 @@ public class DroneController : MonoBehaviour
 
     public void Kill()
     {
+        //Stops all Audio Sources before playing the DeathSound
         FiringAudio.clip = null;
         foreach(AudioSource a in GetComponents<AudioSource>())
         {
@@ -340,6 +343,7 @@ public class DroneController : MonoBehaviour
         {
             collider.enabled = true;
         }
+        //Plays the ShieldSound as the shield break.
         ShieldSound.Play();
     }
 
