@@ -1050,8 +1050,8 @@ MonoBehaviour:
   m_MoveSpeed: 1
   m_EnableStrafe: 1
   m_UseGravity: 1
-  m_GravityApplicationMode: 0
-  m_ForwardSource: {fileID: 0}
+  m_GravityApplicationMode: 1
+  m_ForwardSource: {fileID: 4430515079746625773}
   m_LeftHandMoveAction:
     m_UseReference: 0
     m_Action:
@@ -1163,7 +1163,7 @@ MonoBehaviour:
   m_Camera: {fileID: 4430515079746625769}
   m_OriginBaseGameObject: {fileID: 4430515080535838047}
   m_CameraFloorOffsetObject: {fileID: 4430515080754185504}
-  m_RequestedTrackingOriginMode: 2
+  m_RequestedTrackingOriginMode: 1
   m_CameraYOffset: 1.1176
 --- !u!114 &4430515080535838046
 MonoBehaviour:
@@ -1371,6 +1371,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: XR Device Simulator
+      objectReference: {fileID: 0}
+    - target: {fileID: 6598815579406187037, guid: 9f5a24a380916d14db9775daab4fe333,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f5a24a380916d14db9775daab4fe333, type: 3}
