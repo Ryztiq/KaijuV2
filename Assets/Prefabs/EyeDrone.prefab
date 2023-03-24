@@ -525,6 +525,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8549800309634386960}
+  - component: {fileID: 4720686368856770418}
   m_Layer: 0
   m_Name: DroneEye_N2
   m_TagString: Untagged
@@ -548,6 +549,24 @@ Transform:
   m_Father: {fileID: 9092613094350803511}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4720686368856770418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338338398827865456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6c1cce0fc001254898bb97521e05a1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eye_resize_speed:
+  - 0
+  - 3
+  - 9
+  - 9
+  - 6
 --- !u!1 &1405047203366236326
 GameObject:
   m_ObjectHideFlags: 0
