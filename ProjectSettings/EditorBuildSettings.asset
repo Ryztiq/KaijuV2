@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TestScene.unity
+    path: Assets/Scenes/MoonFight.unity
     guid: 82c2e14137a8b8c488580c9a964ce363
   - enabled: 1
     path: Assets/Scenes/Shooting Range.unity

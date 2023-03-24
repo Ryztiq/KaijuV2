@@ -137,12 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83e4e6cca11330d4088d729ab4fc9d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!23 &53393159 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 1478738765136008541, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-    type: 3}
-  m_PrefabInstance: {fileID: 139040662957082109}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &185766024
 GameObject:
   m_ObjectHideFlags: 0
@@ -6912,77 +6906,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
         type: 3}
-      propertyPath: bodyMat
-      value: 
-      objectReference: {fileID: 2100000, guid: 8f9069e7323940c45adcee7ab33a6833, type: 2}
-    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: glowMat
-      value: 
-      objectReference: {fileID: 2100000, guid: e9b3b524d24824e479d4948bc6deef53, type: 2}
-    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: fireRate
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: chargeMat
-      value: 
-      objectReference: {fileID: 2100000, guid: 77027a9ab6f03c741bc5a39d3b0781de, type: 2}
-    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: bodyShader
-      value: 
-      objectReference: {fileID: 139040662957082110}
-    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
       propertyPath: ViewfinderTarget
       value: 
       objectReference: {fileID: 1705603771}
     - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
         type: 3}
-      propertyPath: movementStateMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
       propertyPath: droneBullet.target
       value: 
       objectReference: {fileID: 1705603771}
-    - target: {fileID: 1835007497068015527, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3679637236010531665, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5411154704134847606, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: shieldRenderer
-      value: 
-      objectReference: {fileID: 53393159}
-    - target: {fileID: 5857092321334168961, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6813355533832855921, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-        type: 3}
-      propertyPath: m_Name
-      value: BodyCollider
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0307a0e7c0fc3694aa49a0983a88f958, type: 3}
---- !u!137 &139040662957082110 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 4490412675333105147, guid: 0307a0e7c0fc3694aa49a0983a88f958,
-    type: 3}
-  m_PrefabInstance: {fileID: 139040662957082109}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &148145476546388427
 GameObject:
   m_ObjectHideFlags: 0
@@ -20621,31 +20554,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1602074249, guid: 7c71c2af9cb23fb44946665b0addb02d, type: 3}
-      propertyPath: leftHand.triggerPress
-      value: 
-      objectReference: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f,
-        type: 3}
-    - target: {fileID: 4430515079269256594, guid: 7c71c2af9cb23fb44946665b0addb02d,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4430515079269256594, guid: 7c71c2af9cb23fb44946665b0addb02d,
-        type: 3}
-      propertyPath: m_SelectActionTrigger
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4430515079497041418, guid: 7c71c2af9cb23fb44946665b0addb02d,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4430515079497041418, guid: 7c71c2af9cb23fb44946665b0addb02d,
-        type: 3}
-      propertyPath: m_SelectActionTrigger
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4430515080535838040, guid: 7c71c2af9cb23fb44946665b0addb02d,
         type: 3}
       propertyPath: m_RootOrder
@@ -20705,16 +20613,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: VR Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 5247865482032096757, guid: 7c71c2af9cb23fb44946665b0addb02d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5247865482032096762, guid: 7c71c2af9cb23fb44946665b0addb02d,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c71c2af9cb23fb44946665b0addb02d, type: 3}
@@ -36093,21 +35991,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LaserGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 6775648915521916295, guid: 7bba73d6cb1feed468d2d0deada87691,
-        type: 3}
-      propertyPath: m_Name
-      value: GunBody
-      objectReference: {fileID: 0}
-    - target: {fileID: 9066767052180550647, guid: 7bba73d6cb1feed468d2d0deada87691,
-        type: 3}
-      propertyPath: m_MovementType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9066767052180550647, guid: 7bba73d6cb1feed468d2d0deada87691,
-        type: 3}
-      propertyPath: m_SmoothRotation
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9066767052180550647, guid: 7bba73d6cb1feed468d2d0deada87691,
         type: 3}

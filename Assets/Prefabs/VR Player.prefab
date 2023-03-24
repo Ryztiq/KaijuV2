@@ -272,7 +272,7 @@ MonoBehaviour:
   m_OnSelectExited:
     m_PersistentCalls:
       m_Calls: []
-  m_SelectActionTrigger: 0
+  m_SelectActionTrigger: 2
   m_HideControllerOnSelect: 1
   m_AllowHoveredActivate: 0
   m_PlayAudioClipOnSelectEntered: 0
@@ -669,7 +669,7 @@ MonoBehaviour:
   m_OnSelectExited:
     m_PersistentCalls:
       m_Calls: []
-  m_SelectActionTrigger: 0
+  m_SelectActionTrigger: 2
   m_HideControllerOnSelect: 1
   m_AllowHoveredActivate: 0
   m_PlayAudioClipOnSelectEntered: 0
@@ -1224,9 +1224,13 @@ MonoBehaviour:
   leftHand:
     controller: {fileID: 4430515079269256592}
     interactor: {fileID: 4430515079269256594}
-    trigger: {fileID: -4289430672226363583, guid: c348712bda248c246b8c49b3db54643f,
+    triggerValue: {fileID: -4289430672226363583, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
-    grab: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    triggerPress: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
+    grabValue: {fileID: 6558622148059887818, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
+    grabPress: {fileID: 0}
     trackState: {fileID: 684395432459739428, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
     transform: {fileID: 4430515079269256593}
@@ -1240,9 +1244,12 @@ MonoBehaviour:
   rightHand:
     controller: {fileID: 4430515079497041416}
     interactor: {fileID: 4430515079497041418}
-    trigger: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f,
+    triggerValue: {fileID: 7904272356298805229, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
-    grab: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+    triggerPress: {fileID: 0}
+    grabValue: {fileID: -1758520528963094988, guid: c348712bda248c246b8c49b3db54643f,
+      type: 3}
+    grabPress: {fileID: 0}
     trackState: {fileID: -1277054153949319361, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
     transform: {fileID: 4430515079497041417}
@@ -1295,6 +1302,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4430515080535838040}
     m_Modifications:
+    - target: {fileID: 6598815579406187026, guid: 9f5a24a380916d14db9775daab4fe333,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187026, guid: 9f5a24a380916d14db9775daab4fe333,
         type: 3}
       propertyPath: m_CameraTransform

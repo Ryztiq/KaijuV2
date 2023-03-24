@@ -60,7 +60,6 @@ public class BulletManager : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.widthMultiplier = transform.localScale.x;
         rb.velocity = transform.forward * bulletStats.speed;
-        // StartCoroutine(DelayedFire());
     }
     private void FixedUpdate()
     {
@@ -73,29 +72,9 @@ public class BulletManager : MonoBehaviour
             HomeToTarget();
         }
         trailRenderer.widthMultiplier = transform.localScale.x;
-        RaycastHit hit;
-        // Physics.SphereCast(transform.position, SphereSize, Vector3.forward, out hit);
-        // try
-        // {
-        //     print("HIT");
-        // }
-        // catch
-        // {
-        //     print("Something went wrong");
-        // }
-        //TODO: Refactor the above code into the checksphere below as it's more performant.
-
-        //if (Physics.CheckSphere(transform.position, 0.1f, bulletCollisions))
-        //{
-
-        //    Instantiate(hitEffect, transform.position, transform.rotation);
-        //    Destroy(this.gameObject);
-        //}
-
-        //I like cheese, cheese is good, all hail cheese
     }
 
-    public void HomeToTarget()
+    private void HomeToTarget()
     {
         // Determine the direction towards the target
         Vector3 targetDirection = bulletStats.target.position - transform.position;
@@ -109,35 +88,14 @@ public class BulletManager : MonoBehaviour
         rb.velocity = transform.forward * rb.velocity.magnitude;
     }
 
-    //[ExecuteAlways]
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = new Color(1, 0, 0, 0.5f);
-        Gizmos.DrawSphere(transform.position, transform.localScale.magnitude*1.1f);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-
-    }
-
     public void OnCollisionEnter(Collision collision)
     {
-        print("Collided with " + collision.gameObject.name);
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            print("hit enemy");
-            // other.GetComponent<BallEnemyController>().DeathStart();
-        }
+        // print("Collided with " + collision.gameObject.name);
         if (collision.gameObject.CompareTag("Restart"))
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        if(collision.gameObject.CompareTag("Shield"))
-            Destroy(gameObject);
         if(bulletStats.homing)
         {
             bulletStats.homing = false;
         }
-        if (bulletStats.collisionVfx!= null)Instantiate(bulletStats.collisionVfx, transform.position, transform.rotation);
-        // Destroy(gameObject);
     }
 }

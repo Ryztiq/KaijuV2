@@ -21,6 +21,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _SampleTexture2D_634402b1e8e24c1b81e960d0ab96c9b1_Texture_1:
+        m_Texture: {fileID: 2800000, guid: dae38c0d8c2203d4ebcb2c82863c2be7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_8fd0d0b065414f7a821448c3ef642d05_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 2848f09c5d843f14da0603284df91644, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ShieldTex:
         m_Texture: {fileID: 2800000, guid: 2848f09c5d843f14da0603284df91644, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -42,9 +50,11 @@ Material:
     - _PulseFreq: 2
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _ShieldGlobalAlpha: 1
     - _ShieldHealth: 1
     - _ShieldPower: 1.03
     - _ShieldPulseAmount: 0.05
+    - _SphereMask: 0
     - _SphereRadius: 0.4
     - _SphereSmooth: 0.25
     m_Colors:

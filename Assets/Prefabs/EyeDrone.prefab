@@ -369,7 +369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookSpeed: 6
   laserDistance: 20
-  fireRate: 2
+  fireRate: 0.5
   invertViewfindAngle: 1
   ViewfinderTarget: {fileID: 0}
   followTarget: {fileID: 0}
@@ -385,10 +385,12 @@ MonoBehaviour:
     collisionVfx: {fileID: 0}
   viewfinderMode: 0
   behaviorStateMode: 2
-  movementStateMode: 0
+  movementStateMode: 2
   shieldUp: 1
   deathStarted: 0
-  ChargeMat: {fileID: 0}
+  bodyMat: {fileID: 2100000, guid: 8f9069e7323940c45adcee7ab33a6833, type: 2}
+  chargeMat: {fileID: 2100000, guid: 77027a9ab6f03c741bc5a39d3b0781de, type: 2}
+  glowMat: {fileID: 2100000, guid: e9b3b524d24824e479d4948bc6deef53, type: 2}
   bulletPrefab: {fileID: 9089088571927259877, guid: e30f97b6d3ea7f14da7bbf035cb0f750,
     type: 3}
   firePoint: {fileID: 4100467732928079423}
@@ -7432,7 +7434,7 @@ GameObject:
   - component: {fileID: 4378178269908580618}
   - component: {fileID: 8057700757640363155}
   m_Layer: 0
-  m_Name: Body
+  m_Name: BodyCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8366,6 +8368,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1315336997319355351, guid: 3ec4d1a997cd5b640a3e273e3658a6c2,
         type: 3}
+      propertyPath: shieldRenderer
+      value: 
+      objectReference: {fileID: 1478738765136008541}
+    - target: {fileID: 1315336997319355351, guid: 3ec4d1a997cd5b640a3e273e3658a6c2,
+        type: 3}
       propertyPath: droneController
       value: 
       objectReference: {fileID: 949293525577856587}
@@ -8444,6 +8451,12 @@ PrefabInstance:
 --- !u!4 &1294720189399392343 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5237274771681409014, guid: 3ec4d1a997cd5b640a3e273e3658a6c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 6438261319794825121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1478738765136008541 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5610576515542156028, guid: 3ec4d1a997cd5b640a3e273e3658a6c2,
     type: 3}
   m_PrefabInstance: {fileID: 6438261319794825121}
   m_PrefabAsset: {fileID: 0}
