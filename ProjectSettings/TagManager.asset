@@ -11,6 +11,7 @@ TagManager:
   - Ground
   - Debris
   - DroneBullet
+  - platform_get
   layers:
   - Default
   - TransparentFX
