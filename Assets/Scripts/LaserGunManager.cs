@@ -7,6 +7,7 @@ public class LaserGunManager : MonoBehaviour
 {
     public GameObject bullet;
     public Transform firePoint;
+    public AudioSource FiringAudio;
     
     //references
     public XRBaseController leftController, rightController;
@@ -16,6 +17,7 @@ public class LaserGunManager : MonoBehaviour
     public void Fire()
     {
         Instantiate(bullet, firePoint.position, firePoint.rotation);
+        FiringAudio.Play();
     }
 
     public void SendHaptics(XRBaseController controller, float amp, float dur)

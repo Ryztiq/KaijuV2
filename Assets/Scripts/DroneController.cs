@@ -17,6 +17,7 @@ public class DroneController : MonoBehaviour
     public Transform followTarget;
     public AudioSource FiringAudio;
     public AudioSource DeathSound;
+    public AudioSource ShieldSound;
     public BulletManager.BulletStats droneBullet;
     //Behavior Controls
     [FormerlySerializedAs("lookTarget")] public ViewfinderMode viewfinderMode = ViewfinderMode.Forward;
@@ -298,6 +299,10 @@ public class DroneController : MonoBehaviour
     public void Kill()
     {
         FiringAudio.clip = null;
+        foreach(AudioSource a in GetComponents<AudioSource>())
+        {
+            a.Stop();
+        }
         DeathSound.Play();
         foreach (var obj in droneBodyParts)
         {
@@ -335,6 +340,7 @@ public class DroneController : MonoBehaviour
         {
             collider.enabled = true;
         }
+        ShieldSound.Play();
     }
 
     public void ExternalHit(Collision collision)
