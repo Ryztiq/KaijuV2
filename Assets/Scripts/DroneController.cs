@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class DroneController : MonoBehaviour
 {
@@ -36,6 +37,12 @@ public class DroneController : MonoBehaviour
     [FormerlySerializedAs("bodyShader")] public Material bodyMat;
     [FormerlySerializedAs("chargeShader")] public Material chargeMat;
     [FormerlySerializedAs("glowShader")] public Material glowMat;
+
+    public AudioSource droneAudio;
+    public List<AudioClip> sfx;
+    //attack
+    //die
+    //shield
 
     public enum ViewfinderMode
     {
@@ -146,6 +153,9 @@ public class DroneController : MonoBehaviour
                 if (timer > 1 / fireRate)
                 {
                     Shoot();
+                    droneAudio.pitch = Random.Range(0.9f, 1.1f);
+                    droneAudio.PlayOneShot(sfx[0]);
+                    droneAudio.pitch = 1;
                     timer = 0;
                 }
                 break;
@@ -316,6 +326,7 @@ public class DroneController : MonoBehaviour
 
     public void Kill()
     {
+        droneAudio.PlayOneShot(sfx[1]);
         behaviorStateMode = BehaviorStateMode.Dead;
         movementStateMode = MovementStateMode.idle;
         viewfinderMode = ViewfinderMode.Free;
@@ -350,6 +361,7 @@ public class DroneController : MonoBehaviour
 
     public void ShieldBreak()
     {
+        droneAudio.PlayOneShot(sfx[2]);
         shieldUp = false;
         foreach (var collider in enableAfterShieldBreak)
         {

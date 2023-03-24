@@ -1667,6 +1667,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserGun
       objectReference: {fileID: 0}
+    - target: {fileID: 6758684462091801265, guid: 7bba73d6cb1feed468d2d0deada87691,
+        type: 3}
+      propertyPath: leftController
+      value: 
+      objectReference: {fileID: 796949447}
+    - target: {fileID: 6758684462091801265, guid: 7bba73d6cb1feed468d2d0deada87691,
+        type: 3}
+      propertyPath: rightController
+      value: 
+      objectReference: {fileID: 2101364802}
+    - target: {fileID: 9066767052180550647, guid: 7bba73d6cb1feed468d2d0deada87691,
+        type: 3}
+      propertyPath: m_InteractionManager
+      value: 
+      objectReference: {fileID: 1240693806}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bba73d6cb1feed468d2d0deada87691, type: 3}
 --- !u!1 &582973916 stripped
@@ -2039,6 +2054,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1804641551}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &796949447 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4430515079497041416, guid: 7c71c2af9cb23fb44946665b0addb02d,
+    type: 3}
+  m_PrefabInstance: {fileID: 233424173}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caff514de9b15ad48ab85dcff5508221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &807150304 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6726961667789980458, guid: 50b4d6afbcc0fba40ae2ad7c95f1c0e9,
@@ -2974,6 +3001,18 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6753158436577173164, guid: 50b4d6afbcc0fba40ae2ad7c95f1c0e9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 50b4d6afbcc0fba40ae2ad7c95f1c0e9, type: 3}
+--- !u!114 &1240693806 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4430515080535838043, guid: 7c71c2af9cb23fb44946665b0addb02d,
+    type: 3}
+  m_PrefabInstance: {fileID: 233424173}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83e4e6cca11330d4088d729ab4fc9d9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1322056544
 Mesh:
   m_ObjectHideFlags: 0
@@ -3972,6 +4011,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2b64e2a208101a49bd26b464f79e393, type: 3}
+--- !u!114 &2101364802 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4430515079269256592, guid: 7c71c2af9cb23fb44946665b0addb02d,
+    type: 3}
+  m_PrefabInstance: {fileID: 233424173}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caff514de9b15ad48ab85dcff5508221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &2123776280
 Mesh:
   m_ObjectHideFlags: 0
@@ -5138,6 +5189,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SceneLoader
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839569072966992469, guid: cb613b7c6625e55468bf100ec7046ef7,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4839569072966992472, guid: cb613b7c6625e55468bf100ec7046ef7,
         type: 3}
