@@ -69,10 +69,16 @@ public class PlatformMove : MonoBehaviour
 
     }
 
-    public void MoveAutomated()
+    public void MoveAutomated() 
     {
-            
+        //platform.transform.position = Vector3.Lerp(platform.transform.position, targetPosition, dropSpeed * Time.deltaTime);
+        if (!isCurrentlyAutoMoving)
+        {
+            isCurrentlyAutoMoving = true;
             targetPosition = new Vector3(platform.transform.position.x, platform.transform.position.y + incrementAdded, platform.transform.position.z);
+            StartCoroutine(MoveOverSpeed(platform, targetPosition, dropSpeed * Time.deltaTime));
+
+        }
 
     }
     public void MoveManual()
@@ -100,7 +106,6 @@ public class PlatformMove : MonoBehaviour
             if(!isCurrentlyAutoMoving)
             {
                 MoveAutomated();
-                isCurrentlyAutoMoving = true;
             }
         }
         else
@@ -108,6 +113,32 @@ public class PlatformMove : MonoBehaviour
             MoveManual();
             isCurrentlyAutoMoving = false;
         }
+    }
+
+    //StartCoroutine(MoveOverSeconds (gameObject, new Vector3(0.0f, 10f, 0f), 5f));
+
+    //https://answers.unity.com/questions/572851/way-to-move-object-over-time.html
+    public IEnumerator MoveOverSpeed(GameObject objectToMove, Vector3 end, float speed)
+    {
+        // speed should be 1 unit per second
+        while (objectToMove.transform.position != end)
+        {
+            objectToMove.transform.position = Vector3.MoveTowards(objectToMove.transform.position, end, speed * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+    }
+    public IEnumerator MoveOverSeconds(GameObject objectToMove, Vector3 end, float seconds)
+    {
+        float elapsedTime = 0;
+        Vector3 startingPos = objectToMove.transform.position;
+        while (elapsedTime < seconds)
+        {
+            objectToMove.transform.position = Vector3.Lerp(startingPos, end, (elapsedTime / seconds));
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        objectToMove.transform.position = end;
+        isCurrentlyAutoMoving = false;
     }
 }
 

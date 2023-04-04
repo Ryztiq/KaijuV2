@@ -369,6 +369,16 @@ public class DroneController : MonoBehaviour
         }
     }
 
+    public void ShieldRestore()
+    {
+        droneAudio.PlayOneShot(sfx[2]);
+        shieldUp = true;
+        foreach (var collider in enableAfterShieldBreak)
+        {
+            collider.enabled = false;
+        }
+    }
+
     public void ExternalHit(Collision collision)
     {
         print("body recieved hit call from " + collision.gameObject.name);
