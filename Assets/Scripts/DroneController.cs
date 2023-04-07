@@ -71,6 +71,7 @@ public class DroneController : MonoBehaviour
     public Transform rotationController;
     public ShieldController shield;
     public LaserManager laser;
+    public Animator animator;
     public List<GameObject> droneBodyParts;
     public List<Collider> enableAfterShieldBreak;
     private List<Rigidbody> droneBodyPartsRigidbodies = new();
@@ -150,8 +151,10 @@ public class DroneController : MonoBehaviour
                 chargeMat.SetFloat(ChargeAmount, (timer / (1 / fireRate)));
                 glowMat.SetFloat(ChargeAmount, (timer / (1 / fireRate)));
 
+                //drone fires
                 if (timer > 1 / fireRate)
                 {
+                    animator.SetTrigger("Fire");
                     Shoot();
                     droneAudio.pitch = Random.Range(0.9f, 1.1f);
                     droneAudio.PlayOneShot(sfx[0]);
