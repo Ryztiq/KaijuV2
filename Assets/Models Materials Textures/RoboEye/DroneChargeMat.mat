@@ -56,7 +56,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ChargeAmount: 0.47999993
+    - _ChargeAmount: 0.04
     - _FillAmount: 0
     - _Float: 0.4
     - _Fuzzy: 0.84
