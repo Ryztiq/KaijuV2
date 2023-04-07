@@ -6,6 +6,7 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class BulletManager : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class BulletManager : MonoBehaviour
         public float homingAccuracy = 0.1f;
         public Transform target;
         public GameObject collisionVfx;
+        public bool inaccurate = true;
+        public float inaccuracy = 1;
         public BulletStats(BulletStats bulletStats1)
         {
             tag = bulletStats1.tag;
@@ -40,6 +43,8 @@ public class BulletManager : MonoBehaviour
             homingAccuracy = bulletStats1.homingAccuracy;
             target = bulletStats1.target;
             collisionVfx = bulletStats1.collisionVfx;
+            inaccurate = bulletStats1.inaccurate;
+            inaccuracy = bulletStats1.inaccuracy;
         }
     }
 
@@ -59,7 +64,8 @@ public class BulletManager : MonoBehaviour
         transform.localScale = Vector3.one * bulletStats.SphereSize;
         trailRenderer = GetComponent<TrailRenderer>();
         trailRenderer.widthMultiplier = transform.localScale.x;
-        rb.velocity = transform.forward * bulletStats.speed;
+        Vector3 targetOffset = bulletStats.inaccurate ? Vector3.one * Random.Range(-bulletStats.inaccuracy, bulletStats.inaccuracy) : Vector3.zero;
+        rb.velocity = (transform.forward + targetOffset) * bulletStats.speed;
     }
     private void FixedUpdate()
     {
@@ -76,8 +82,24 @@ public class BulletManager : MonoBehaviour
 
     private void HomeToTarget()
     {
+        Vector3 wobbleOffset = Vector3.zero;
+        if (bulletStats.inaccurate)
+        {
+            float offset = Random.Range(1f, 1.15f);
+            // Calculate the Perlin noise value based on time and speed
+            float perlinValue = Mathf.PerlinNoise(Time.time * offset, 0f);
+
+            // Multiply the Perlin noise value by the wobble scale to get the actual wobble amount
+            float wobbleAmount = perlinValue * bulletStats.inaccuracy;
+
+            // Create a wobble offset vector using Perlin noise in all three axes
+            wobbleOffset = new Vector3(
+                Mathf.PerlinNoise(Time.time, 0f) * wobbleAmount,
+                Mathf.PerlinNoise(0f, Time.time) * wobbleAmount,
+                Mathf.PerlinNoise(Time.time, Time.time) * wobbleAmount);
+        }
         // Determine the direction towards the target
-        Vector3 targetDirection = bulletStats.target.position - transform.position;
+        Vector3 targetDirection = bulletStats.target.position - (transform.position+wobbleOffset);
 
         // Calculate the rotation towards the target using Quaternion.LookRotation
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
