@@ -316,9 +316,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
         type: 3}
+      propertyPath: droneBullet.homing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+        type: 3}
       propertyPath: droneBullet.target
       value: 
       objectReference: {fileID: 880882635}
+    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+        type: 3}
+      propertyPath: droneBullet.inaccuracy
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+        type: 3}
+      propertyPath: droneBullet.inaccurate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0307a0e7c0fc3694aa49a0983a88f958, type: 3}
 --- !u!1001 &1629946025
