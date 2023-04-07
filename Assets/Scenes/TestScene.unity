@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.14984182, g: 0.14993592, b: 0.14987016, a: 1}
+  m_IndirectSpecularColor: {r: 0.99999905, g: 0, b: 0.99999905, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -137,6 +137,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83e4e6cca11330d4088d729ab4fc9d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &89347424 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1338338398827865456, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+    type: 3}
+  m_PrefabInstance: {fileID: 139040662957082109}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &89347426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89347424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eadbc97411ab7540af94c30e5e0c68b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &133796208 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 949293525577856584, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+    type: 3}
+  m_PrefabInstance: {fileID: 139040662957082109}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &185766024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1281,6 +1305,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 139040662957082109}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1085730739
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133796208}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4f5b38f0fc4284b46be58aba54be1360, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1097943085 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3133498875991405556, guid: 4e78c0347c2e6ee409561ef6c411bbfe,
@@ -7706,6 +7750,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EyeDrone
       objectReference: {fileID: 0}
+    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1085730739}
     - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
         type: 3}
       propertyPath: fireRate
