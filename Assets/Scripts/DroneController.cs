@@ -11,7 +11,11 @@ public class DroneController : MonoBehaviour
     //Base Variables
     public float lookSpeed = 6;
     public float laserDistance;
-    public float fireRate = 2;
+    [FormerlySerializedAs("fireRate")] public float burstRate = 1;//bursts per 10 seconds
+    public float burstAmount = 5;
+    public float chargeTime = 1;
+    public float burstDuration = 1;
+    [HideInInspector]public float chargeAmount;
     public bool invertViewfindAngle;
     public Transform ViewfinderTarget;
     public Transform followTarget;
@@ -27,7 +31,7 @@ public class DroneController : MonoBehaviour
     private Vector3 prevPos;
     private Vector3 viewVector;
     private Vector3 moveDelta;
-    private float timer;
+    [SerializeField]private float timer;
     private MovementStateMode savedMovementState;
     private BehaviorStateMode savedBehaviorState;
     private ViewfinderMode savedViewfinderMode;
@@ -134,8 +138,25 @@ public class DroneController : MonoBehaviour
         if(droneBodyParts.Count == 0) Destroy(gameObject);
         if(Math.Abs(laser.maxRange - laserDistance) > 0.05f) laser.maxRange = laserDistance;
         StateManager();
+        //Barrett's Change
+        bodyMat.SetFloat(ChargeAmount, chargeAmount);
+        chargeMat.SetFloat(ChargeAmount, chargeAmount);
+        glowMat.SetFloat(ChargeAmount, chargeAmount);
     }
-    
+
+    public IEnumerator BurstFire()
+    {
+        for (int i = 0; i < burstAmount; i++)
+        {
+            Shoot();
+            droneAudio.pitch = Random.Range(0.9f, 1.1f);
+            droneAudio.PlayOneShot(sfx[0]);
+            droneAudio.pitch = 1;
+            yield return new WaitForSeconds(burstDuration/ burstAmount);
+        }
+        animator.SetTrigger("Return to Idle");
+    }
+
     private void StateManager()
     {
         switch (behaviorStateMode)
@@ -146,20 +167,15 @@ public class DroneController : MonoBehaviour
                 break;
             case BehaviorStateMode.Attack:
                 timer += Time.deltaTime;
-                //Barrett's Change
-                bodyMat.SetFloat(ChargeAmount, (timer / (1 / fireRate)));
-                chargeMat.SetFloat(ChargeAmount, (timer / (1 / fireRate)));
-                glowMat.SetFloat(ChargeAmount, (timer / (1 / fireRate)));
-
                 //drone fires
-                if (timer > 1 / fireRate)
+                if (timer > (10 / burstRate)-chargeTime)
                 {
+                    animator.SetFloat("AnticipationSpeed", 1/chargeTime);
                     animator.SetTrigger("Fire");
-                    Shoot();
-                    droneAudio.pitch = Random.Range(0.9f, 1.1f);
-                    droneAudio.PlayOneShot(sfx[0]);
-                    droneAudio.pitch = 1;
                     timer = 0;
+                    // Shoot();
+
+                    // timer = 0;
                 }
                 break;
             case BehaviorStateMode.Dead:
