@@ -98,6 +98,10 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
+<<<<<<< Updated upstream
+=======
+    - _ChargeAmount: 0
+>>>>>>> Stashed changes
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2

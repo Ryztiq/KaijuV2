@@ -39,7 +39,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+<<<<<<< Updated upstream:Assets/Models Materials Textures/M_ShieldHit.mat
     - _PulseFreq: 2
+=======
+    - _ChargeAmount: 0
+    - _FillAmount: 0
+    - _Float: 0.4
+    - _Fuzzy: 0.84
+>>>>>>> Stashed changes:Assets/Models Materials Textures/RoboEye/DroneChargeMat.mat
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ShieldPower: 1.03

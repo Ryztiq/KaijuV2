@@ -3373,6 +3373,90 @@ Mesh:
     offset: 0
     size: 0
     path: 
+<<<<<<< Updated upstream:Assets/Scenes/THERANGE.unity
+=======
+--- !u!1001 &1430074590
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6018839141080341676, guid: f0697723dfd274e42823295191706446,
+        type: 3}
+      propertyPath: m_Name
+      value: PersonTarget
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021657423108669686, guid: f0697723dfd274e42823295191706446,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021657423108669686, guid: f0697723dfd274e42823295191706446,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.7629198
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021657423108669686, guid: f0697723dfd274e42823295191706446,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.01999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021657423108669686, guid: f0697723dfd274e42823295191706446,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8.439495
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021657423108669686, guid: f0697723dfd274e42823295191706446,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021657423108669686, guid: f0697723dfd274e42823295191706446,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021657423108669686, guid: f0697723dfd274e42823295191706446,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021657423108669686, guid: f0697723dfd274e42823295191706446,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021657423108669686, guid: f0697723dfd274e42823295191706446,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021657423108669686, guid: f0697723dfd274e42823295191706446,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6021657423108669686, guid: f0697723dfd274e42823295191706446,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f0697723dfd274e42823295191706446, type: 3}
+--- !u!1 &1430074591 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6018839141080341676, guid: f0697723dfd274e42823295191706446,
+    type: 3}
+  m_PrefabInstance: {fileID: 1430074590}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1593504426 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 449665729306394992, guid: a015cbc8c8877514ea6c0f98e830f471,
+    type: 3}
+  m_PrefabInstance: {fileID: 449665729968425651}
+  m_PrefabAsset: {fileID: 0}
+>>>>>>> Stashed changes:Assets/Scenes/Shooting Range.unity
 --- !u!43 &1705610731
 Mesh:
   m_ObjectHideFlags: 0
@@ -4700,6 +4784,111 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 449665728549581909, guid: a015cbc8c8877514ea6c0f98e830f471, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a015cbc8c8877514ea6c0f98e830f471, type: 3}
+<<<<<<< Updated upstream:Assets/Scenes/THERANGE.unity
+=======
+--- !u!4 &449665729968425652 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 449665729306394999, guid: a015cbc8c8877514ea6c0f98e830f471,
+    type: 3}
+  m_PrefabInstance: {fileID: 449665729968425651}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &449665729968425653
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593504426}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: be3384b4c74f5e444860e5d0474afaed, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.35
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+>>>>>>> Stashed changes:Assets/Scenes/Shooting Range.unity
 --- !u!1001 &522127542399558831
 PrefabInstance:
   m_ObjectHideFlags: 0
