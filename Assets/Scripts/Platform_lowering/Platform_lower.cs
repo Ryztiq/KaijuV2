@@ -15,6 +15,8 @@ public class Platform_lower : MonoBehaviour
 
     public float distance_from_origin_lose = 5;
 
+    private GameObject drone_active = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,6 +40,8 @@ public class Platform_lower : MonoBehaviour
         }
 
         Lose_even_activation();
+
+        check_if_active();
     }
 
     private void Lose_even_activation()
@@ -46,6 +50,25 @@ public class Platform_lower : MonoBehaviour
         {
             Debug.Log("Lose event?");
         }
+    }
+
+    private void check_if_active()
+    {
+        if (drone_active == null || drone_active.gameObject == null)
+        {
+
+            Platform_stop_lowers();
+        }
+        else if(drone_active.activeSelf == false)
+        {
+
+            Platform_stop_lowers();
+        }
+    }
+
+    public void Get_active(GameObject obj)
+    {
+        
     }
 
     public void Platform_lowers()

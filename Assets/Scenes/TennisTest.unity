@@ -309,6 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objects_and_platform_lowering:
   - {fileID: 790681511}
+  platform_lowering: 0
   speed_of_lowering: 0.1
   distance_from_origin_lose: 5
 --- !u!135 &1127404317

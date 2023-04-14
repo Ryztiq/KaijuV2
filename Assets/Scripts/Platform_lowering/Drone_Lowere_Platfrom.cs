@@ -10,6 +10,8 @@ public class Drone_Lowere_Platfrom : MonoBehaviour
 
     public float distance_activation = 5;
 
+    private bool toggle = false;
+
     void Start()
     {
         lowering_access = null;
@@ -21,14 +23,16 @@ public class Drone_Lowere_Platfrom : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             Get_activate_lowering();
+            toggle = true;
         }
 
         if (Input.GetKeyDown(KeyCode.L))
         {
             Disactivate_lowering();
+            toggle = false;
         }
 
-        if (lowering_access != null)
+        if (lowering_access != null && toggle == true)
         {
             if (Vector3.Distance(this.transform.position, lowering_access.transform.position) <= distance_activation)
             {
@@ -36,6 +40,13 @@ public class Drone_Lowere_Platfrom : MonoBehaviour
             }
         }
 
+    }
+
+    private void Send_active_this()
+    {
+        lowering_access.GetComponent<Platform_lower>().Get_active(this.gameObject);
+        Disactivate_lowering();
+        toggle = false;
     }
 
     //gets a oject with this tag and when lcose by it activates
