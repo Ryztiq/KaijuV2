@@ -32,10 +32,11 @@ public class DroneController : MonoBehaviour
     private Vector3 viewVector;
     private Vector3 moveDelta;
     [SerializeField]private float timer;
-    private MovementStateMode savedMovementState;
-    private BehaviorStateMode savedBehaviorState;
-    private ViewfinderMode savedViewfinderMode;
+    [SerializeField]private MovementStateMode savedMovementState;
+    [SerializeField]private BehaviorStateMode savedBehaviorState;
+    [SerializeField]private ViewfinderMode savedViewfinderMode;
     private Transform savedFollowTarget;
+    public GameObject platformButton;
 
     //Barrett's Additions
     [FormerlySerializedAs("bodyShader")] public Material bodyMat;
@@ -60,7 +61,8 @@ public class DroneController : MonoBehaviour
         Chase,
         Attack,
         Dead,
-        Searching
+        Searching,
+        LowerPlatform
     };
     public enum MovementStateMode
     {
@@ -149,9 +151,6 @@ public class DroneController : MonoBehaviour
         for (int i = 0; i < burstAmount; i++)
         {
             Shoot();
-            droneAudio.pitch = Random.Range(0.9f, 1.1f);
-            droneAudio.PlayOneShot(sfx[0]);
-            droneAudio.pitch = 1;
             yield return new WaitForSeconds(burstDuration/ burstAmount);
         }
         animator.SetTrigger("Return to Idle");
@@ -162,8 +161,10 @@ public class DroneController : MonoBehaviour
         switch (behaviorStateMode)
         {
             case BehaviorStateMode.Idle:
+                
                 break;
             case BehaviorStateMode.Chase:
+                
                 break;
             case BehaviorStateMode.Attack:
                 timer += Time.deltaTime;
@@ -173,14 +174,13 @@ public class DroneController : MonoBehaviour
                     animator.SetFloat("AnticipationSpeed", 1/chargeTime);
                     animator.SetTrigger("Fire");
                     timer = 0;
-                    // Shoot();
-
-                    // timer = 0;
                 }
                 break;
             case BehaviorStateMode.Dead:
+                
                 break;
             case BehaviorStateMode.Searching:
+                
                 break;
         }
         
@@ -197,6 +197,7 @@ public class DroneController : MonoBehaviour
             case MovementStateMode.patrol:
                 break;
             case MovementStateMode.idle:
+                
                 break;
         }
         //get a line showing how far the object moved each frame
@@ -244,10 +245,10 @@ public class DroneController : MonoBehaviour
 
     private void Shoot()
     {
-        GameObject
-            spawnObject =
-                Instantiate(bulletPrefab, firePoint.position,
-                    firePoint.rotation); // spawn the object at the mouse click position with the correct rotation
+        droneAudio.pitch = Random.Range(0.9f, 1.1f);
+        droneAudio.PlayOneShot(sfx[0]);
+        droneAudio.pitch = 1;
+        GameObject spawnObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation); // spawn the object at the mouse click position with the correct rotation
         //create a copy of bulletstats and assign it to the bulletstats of spawnobject
         spawnObject.GetComponent<BulletManager>().bulletStats = new BulletManager.BulletStats(droneBullet);
     }
@@ -287,6 +288,7 @@ public class DroneController : MonoBehaviour
                 }
                 break;
             case MovementStateMode.idle:
+                print("movement state is idle, parent nullified");
                 positionController.parent = null;
                 break;
             case MovementStateMode.patrol:
@@ -301,37 +303,36 @@ public class DroneController : MonoBehaviour
         switch (stateToInitialize)
         {
             case BehaviorStateMode.Idle:
-                Debug.Log("Is Idle");
                 viewfinderMode = ViewfinderMode.Forward;
+                InitializeLookState(viewfinderMode);
                 movementStateMode = MovementStateMode.idle;
+                InitializeMovementState(movementStateMode);
                 break;
             case BehaviorStateMode.Chase:
-                Debug.Log("Is Chasing");
                 viewfinderMode = ViewfinderMode.Forward;
                 break;
             case BehaviorStateMode.Attack:
-                Debug.Log("Is Attacking");
                 if(ViewfinderTarget == null) behaviorStateMode = BehaviorStateMode.Idle;
                 viewfinderMode = ViewfinderMode.GameObject;
                 break;
             case BehaviorStateMode.Dead:
-                Debug.Log("Is Dead");
 
                 break;
             case BehaviorStateMode.Searching:
-                Debug.Log("Is Searching");
 
+                break;
+            case BehaviorStateMode.LowerPlatform:
+                viewfinderMode = ViewfinderMode.GameObject;
+                movementStateMode = MovementStateMode.idle;
+                InitializeMovementState(movementStateMode);
+                ViewfinderTarget = platformButton.transform;
+                droneBullet.target = platformButton.transform;
+                droneBullet.homing = true;
+                Shoot();
                 break;
         }
     }
-    
-    private IEnumerator FireBullet(float delay)
-    {
-        
 
-        yield return new WaitForSeconds(delay);
-    }
-    
     private void LookToTarget(Transform trans)
     {
         //gets an angle between the object's forward vector and the vector between the object and the target.
@@ -371,21 +372,18 @@ public class DroneController : MonoBehaviour
         {
             Kill();
         }
-    }
-
-    public void SetFollowTarget()
-    {
-        
+        //a button to kill the drone
+        if (GUI.Button(new Rect(110, 10, 100, 30), "Lower Platform"))
+        {
+            behaviorStateMode = BehaviorStateMode.LowerPlatform;
+        }
     }
 
     public void ShieldBreak()
     {
         droneAudio.PlayOneShot(sfx[2]);
         shieldUp = false;
-        foreach (var collider in enableAfterShieldBreak)
-        {
-            collider.enabled = true;
-        }
+        foreach (var collider in enableAfterShieldBreak) collider.enabled = true;
     }
 
     public void ExternalHit(Collision collision)
@@ -394,10 +392,7 @@ public class DroneController : MonoBehaviour
         if (collision.gameObject.CompareTag("Bullet") && !deathStarted && !shieldUp)
         {
             deathStarted = true;
-            foreach (var col in enableAfterShieldBreak)
-            {
-                col.enabled = false;
-            }
+            foreach (var col in enableAfterShieldBreak)col.enabled = false;
             Kill();
         }
     }
