@@ -11,6 +11,7 @@ TagManager:
   - Ground
   - Debris
   - DroneBullet
+  - lower_platform_cranks
   layers:
   - Default
   - TransparentFX
