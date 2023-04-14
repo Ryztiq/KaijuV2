@@ -60,8 +60,6 @@ public class BulletManager : MonoBehaviour
         lifeTimeDespawn.LastingTime = bulletStats.LastingTime;
         rb = GetComponent<Rigidbody>();
         transform.localScale = Vector3.one * bulletStats.SphereSize;
-        trailRenderer = GetComponent<TrailRenderer>();
-        trailRenderer.widthMultiplier = transform.localScale.x;
         Vector3 targetOffset = Vector3.one * Random.Range(-bulletStats.inaccuracy, bulletStats.inaccuracy);
         rb.velocity = (transform.forward + targetOffset) * bulletStats.speed;
     }
@@ -75,7 +73,6 @@ public class BulletManager : MonoBehaviour
             //homing logic
             HomeToTarget();
         }
-        trailRenderer.widthMultiplier = transform.localScale.x;
     }
 
     private void HomeToTarget()
