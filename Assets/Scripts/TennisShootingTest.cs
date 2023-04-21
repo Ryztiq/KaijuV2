@@ -5,7 +5,11 @@ using UnityEngine;
 public class TennisShootingTest : MonoBehaviour
 {
 
-    public GameObject Bullet;
+    public GameObject bulletPrefab;
+    public BulletManager.BulletStats bullet;
+    public AudioSource droneAudio;
+    public AudioClip sfx;
+
 
     // Start is called before the first frame update
     void Start()
@@ -13,17 +17,19 @@ public class TennisShootingTest : MonoBehaviour
         ShootEvery5();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Shoot()
     {
-       
+        droneAudio.pitch = Random.Range(0.9f, 1.1f);
+        droneAudio.PlayOneShot(sfx);
+        droneAudio.pitch = 1;
+        GameObject spawnObject = Instantiate(bulletPrefab, transform.position, transform.rotation); // spawn the object at the mouse click position with the correct rotation
+        //create a copy of bulletstats and assign it to the bulletstats of spawnobject
+        spawnObject.GetComponent<BulletManager>().bulletStats = new BulletManager.BulletStats(bullet);
     }
-
-
 
     private void ShootEvery5()
     {
-        Instantiate(Bullet, transform.TransformPoint(0, 0, 0), gameObject.transform.rotation);
+        Shoot();
         Invoke("ShootEvery5", .5f);
     }
 

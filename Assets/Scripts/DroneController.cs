@@ -19,7 +19,7 @@ public class DroneController : MonoBehaviour
     public bool invertViewfindAngle;
     public Transform ViewfinderTarget;
     public Transform followTarget;
-    //Bullet Variables
+    //bulletPrefab Variables
     public BulletManager.BulletStats droneBullet;
     //Behavior Controls
     [FormerlySerializedAs("lookTarget")] public ViewfinderMode viewfinderMode = ViewfinderMode.Forward;
@@ -389,7 +389,7 @@ public class DroneController : MonoBehaviour
     public void ExternalHit(Collision collision)
     {
         print("body recieved hit call from " + collision.gameObject.name);
-        if (collision.gameObject.CompareTag("Bullet") && !deathStarted && !shieldUp)
+        if (collision.gameObject.CompareTag("bulletPrefab") && !deathStarted && !shieldUp)
         {
             deathStarted = true;
             foreach (var col in enableAfterShieldBreak)col.enabled = false;

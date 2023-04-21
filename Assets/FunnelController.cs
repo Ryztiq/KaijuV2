@@ -8,7 +8,7 @@ public class FunnelController : MonoBehaviour
     public LaserGunManager laserGunManager;
     public void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Bullet"))
+        if(other.CompareTag("bulletPrefab"))
         {
             Destroy(other.gameObject);
             laserGunManager.SendHaptics();
