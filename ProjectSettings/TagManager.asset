@@ -12,6 +12,7 @@ TagManager:
   - Debris
   - DroneBullet
   - lower_platform_cranks
+  - TennisRacket
   layers:
   - Default
   - TransparentFX

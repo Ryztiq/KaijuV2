@@ -21,7 +21,7 @@ public class BulletManager : MonoBehaviour
 
     [Serializable]public class BulletStats
     {
-        public string tag = "Bullet";
+        public string tag = "bulletPrefab";
         public float SphereSize = 0.1f;
         public int Damage = 1;
         public float speed = 5f;
