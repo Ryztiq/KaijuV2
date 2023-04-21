@@ -21,6 +21,7 @@ public class DroneController : MonoBehaviour
     public Transform followTarget;
     //Bullet Variables
     public BulletManager.BulletStats droneBullet;
+    public BulletManager.BulletStats BigBullet;
     //Behavior Controls
     [FormerlySerializedAs("lookTarget")] public ViewfinderMode viewfinderMode = ViewfinderMode.Forward;
     [FormerlySerializedAs("stateMode")] public BehaviorStateMode behaviorStateMode = BehaviorStateMode.Idle;
@@ -36,6 +37,11 @@ public class DroneController : MonoBehaviour
     private BehaviorStateMode savedBehaviorState;
     private ViewfinderMode savedViewfinderMode;
     private Transform savedFollowTarget;
+
+    //Bullet hit ten times show larger
+    private bool big_bullet_shoot_toggle = false;
+    private float bullet_tracker_count = 0;
+    private float bullet_large_activateion = 10;
 
     //Barrett's Additions
     [FormerlySerializedAs("bodyShader")] public Material bodyMat;
@@ -168,7 +174,13 @@ public class DroneController : MonoBehaviour
             case BehaviorStateMode.Attack:
                 timer += Time.deltaTime;
                 //drone fires
-                if (timer > (10 / burstRate)-chargeTime)
+                if(big_bullet_shoot_toggle == true)
+                {
+                    //shoot Big bullet
+                    // Shoot();
+                    big_bullet_shoot_toggle = false;
+                }
+                else if (timer > (10 / burstRate)-chargeTime)
                 {
                     animator.SetFloat("AnticipationSpeed", 1/chargeTime);
                     animator.SetTrigger("Fire");
@@ -388,11 +400,24 @@ public class DroneController : MonoBehaviour
         }
     }
 
+    private void Ten_hit_count()
+    {
+        bullet_tracker_count = bullet_tracker_count + 1;
+
+        if(bullet_tracker_count >= bullet_large_activateion)
+        {
+            //change behaviro state
+            big_bullet_shoot_toggle = true;
+        }
+    }
+
     public void ExternalHit(Collision collision)
     {
         print("body recieved hit call from " + collision.gameObject.name);
         if (collision.gameObject.CompareTag("Bullet") && !deathStarted && !shieldUp)
         {
+            //calls the hit count script wich will incriment it until it reach the limit (10) whcih is when it shoot a big bullets
+            Ten_hit_count();
             deathStarted = true;
             foreach (var col in enableAfterShieldBreak)
             {
