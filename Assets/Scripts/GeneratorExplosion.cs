@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class GeneratorExplosion : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class GeneratorExplosion : MonoBehaviour
     public ParticleSystem Explosion;
     public ParticleSystem Smoke;
     public AudioSource konosuba;
+
+    public Material emission;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,25 +26,34 @@ public class GeneratorExplosion : MonoBehaviour
         
     }
 
-    public void Explode()
+    private void OnCollisionEnter(Collision collision)
     {
-        if(!hasExploded)
+        
+        if(collision.gameObject.CompareTag("DroneBullet"))
         {
-
-            
-            Explosion.Play();
-            Smoke.Play();
-            konosuba.Play();
-
-
+            ColorChange();
+            StartCoroutine(Explode());
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void ColorChange()
     {
-        if(collision.gameObject.CompareTag("DroneBullet"))
+        emission.DOColor(new Color(255, 52, 25), 2);
+    }
+
+    private IEnumerator Explode()
+    {
+        yield return new WaitForSeconds(2);
+        if (!hasExploded)
         {
-            Explode();
+
+
+            Explosion.Play();
+            Smoke.Play();
+            konosuba.Play();
+            emission.color = Color.black;
+
+
         }
     }
 }
