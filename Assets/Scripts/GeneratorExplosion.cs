@@ -7,6 +7,7 @@ public class GeneratorExplosion : MonoBehaviour
     bool hasExploded = false;
     public ParticleSystem Explosion;
     public ParticleSystem Smoke;
+    public AudioSource konosuba;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +32,7 @@ public class GeneratorExplosion : MonoBehaviour
             Explosion.gameObject.SetActive(true);
             Explosion.Play();
             Smoke.Play();
+            konosuba.Play();
 
 
         }
