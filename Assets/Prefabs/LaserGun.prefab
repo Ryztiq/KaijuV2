@@ -547,6 +547,7 @@ MonoBehaviour:
     homingAccuracy: 0
     target: {fileID: 0}
     collisionVfx: {fileID: 0}
+    inaccuracy: 0
   audioSource: {fileID: 100753774}
   leftController: {fileID: 0}
   rightController: {fileID: 0}
