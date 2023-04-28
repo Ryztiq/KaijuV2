@@ -114,5 +114,8 @@ public class BulletManager : MonoBehaviour
             rb.useGravity = true;
             lifeTimeDespawn.LastingTime = 50;
         }
+        if(collision.gameObject.CompareTag("Invincible"))
+            Destroy(gameObject);
+            
     }
 }

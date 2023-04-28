@@ -7,7 +7,7 @@ public class Racketintator : MonoBehaviour
     // Start is called before the first frame update
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("DroneBullet") || collision.gameObject.CompareTag("BigDroneBullet"))
+        if(collision.gameObject.CompareTag("DroneBullet") || collision.gameObject.CompareTag("DroneBulletBig"))
         {
             collision.gameObject.GetComponent<Rigidbody>().useGravity = true;
         }

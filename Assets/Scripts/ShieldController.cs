@@ -20,7 +20,7 @@ public class ShieldController : MonoBehaviour
     public SphereCollider sphereCollider;
     [FormerlySerializedAs("shieldSpawnVFX")] public VisualEffect shieldVFX;
     public bool invincible;
-    private void Start()
+    private void OnEnable()
     {
         SpawnShield();
     }

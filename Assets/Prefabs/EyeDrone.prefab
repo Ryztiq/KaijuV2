@@ -401,8 +401,8 @@ MonoBehaviour:
     target: {fileID: 0}
     inaccuracy: 0.1
   viewfinderMode: 0
-  behaviorStateMode: 2
-  movementStateMode: 0
+  behaviorStateMode: 0
+  movementStateMode: 2
   shieldUp: 1
   deathStarted: 0
   timer: 0
@@ -425,6 +425,7 @@ MonoBehaviour:
   positionController: {fileID: 139040663776269682}
   rotationController: {fileID: 139040664580116695}
   shield: {fileID: 5411154704134847606}
+  invincibleShield: {fileID: 6610539021466714018}
   laser: {fileID: 6782471070663421331}
   animator: {fileID: 561993136}
   droneBodyParts:
@@ -438,6 +439,7 @@ MonoBehaviour:
   enableAfterShieldBreak:
   - {fileID: 3530202145490087493}
   - {fileID: 2782052967124261065}
+  wobbler: {fileID: 0}
 --- !u!82 &1222335292
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8613,13 +8615,18 @@ PrefabInstance:
     - target: {fileID: 581490880633412128, guid: 3ec4d1a997cd5b640a3e273e3658a6c2,
         type: 3}
       propertyPath: m_TagString
-      value: Shield
+      value: Invincible
       objectReference: {fileID: 0}
     - target: {fileID: 1315336997319355351, guid: 3ec4d1a997cd5b640a3e273e3658a6c2,
         type: 3}
       propertyPath: shieldVFX
       value: 
       objectReference: {fileID: 6199460208304011966}
+    - target: {fileID: 1315336997319355351, guid: 3ec4d1a997cd5b640a3e273e3658a6c2,
+        type: 3}
+      propertyPath: invincible
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1315336997319355351, guid: 3ec4d1a997cd5b640a3e273e3658a6c2,
         type: 3}
       propertyPath: meshRenderer
@@ -8803,7 +8810,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4750594816898698837}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 0eae0c7efdbc7c4479be67981345e0ba, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 47f9dd1e49aae934ca5e64d5f135bf08, type: 3}
   m_InitialEventName: 
   m_InitialEventNameOverriden: 1
   m_StartSeed: 0
@@ -8832,6 +8839,18 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &6610539021466714018 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1315336997319355351, guid: 3ec4d1a997cd5b640a3e273e3658a6c2,
+    type: 3}
+  m_PrefabInstance: {fileID: 5331239623199265909}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4750594816898698837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80f3a468523c19445aba2e57e1b0f52d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &6750979692967151165 stripped
 SphereCollider:
   m_CorrespondingSourceObject: {fileID: 1462564267414344264, guid: 3ec4d1a997cd5b640a3e273e3658a6c2,
@@ -8948,7 +8967,7 @@ PrefabInstance:
     - target: {fileID: 5610576515542156028, guid: 3ec4d1a997cd5b640a3e273e3658a6c2,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7069191601172913255, guid: 3ec4d1a997cd5b640a3e273e3658a6c2,
         type: 3}

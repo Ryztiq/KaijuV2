@@ -83,6 +83,7 @@ public class DroneController : MonoBehaviour
     public Transform positionController;
     public Transform rotationController;
     public ShieldController shield;
+    public ShieldController invincibleShield;
     public LaserManager laser;
     public Animator animator;
     public List<GameObject> droneBodyParts;
@@ -91,6 +92,7 @@ public class DroneController : MonoBehaviour
     private List<Collider> droneBodyPartsColliders = new();
     private List<TransformMatcher> droneBodyPartsRotationMatchers = new();
     private static readonly int ChargeAmount = Shader.PropertyToID("_ChargeAmount");
+    public VariableMovement wobbler;
 
     // Start is called before the first frame update
     void Start()
@@ -396,6 +398,7 @@ public class DroneController : MonoBehaviour
     {
         droneAudio.PlayOneShot(sfx[2]);
         shieldUp = false;
+        invincibleShield.gameObject.SetActive(true);
         if(timesBroken == 3)
         foreach (var collider in enableAfterShieldBreak) collider.enabled = true;
     }

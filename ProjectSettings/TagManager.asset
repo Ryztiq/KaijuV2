@@ -14,6 +14,7 @@ TagManager:
   - lower_platform_cranks
   - TennisRacket
   - DroneBulletBig
+  - Invincible
   layers:
   - Default
   - TransparentFX
