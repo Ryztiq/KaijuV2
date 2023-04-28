@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Shield
+  m_Name: InvincibleShield
   m_Shader: {fileID: -6465566751694194690, guid: 823b5fb1240305d4bbfc205adf80bf3e,
     type: 3}
   m_ValidKeywords: []
@@ -47,7 +47,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _FresnelOverride: 0
+    - _ColorOverride: 1
+    - _FresnelOverride: 1
     - _PulseFreq: 2
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -60,6 +61,8 @@ Material:
     - _SphereSmooth: 0.25
     m_Colors:
     - _HitPoint: {r: 0, g: 0.69, b: 0, a: 0}
+    - _OverrideColor1: {r: 8.574186, g: 5.19742, b: 0, a: 1}
+    - _OverrideColor2: {r: 19.698313, g: 1.2359726, b: 0, a: 1}
     - _ShieldColor: {r: 0, g: 0.9595914, b: 2.9960785, a: 1}
     - _ShieldColor2: {r: 0, g: 1.1113657, b: 5.6568537, a: 0}
   m_BuildTextureStacks: []
