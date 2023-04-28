@@ -19,7 +19,7 @@ public class ShieldController : MonoBehaviour
     public MeshRenderer meshRenderer;
     public SphereCollider sphereCollider;
     [FormerlySerializedAs("shieldSpawnVFX")] public VisualEffect shieldVFX;
-
+    public bool invincible;
     private void Start()
     {
         SpawnShield();
@@ -27,21 +27,26 @@ public class ShieldController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("DroneBulletBig"))
+        if (collision.gameObject.CompareTag("DroneBullet"))
         {
-            health -= 10;
-            if (health > 0)
-            {
-                shieldVFX.SendEvent("ShieldHit");
-                shieldVFX.SetVector3("HitPoint", collision.contacts[0].point);
-                shieldRenderer.material.SetFloat(ShieldHealth, health/100);
-                shieldVFX.SetFloat("ShieldHealth", health/100);
-            }
-            else
-            {
-                DisableShield();
-                droneController.ShieldBreak();
-            }
+            if(!invincible)health -= 10;
+            ShieldHitLogic(collision);
+        }
+    }
+
+    private void ShieldHitLogic(Collision collision)
+    {
+        if (health > 0)
+        {
+            shieldVFX.SendEvent("ShieldHit");
+            shieldVFX.SetVector3("HitPoint", collision.contacts[0].point);
+            shieldRenderer.material.SetFloat(ShieldHealth, health / 100);
+            shieldVFX.SetFloat("ShieldHealth", health / 100);
+        }
+        else
+        {
+            DisableShield();
+            droneController.ShieldBreak();
         }
     }
 

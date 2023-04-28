@@ -38,6 +38,7 @@ public class DroneController : MonoBehaviour
     [SerializeField]private ViewfinderMode savedViewfinderMode;
     private Transform savedFollowTarget;
     public GameObject platformButton;
+    public int timesBroken;
 
     //Bullet hit ten times show larger
     private bool big_bullet_shoot_toggle = false;
@@ -395,6 +396,7 @@ public class DroneController : MonoBehaviour
     {
         droneAudio.PlayOneShot(sfx[2]);
         shieldUp = false;
+        if(timesBroken == 3)
         foreach (var collider in enableAfterShieldBreak) collider.enabled = true;
     }
 
