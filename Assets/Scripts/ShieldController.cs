@@ -27,7 +27,7 @@ public class ShieldController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bullet"))
+        if (collision.gameObject.CompareTag("DroneBulletBig"))
         {
             health -= 10;
             if (health > 0)

@@ -21,7 +21,7 @@ public class BulletManager : MonoBehaviour
 
     [Serializable]public class BulletStats
     {
-        public string tag = "Bullet";
+        public string tag = "bulletPrefab";
         public float SphereSize = 0.1f;
         public int Damage = 1;
         public float speed = 5f;
@@ -60,8 +60,6 @@ public class BulletManager : MonoBehaviour
         lifeTimeDespawn.LastingTime = bulletStats.LastingTime;
         rb = GetComponent<Rigidbody>();
         transform.localScale = Vector3.one * bulletStats.SphereSize;
-        trailRenderer = GetComponent<TrailRenderer>();
-        trailRenderer.widthMultiplier = transform.localScale.x;
         Vector3 targetOffset = Vector3.one * Random.Range(-bulletStats.inaccuracy, bulletStats.inaccuracy);
         rb.velocity = (transform.forward + targetOffset) * bulletStats.speed;
     }
@@ -75,7 +73,6 @@ public class BulletManager : MonoBehaviour
             //homing logic
             HomeToTarget();
         }
-        trailRenderer.widthMultiplier = transform.localScale.x;
     }
 
     private void HomeToTarget()
