@@ -29,7 +29,6 @@ public class BulletManager : MonoBehaviour
         public bool homing = false;
         public float homingAccuracy = 0.1f;
         public Transform target;
-        public GameObject collisionVfx;
         public float inaccuracy = 1;
         public BulletStats(BulletStats bulletStats1)
         {
@@ -41,7 +40,6 @@ public class BulletManager : MonoBehaviour
             homing = bulletStats1.homing;
             homingAccuracy = bulletStats1.homingAccuracy;
             target = bulletStats1.target;
-            collisionVfx = bulletStats1.collisionVfx;
             inaccuracy = bulletStats1.inaccuracy;
         }
     }
