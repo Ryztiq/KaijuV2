@@ -11,10 +11,10 @@ public class GeneratorExplosion : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Explosion.Stop();
-        Smoke.Stop();
-        Smoke.gameObject.SetActive(false);
-        Explosion.gameObject.SetActive(false);
+        
+        Explosion.Pause();
+        Smoke.Pause();
+        
     }
 
     // Update is called once per frame
@@ -28,8 +28,7 @@ public class GeneratorExplosion : MonoBehaviour
         if(!hasExploded)
         {
 
-            Smoke.gameObject.SetActive(true);
-            Explosion.gameObject.SetActive(true);
+            
             Explosion.Play();
             Smoke.Play();
             konosuba.Play();
@@ -40,7 +39,7 @@ public class GeneratorExplosion : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(gameObject.CompareTag("DroneBulletBig"))
+        if(collision.gameObject.CompareTag("DroneBullet"))
         {
             Explode();
         }
