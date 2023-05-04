@@ -3,7 +3,12 @@ guid: 95f9f72c18cbd1148b016e719fc231e2
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RangeMAT
+    second: {fileID: 2100000, guid: eb79d03b67642324b8f94def4a25b753, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
