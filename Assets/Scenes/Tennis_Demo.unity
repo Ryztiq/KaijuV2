@@ -2226,6 +2226,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: Generator_VRSKaijuv3
       objectReference: {fileID: 0}
+    - target: {fileID: 6297395775571292594, guid: 603b430259df6b0418d2bb68bacc3ee6,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6297395775571292594, guid: 603b430259df6b0418d2bb68bacc3ee6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 06a438352f64a3140acdd73299711136, type: 2}
+    - target: {fileID: 6297395775571292594, guid: 603b430259df6b0418d2bb68bacc3ee6,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 06a438352f64a3140acdd73299711136, type: 2}
+    - target: {fileID: 7658638929010774552, guid: 603b430259df6b0418d2bb68bacc3ee6,
+        type: 3}
+      propertyPath: black
+      value: 
+      objectReference: {fileID: -1580535799172915004, guid: fa544ea0115a6534c82287eb6e9f3833,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 603b430259df6b0418d2bb68bacc3ee6, type: 3}
 --- !u!4 &1791967177 stripped
