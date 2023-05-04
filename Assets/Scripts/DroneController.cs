@@ -417,7 +417,7 @@ public class DroneController : MonoBehaviour
     public void ExternalHit(Collision collision)
     {
         print("body recieved hit call from " + collision.gameObject.name);
-        if (collision.gameObject.CompareTag("bulletPrefab") && !deathStarted && !shieldUp)
+        if (collision.gameObject.CompareTag("DroneBullet") && !deathStarted && !shieldUp)
         {
             //calls the hit count script wich will incriment it until it reach the limit (10) whcih is when it shoot a big bullets
             Ten_hit_count();
