@@ -11,7 +11,7 @@ public class ShieldController : MonoBehaviour
     private Material mat;
     private static readonly int HitPoint = Shader.PropertyToID("_HitPoint");
     [SerializeField,Range(0,100)]
-    private float health = 100;
+    private int health = 100;
     public DroneController droneController;
     public Renderer shieldRenderer;
     private static readonly int ShieldHealth = Shader.PropertyToID("_ShieldHealth");
@@ -29,7 +29,9 @@ public class ShieldController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("DroneBullet"))
         {
-            if(!invincible)health -= 10;
+            if(!invincible)
+                if (droneController != null)
+                    health -= (int)(100 / droneController.hitsToBreakShield);
             ShieldHitLogic(collision);
         }
     }
@@ -40,8 +42,8 @@ public class ShieldController : MonoBehaviour
         {
             shieldVFX.SendEvent("ShieldHit");
             shieldVFX.SetVector3("HitPoint", collision.contacts[0].point);
-            shieldRenderer.material.SetFloat(ShieldHealth, health / 100);
-            shieldVFX.SetFloat("ShieldHealth", health / 100);
+            shieldRenderer.material.SetFloat(ShieldHealth, (int)(health / 100));
+            shieldVFX.SetFloat("ShieldHealth", (int)(health / 100));
         }
         else
         {
@@ -52,7 +54,7 @@ public class ShieldController : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        shieldRenderer.material.SetFloat(ShieldHealth, health/100);
+        shieldRenderer.material.SetFloat(ShieldHealth, (int)(health / 100));
     }
 
     private void SpawnShield()

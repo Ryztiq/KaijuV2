@@ -64,16 +64,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletStats:
     tag: Bullet
-    SphereSize: 0.1
-    Damage: 1
+    sphereSize: 0.1
+    damage: 1
     speed: 24
-    LastingTime: 0.5
+    lastingTime: 0.5
     homing: 0
     homingAccuracy: 1
     target: {fileID: 0}
-    collisionVfx: {fileID: 0}
     inaccuracy: 0
   hitCollider: {fileID: 1691325625259362859}
+  bulletLifeAlpha:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.9
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -17.049963
+      outSlope: -17.049963
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.08714674
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!135 &3236962904272568318
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -131,6 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LastingTime: 2
   despawnTime: 0.5
+  lifeTime: 0
   waitForRB: 0
 --- !u!2083052967 &9155308490617085513
 VisualEffect:

@@ -7,7 +7,7 @@ public class LifeTimeDespawn : MonoBehaviour
 {
     public float LastingTime = 2;
     public float despawnTime = 0.5f;
-    private float lifeTime;
+    [HideInInspector]public float lifeTime;
     private Rigidbody rb;
     public bool waitForRB = true;
 
