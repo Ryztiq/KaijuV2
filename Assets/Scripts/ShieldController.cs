@@ -57,7 +57,7 @@ public class ShieldController : MonoBehaviour
         shieldRenderer.material.SetFloat(ShieldHealth, (int)(health / 100));
     }
 
-    private void SpawnShield()
+    public void SpawnShield()
     {
         health = 100;
         shieldRenderer.material.SetFloat(ShieldHealth, health/100);
@@ -67,7 +67,7 @@ public class ShieldController : MonoBehaviour
         StartCoroutine(SpawnMainShield());
     }
 
-    private void DisableShield()
+    public void DisableShield()
     {
         sphereCollider.enabled = false;
         meshRenderer.enabled = false;

@@ -15,11 +15,10 @@ public class DroneController : MonoBehaviour
     public float laserDistance;
     
     //attack variables
-    [FormerlySerializedAs("fireRate")] public float burstRate = 1;//bursts per 10 seconds
-    public float burstAmount = 5;
-    public float chargeTime = 1;
-    public float burstDuration = 1;
+    public int phase = 1;
+    public AttackVariables[] attackVariables = new AttackVariables[3];
     public float chargeAmount;
+    private float savedChargeAmount;
     
     //health and shield info
     public int hitsToBreakShield = 3;
@@ -47,7 +46,7 @@ public class DroneController : MonoBehaviour
     [HideInInspector]public GameObject platformButton;
 
     //Bullet hit ten times show larger
-    private bool big_bullet_shoot_toggle = false;
+    public bool smallBullet = true;
     private float bullet_tracker_count = 0;
     private float bullet_large_activateion = 10;
 
@@ -78,13 +77,13 @@ public class DroneController : MonoBehaviour
         Dead,
         Searching,
         LowerPlatform
-    };
+    }
     public enum MovementStateMode
     {
         FollowTarget,
         Patrol,
         Idle
-    };
+    }
     
     //references
     public GameObject bulletPrefab;
@@ -96,6 +95,9 @@ public class DroneController : MonoBehaviour
 
     public ShieldController shield;
     public ShieldController invincibleShield;
+
+    public Animator leftGen;
+    public Animator rightGen;
     
     public LaserManager laser;
     public Animator animator;
@@ -107,6 +109,20 @@ public class DroneController : MonoBehaviour
     private static readonly int ReturnToIdle = Animator.StringToHash("Return to Idle");
     private static readonly int AnticipationSpeed = Animator.StringToHash("AnticipationSpeed");
     private static readonly int Fire = Animator.StringToHash("Fire");
+    private static readonly int ReFire = Animator.StringToHash("ReFire");
+
+    [Serializable]
+    public class AttackVariables
+    {
+        public float burstRate = 1;//bursts per 10 seconds
+        public float burstRateLarge = 1;
+        public float burstAmount = 3;
+        public float burstAmountLarge = 1;
+        public float chargeTime = 3;
+        public float chargeTimeLarge = 3;
+        public float burstDuration = 2;
+        public float burstDurationLarge = 1;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -163,20 +179,26 @@ public class DroneController : MonoBehaviour
         if(droneBodyParts.Count == 0) Destroy(gameObject);
         if(Math.Abs(laser.maxRange - laserDistance) > 0.05f) laser.maxRange = laserDistance;
         StateManager();
-        //Barrett's Change
-        bodyMat.SetFloat(ChargeAmount, chargeAmount);
-        chargeMat.SetFloat(ChargeAmount, chargeAmount);
-        glowMat.SetFloat(ChargeAmount, chargeAmount);
+        //material updates to drone
+        if(Math.Abs(savedChargeAmount - chargeAmount) > 0.05f)
+        {
+            bodyMat.SetFloat(ChargeAmount, chargeAmount);
+            chargeMat.SetFloat(ChargeAmount, chargeAmount);
+            glowMat.SetFloat(ChargeAmount, chargeAmount);
+            savedChargeAmount = chargeAmount;
+        }
     }
 
     public IEnumerator BurstFire()
     {
-        for (int i = 0; i < burstAmount; i++)
+        float duration = smallBullet ? attackVariables[phase-1].burstDuration : attackVariables[phase-1].burstDurationLarge;
+        float amount = smallBullet ? attackVariables[phase-1].burstAmount : attackVariables[phase-1].burstAmountLarge;
+        for (int i = 0; i < amount; i++)
         {
             Shoot();
-            if(i == (int)burstAmount - 1) break;
-            yield return new WaitForSeconds(burstDuration/ burstAmount);
-            animator.SetTrigger("ReFire");
+            if(i == (int)amount) break;
+            yield return new WaitForSeconds(duration / amount);
+            animator.SetTrigger(ReFire);
         }
         animator.SetTrigger(ReturnToIdle);
     }
@@ -200,7 +222,9 @@ public class DroneController : MonoBehaviour
                 //     // Shoot();
                 //     big_bullet_shoot_toggle = false;
                 // }
-                if (burstTimer > (10 / burstRate)-chargeTime)
+                float rate = smallBullet? attackVariables[phase-1].burstRate : attackVariables[phase-1].burstRateLarge;
+                float chargeTime = smallBullet? attackVariables[phase-1].chargeTime : attackVariables[phase-1].chargeTimeLarge;
+                if (burstTimer > (10 / rate)-chargeTime)
                 {
                     animator.SetFloat(AnticipationSpeed, 1/chargeTime);
                     animator.SetTrigger(Fire);
@@ -413,9 +437,37 @@ public class DroneController : MonoBehaviour
     public void ShieldBreak()
     {
         droneAudio.PlayOneShot(sfx[2]);
-        shieldUp = false;
+        
+        switch (phase)
+        {
+            case 1:
+                StartCoroutine(PauseAttack(5));
+                smallBullet = false;
+                invincibleShield.gameObject.SetActive(true);
+                leftGen.SetTrigger("Disable");
+                break;
+            case 2:
+                StartCoroutine(PauseAttack(5));
+                smallBullet = false;
+                invincibleShield.gameObject.SetActive(true);
+                rightGen.SetTrigger("Disable");
+                break;
+            case 3:
+                
+                break;
+        }
+        // shieldUp = false;
         // invincibleShield.gameObject.SetActive(true);
         // if(shieldBreaks == 3) foreach (var collider1 in enableAfterShieldBreak) collider1.enabled = true;
+    }
+
+    public IEnumerator PauseAttack(int seconds)
+    {
+            behaviorStateMode = BehaviorStateMode.Idle;
+            movementStateMode = MovementStateMode.Idle;
+        yield return new WaitForSeconds(seconds);
+        behaviorStateMode = BehaviorStateMode.Attack;
+        movementStateMode = MovementStateMode.FollowTarget;
     }
 
     private void Ten_hit_count()
@@ -425,7 +477,7 @@ public class DroneController : MonoBehaviour
         if(bullet_tracker_count >= bullet_large_activateion)
         {
             //change behavior state
-            big_bullet_shoot_toggle = true;
+            smallBullet = true;
         }
     }
 

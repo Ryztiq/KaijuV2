@@ -105,25 +105,35 @@ public class BulletManager : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        bulletVFX.SendEvent("Collided");
-        bulletVFX.SetVector3("CollisionPosition", collision.contacts[0].point);
-        bulletVFX.SetVector3("CollisionNormal", collision.contacts[0].normal);
-
         print("Bullet collision:" + collision.gameObject.name);
-        if (collision.gameObject.CompareTag("Restart"))
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        if(bulletStats.homing)
-        {
-            bulletStats.homing = false;
-        }
+        
+        //trigger VFX
+        bulletVFX.SendEvent("Collided");
+        // bulletVFX.SetVector3("CollisionPosition", collision.contacts[0].point);
+        bulletVFX.SetVector3("CollisionNormal", collision.contacts[0].normal);
 
         if (collision.gameObject.CompareTag("TennisRacket"))
         {
             rb.useGravity = true;
             lifeTimeDespawn.LastingTime = 50;
         }
-        if(collision.gameObject.CompareTag("Invincible"))
-            Destroy(gameObject);
+        else
+        {
+            //set bullet lifetime to 1 second and reset its lifetime.
+            lifeTimeDespawn.lifeTime = 0;
+            lifeTimeDespawn.LastingTime = 1;
+            
+            if (collision.gameObject.CompareTag("Restart"))
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+            
+            if(collision.gameObject.CompareTag("Invincible"))
+                Destroy(gameObject);
+        }
+        if(bulletStats.homing)
+        {
+            bulletStats.homing = false;
+        }
             
     }
 }
