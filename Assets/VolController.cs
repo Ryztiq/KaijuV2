@@ -21,11 +21,10 @@ public class VolController : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {   
-        
+    {
         // Get the velocity of the tracked object
-        speed = (rb.velocity.magnitude + rb.angularVelocity.magnitude)/2;;
-
+        // speed = (rb.velocity.magnitude + rb.angularVelocity.magnitude)/2;;
+        speed = (transform.position - prevPosition).magnitude;
         // Clamp the speed to the floor and ceiling values
         float clampedSpeed = Mathf.Clamp(speed, speedFloor, speedCeiling);
 
@@ -41,6 +40,7 @@ public class VolController : MonoBehaviour
         //     audioSource.volume += val;
         // }
         // else audioSource.volume = 0;
+        prevPosition = transform.position;
     }
 
     public void OnGUI()

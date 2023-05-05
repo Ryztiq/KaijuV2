@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,16 +10,26 @@ public class Racketintator : MonoBehaviour
     public int bounceIntensity = 100;
     public AudioClip hitSound;
     public AudioSource audioSource;
+    [SerializeField]private Vector3 savedPos;
+
+    public void FixedUpdate()
+    {
+        if(savedPos!= transform.position) savedPos = transform.position;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("DroneBullet") || collision.gameObject.CompareTag("DroneBulletBig"))
         {
             audioSource.volume = 1;
             audioSource.PlayOneShot(hitSound);
+            
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
             rb.useGravity = true;
+
+            float speed = (transform.position - savedPos).magnitude;
             Vector3 contactNormal = collision.contacts[0].normal;
-            rb.AddForce(contactNormal*Thisrb.velocity.magnitude * bounceIntensity, ForceMode.Impulse);
+            rb.AddForce(contactNormal*speed * bounceIntensity, ForceMode.Impulse);
         }
     }
 }
