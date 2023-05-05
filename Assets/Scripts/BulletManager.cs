@@ -64,7 +64,6 @@ public class BulletManager : MonoBehaviour
         trailRenderer.widthMultiplier = transform.localScale.x;
         Vector3 targetOffset = Vector3.one * Random.Range(-bulletStats.inaccuracy, bulletStats.inaccuracy);
         rb.velocity = (transform.forward + targetOffset) * bulletStats.speed;
-        bulletVFX.SetFloat("ParticleSize", bulletStats.sphereSize);
     }
     private void FixedUpdate()
     {
