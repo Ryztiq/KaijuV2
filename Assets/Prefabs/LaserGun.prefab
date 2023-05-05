@@ -363,7 +363,10 @@ Transform:
   - {fileID: 4456294908195982584}
   - {fileID: 1835884220642375646}
   - {fileID: 4419469236510678648}
+<<<<<<< HEAD
   - {fileID: 4409505311576160853}
+=======
+>>>>>>> parent of ab4ab3c (even more bugfixes)
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -539,10 +542,17 @@ MonoBehaviour:
   firePoint: {fileID: 4456294908195982584}
   bulletStats:
     tag: Bullet
+<<<<<<< HEAD
     SphereSize: 0.1
     Damage: 1
     speed: 50
     LastingTime: 2
+=======
+    sphereSize: 0.1
+    damage: 1
+    speed: 4
+    lastingTime: 2
+>>>>>>> parent of ab4ab3c (even more bugfixes)
     homing: 0
     homingAccuracy: 0
     target: {fileID: 0}
@@ -1027,6 +1037,7 @@ Transform:
   m_Father: {fileID: 3996144933518631159}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!1001 &4231990339202489790
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1171,3 +1182,5 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4231990339202489790}
   m_PrefabAsset: {fileID: 0}
+=======
+>>>>>>> parent of ab4ab3c (even more bugfixes)
