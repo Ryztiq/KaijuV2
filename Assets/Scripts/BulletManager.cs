@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using UnityEngine.VFX;
 using Random = UnityEngine.Random;
 
 public class BulletManager : MonoBehaviour
@@ -16,16 +13,18 @@ public class BulletManager : MonoBehaviour
     private TrailRenderer trailRenderer;
     private LifeTimeDespawn lifeTimeDespawn;
     public CapsuleCollider hitCollider;
-    private bool initialized = false;
+    private VisualEffect bulletVFX;
+    public AnimationCurve bulletLifeAlpha;
 
 
     [Serializable]public class BulletStats
     {
-        public string tag = "bulletPrefab";
-        public float SphereSize = 0.1f;
-        public int Damage = 1;
+        public string tag = "Bullet";
+        // public LayerMask layer;
+        [FormerlySerializedAs("SphereSize")] public float sphereSize = 0.1f;
+        [FormerlySerializedAs("Damage")] public int damage = 1;
         public float speed = 5f;
-        public float LastingTime = 2;
+        [FormerlySerializedAs("LastingTime")] public float lastingTime = 2;
         public bool homing = false;
         public float homingAccuracy = 0.1f;
         public Transform target;
@@ -33,10 +32,11 @@ public class BulletManager : MonoBehaviour
         public BulletStats(BulletStats bulletStats1)
         {
             tag = bulletStats1.tag;
-            SphereSize = bulletStats1.SphereSize;
-            Damage = bulletStats1.Damage;
+            // layer = bulletStats1.layer;
+            sphereSize = bulletStats1.sphereSize;
+            damage = bulletStats1.damage;
             speed = bulletStats1.speed;
-            LastingTime = bulletStats1.LastingTime;
+            lastingTime = bulletStats1.lastingTime;
             homing = bulletStats1.homing;
             homingAccuracy = bulletStats1.homingAccuracy;
             target = bulletStats1.target;
@@ -46,18 +46,18 @@ public class BulletManager : MonoBehaviour
 
     private void Start()
     {
+        bulletVFX = GetComponent<VisualEffect>();
         //apply tag
         if(bulletStats.tag != null || bulletStats.tag != "") gameObject.tag = bulletStats.tag;
         //apply size
-        transform.localScale = Vector3.one * bulletStats.SphereSize;
+        transform.localScale = Vector3.one * bulletStats.sphereSize;
         //setup hit collider
-        hitCollider.height = ((bulletStats.speed / 0.18f) / bulletStats.SphereSize)/100;
+        hitCollider.height = ((bulletStats.speed / 0.18f) / bulletStats.sphereSize)/100;
         hitCollider.center = new Vector3(0,0, Mathf.Clamp(hitCollider.height / 2, 0.01f, 99999));
         
         lifeTimeDespawn = GetComponent<LifeTimeDespawn>();
-        lifeTimeDespawn.LastingTime = bulletStats.LastingTime;
+        lifeTimeDespawn.LastingTime = bulletStats.lastingTime;
         rb = GetComponent<Rigidbody>();
-        transform.localScale = Vector3.one * bulletStats.SphereSize;
         Vector3 targetOffset = Vector3.one * Random.Range(-bulletStats.inaccuracy, bulletStats.inaccuracy);
         rb.velocity = (transform.forward + targetOffset) * bulletStats.speed;
     }
@@ -71,6 +71,10 @@ public class BulletManager : MonoBehaviour
             //homing logic
             HomeToTarget();
         }
+        
+        //set VFX Alpha based on bullet lifetime
+        float f = bulletLifeAlpha.Evaluate(lifeTimeDespawn.lifeTime / lifeTimeDespawn.LastingTime);
+        bulletVFX.SetFloat("Alpha", f);
     }
 
     private void HomeToTarget()
@@ -101,7 +105,11 @@ public class BulletManager : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        // print("Collided with " + collision.gameObject.name);
+        bulletVFX.SendEvent("Collided");
+        bulletVFX.SetVector3("CollisionPosition", collision.contacts[0].point);
+        bulletVFX.SetVector3("CollisionNormal", collision.contacts[0].normal);
+
+        print("Bullet collision:" + collision.gameObject.name);
         if (collision.gameObject.CompareTag("Restart"))
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         if(bulletStats.homing)
