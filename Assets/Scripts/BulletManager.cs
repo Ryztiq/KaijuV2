@@ -1,8 +1,11 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
-using UnityEngine.VFX;
 using Random = UnityEngine.Random;
 
 public class BulletManager : MonoBehaviour
@@ -13,54 +16,54 @@ public class BulletManager : MonoBehaviour
     private TrailRenderer trailRenderer;
     private LifeTimeDespawn lifeTimeDespawn;
     public CapsuleCollider hitCollider;
-    private VisualEffect bulletVFX;
-    public AnimationCurve bulletLifeAlpha;
+    private bool initialized = false;
 
 
     [Serializable]public class BulletStats
     {
         public string tag = "Bullet";
-        // public LayerMask layer;
-        [FormerlySerializedAs("SphereSize")] public float sphereSize = 0.1f;
-        [FormerlySerializedAs("Damage")] public int damage = 1;
+        public float SphereSize = 0.1f;
+        public int Damage = 1;
         public float speed = 5f;
-        [FormerlySerializedAs("LastingTime")] public float lastingTime = 2;
+        public float LastingTime = 2;
         public bool homing = false;
         public float homingAccuracy = 0.1f;
         public Transform target;
+        public GameObject collisionVfx;
         public float inaccuracy = 1;
         public BulletStats(BulletStats bulletStats1)
         {
             tag = bulletStats1.tag;
-            // layer = bulletStats1.layer;
-            sphereSize = bulletStats1.sphereSize;
-            damage = bulletStats1.damage;
+            SphereSize = bulletStats1.SphereSize;
+            Damage = bulletStats1.Damage;
             speed = bulletStats1.speed;
-            lastingTime = bulletStats1.lastingTime;
+            LastingTime = bulletStats1.LastingTime;
             homing = bulletStats1.homing;
             homingAccuracy = bulletStats1.homingAccuracy;
             target = bulletStats1.target;
+            collisionVfx = bulletStats1.collisionVfx;
             inaccuracy = bulletStats1.inaccuracy;
         }
     }
 
     private void Start()
     {
-        bulletVFX = GetComponent<VisualEffect>();
         //apply tag
         if(bulletStats.tag != null || bulletStats.tag != "") gameObject.tag = bulletStats.tag;
         //apply size
-        transform.localScale = Vector3.one * bulletStats.sphereSize;
+        transform.localScale = Vector3.one * bulletStats.SphereSize;
         //setup hit collider
-        hitCollider.height = ((bulletStats.speed / 0.18f) / bulletStats.sphereSize)/100;
+        hitCollider.height = ((bulletStats.speed / 0.18f) / bulletStats.SphereSize)/100;
         hitCollider.center = new Vector3(0,0, Mathf.Clamp(hitCollider.height / 2, 0.01f, 99999));
         
         lifeTimeDespawn = GetComponent<LifeTimeDespawn>();
-        lifeTimeDespawn.LastingTime = bulletStats.lastingTime;
+        lifeTimeDespawn.LastingTime = bulletStats.LastingTime;
         rb = GetComponent<Rigidbody>();
+        transform.localScale = Vector3.one * bulletStats.SphereSize;
+        trailRenderer = GetComponent<TrailRenderer>();
+        trailRenderer.widthMultiplier = transform.localScale.x;
         Vector3 targetOffset = Vector3.one * Random.Range(-bulletStats.inaccuracy, bulletStats.inaccuracy);
         rb.velocity = (transform.forward + targetOffset) * bulletStats.speed;
-        bulletVFX.SetFloat("ParticleSize", bulletStats.sphereSize);
     }
     private void FixedUpdate()
     {
@@ -72,10 +75,7 @@ public class BulletManager : MonoBehaviour
             //homing logic
             HomeToTarget();
         }
-        
-        //set VFX Alpha based on bullet lifetime
-        float f = bulletLifeAlpha.Evaluate(lifeTimeDespawn.lifeTime / lifeTimeDespawn.LastingTime);
-        bulletVFX.SetFloat("Alpha", f);
+        trailRenderer.widthMultiplier = transform.localScale.x;
     }
 
     private void HomeToTarget()
@@ -106,35 +106,18 @@ public class BulletManager : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        // print("Bullet collision:" + collision.gameObject.name);
-        
-        //trigger VFX
-        bulletVFX.SendEvent("Collided");
-        // bulletVFX.SetVector3("CollisionPosition", collision.contacts[0].point);
-        bulletVFX.SetVector3("CollisionNormal", collision.contacts[0].normal);
+        // print("Collided with " + collision.gameObject.name);
+        if (collision.gameObject.CompareTag("Restart"))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if(bulletStats.homing)
+        {
+            bulletStats.homing = false;
+        }
 
         if (collision.gameObject.CompareTag("TennisRacket"))
         {
             rb.useGravity = true;
             lifeTimeDespawn.LastingTime = 50;
         }
-        else
-        {
-            //set bullet lifetime to 1 second and reset its lifetime.
-            lifeTimeDespawn.lifeTime = 0;
-            lifeTimeDespawn.LastingTime = 0.5f;
-            
-            if (collision.gameObject.CompareTag("Restart"))
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-            
-            if(collision.gameObject.CompareTag("Invincible"))
-                Destroy(gameObject);
-        }
-        if(bulletStats.homing)
-        {
-            bulletStats.homing = false;
-        }
-            
     }
 }

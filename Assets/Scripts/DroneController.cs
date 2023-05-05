@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -8,56 +9,39 @@ using Random = UnityEngine.Random;
 public class DroneController : MonoBehaviour
 {
     //Base Variables
-    public Transform followTarget;
-    [FormerlySerializedAs("ViewfinderTarget")] public Transform viewfinderTarget;
-    [FormerlySerializedAs("invertViewfindAngle")] public bool invertViewfinding;
-    [FormerlySerializedAs("lookSpeed")] public float viewfinderSpeed = 6;
+    public float lookSpeed = 6;
     public float laserDistance;
-    public bool fire = true;
-    
-    //attack variables
-    public int phase = 1;
-    public AttackVariables[] attackVariables = new AttackVariables[3];
-    public float chargeAmount;
-    private float savedChargeAmount;
-    
-    //health and shield info
-    public int hitsToBreakShield = 3;
-    [FormerlySerializedAs("timesBroken")] public int shieldBreaks;
-    public bool shieldUp = true;
-    public bool deathStarted;
-
-    //bulletPrefab Variables
+    [FormerlySerializedAs("fireRate")] public float burstRate = 1;//bursts per 10 seconds
+    public float burstAmount = 5;
+    public float chargeTime = 1;
+    public float burstDuration = 1;
+    [HideInInspector]public float chargeAmount;
+    public bool invertViewfindAngle;
+    public Transform ViewfinderTarget;
+    public Transform followTarget;
+    //Bullet Variables
     public BulletManager.BulletStats droneBullet;
-    [FormerlySerializedAs("BigBullet")] public BulletManager.BulletStats bigBullet;
     //Behavior Controls
     [FormerlySerializedAs("lookTarget")] public ViewfinderMode viewfinderMode = ViewfinderMode.Forward;
     [FormerlySerializedAs("stateMode")] public BehaviorStateMode behaviorStateMode = BehaviorStateMode.Idle;
-    public MovementStateMode movementStateMode = MovementStateMode.Idle;
+    public MovementStateMode movementStateMode = MovementStateMode.idle;
 
-    //hidden variables
+    [HideInInspector]public bool shieldUp = true;
+    [HideInInspector]public bool deathStarted;
     private Vector3 prevPos;
     private Vector3 viewVector;
     private Vector3 moveDelta;
-    private float burstTimer;
+    [SerializeField]private float timer;
     private MovementStateMode savedMovementState;
     private BehaviorStateMode savedBehaviorState;
     private ViewfinderMode savedViewfinderMode;
     private Transform savedFollowTarget;
-    [HideInInspector]public GameObject platformButton;
 
-    //Bullet hit ten times show larger
-    public bool smallBullet = true;
-    private float bullet_tracker_count = 0;
-    private float bullet_large_activateion = 10;
-
-    //material info
+    //Barrett's Additions
     [FormerlySerializedAs("bodyShader")] public Material bodyMat;
     [FormerlySerializedAs("chargeShader")] public Material chargeMat;
     [FormerlySerializedAs("glowShader")] public Material glowMat;
-    private static readonly int ChargeAmount = Shader.PropertyToID("_ChargeAmount");
 
-    //audio variables
     public AudioSource droneAudio;
     public List<AudioClip> sfx;
     //attack
@@ -76,30 +60,20 @@ public class DroneController : MonoBehaviour
         Chase,
         Attack,
         Dead,
-        Searching,
-        LowerPlatform
-    }
+        Searching
+    };
     public enum MovementStateMode
     {
-        FollowTarget,
-        Patrol,
-        Idle
-    }
-    
+        followTarget,
+        patrol,
+        idle
+    };
     //references
     public GameObject bulletPrefab;
     public Transform firePoint;
-    
     public Transform positionController;
     public Transform rotationController;
-    public VariableMovement wobbler;
-
     public ShieldController shield;
-    public ShieldController invincibleShield;
-
-    public Animator leftGen;
-    public Animator rightGen;
-    
     public LaserManager laser;
     public Animator animator;
     public List<GameObject> droneBodyParts;
@@ -107,23 +81,7 @@ public class DroneController : MonoBehaviour
     private List<Rigidbody> droneBodyPartsRigidbodies = new();
     private List<Collider> droneBodyPartsColliders = new();
     private List<TransformMatcher> droneBodyPartsRotationMatchers = new();
-    private static readonly int ReturnToIdle = Animator.StringToHash("Return to Idle");
-    private static readonly int AnticipationSpeed = Animator.StringToHash("AnticipationSpeed");
-    private static readonly int Fire = Animator.StringToHash("Fire");
-    private static readonly int ReFire = Animator.StringToHash("ReFire");
-
-    [Serializable]
-    public class AttackVariables
-    {
-        public float burstRate = 1;//bursts per 10 seconds
-        public float burstRateLarge = 1;
-        public float burstAmount = 3;
-        public float burstAmountLarge = 1;
-        public float chargeTime = 3;
-        public float chargeTimeLarge = 3;
-        public float burstDuration = 2;
-        public float burstDurationLarge = 1;
-    }
+    private static readonly int ChargeAmount = Shader.PropertyToID("_ChargeAmount");
 
     // Start is called before the first frame update
     void Start()
@@ -176,32 +134,27 @@ public class DroneController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //manages the drone's behavior, destroys it if the body parts have de-spawned, and updates the laser.
+        //manages the drone's behavior, destroys it if the body parts have despawned, and updates the laser.
         if(droneBodyParts.Count == 0) Destroy(gameObject);
         if(Math.Abs(laser.maxRange - laserDistance) > 0.05f) laser.maxRange = laserDistance;
         StateManager();
-        //material updates to drone
-        if(Math.Abs(savedChargeAmount - chargeAmount) > 0.01f)
-        {
-            bodyMat.SetFloat(ChargeAmount, chargeAmount);
-            chargeMat.SetFloat(ChargeAmount, chargeAmount);
-            glowMat.SetFloat(ChargeAmount, chargeAmount);
-            savedChargeAmount = chargeAmount;
-        }
+        //Barrett's Change
+        bodyMat.SetFloat(ChargeAmount, chargeAmount);
+        chargeMat.SetFloat(ChargeAmount, chargeAmount);
+        glowMat.SetFloat(ChargeAmount, chargeAmount);
     }
 
     public IEnumerator BurstFire()
     {
-        float duration = smallBullet ? attackVariables[phase-1].burstDuration : attackVariables[phase-1].burstDurationLarge;
-        float amount = smallBullet ? attackVariables[phase-1].burstAmount : attackVariables[phase-1].burstAmountLarge;
-        for (int i = 0; i < amount; i++)
+        for (int i = 0; i < burstAmount; i++)
         {
             Shoot();
-            if(i == (int)amount) break;
-            yield return new WaitForSeconds(duration / amount);
-            animator.SetTrigger(ReFire);
+            droneAudio.pitch = Random.Range(0.9f, 1.1f);
+            droneAudio.PlayOneShot(sfx[0]);
+            droneAudio.pitch = 1;
+            yield return new WaitForSeconds(burstDuration/ burstAmount);
         }
-        animator.SetTrigger(ReturnToIdle);
+        animator.SetTrigger("Return to Idle");
     }
 
     private void StateManager()
@@ -209,37 +162,31 @@ public class DroneController : MonoBehaviour
         switch (behaviorStateMode)
         {
             case BehaviorStateMode.Idle:
-                
                 break;
             case BehaviorStateMode.Chase:
-                
                 break;
             case BehaviorStateMode.Attack:
-                if (fire)
+                timer += Time.deltaTime;
+                //drone fires
+                if (timer > (10 / burstRate)-chargeTime)
                 {
-                    burstTimer += Time.deltaTime;
-                    float rate = smallBullet? attackVariables[phase-1].burstRate : attackVariables[phase-1].burstRateLarge;
-                    float chargeTime = smallBullet? attackVariables[phase-1].chargeTime : attackVariables[phase-1].chargeTimeLarge;
-                    if (burstTimer > (10 / rate)-chargeTime)
-                    {
-                        animator.SetFloat(AnticipationSpeed, 1/chargeTime);
-                        animator.SetTrigger(Fire);
-                        burstTimer = 0;
-                    }
-                }
+                    animator.SetFloat("AnticipationSpeed", 1/chargeTime);
+                    animator.SetTrigger("Fire");
+                    timer = 0;
+                    // Shoot();
 
+                    // timer = 0;
+                }
                 break;
             case BehaviorStateMode.Dead:
-                
                 break;
             case BehaviorStateMode.Searching:
-                
                 break;
         }
         
         switch (movementStateMode)
         {
-            case MovementStateMode.FollowTarget:
+            case MovementStateMode.followTarget:
                 if(followTarget != null) followTarget.rotation = Quaternion.identity;
                 if (followTarget != savedFollowTarget)
                 {
@@ -247,10 +194,9 @@ public class DroneController : MonoBehaviour
                     positionController.localPosition = Vector3.zero;
                 }
                 break;
-            case MovementStateMode.Patrol:
+            case MovementStateMode.patrol:
                 break;
-            case MovementStateMode.Idle:
-                
+            case MovementStateMode.idle:
                 break;
         }
         //get a line showing how far the object moved each frame
@@ -271,9 +217,9 @@ public class DroneController : MonoBehaviour
                 
                 break;
             case ViewfinderMode.GameObject:
-                if (viewfinderTarget != null)
+                if (ViewfinderTarget != null)
                 {
-                    viewVector = viewfinderTarget.position;
+                    viewVector = ViewfinderTarget.position;
                     LookToTarget(rotationController);
                 }
                 else
@@ -298,11 +244,11 @@ public class DroneController : MonoBehaviour
 
     private void Shoot()
     {
-        droneAudio.pitch = Random.Range(0.9f, 1.1f);
-        droneAudio.PlayOneShot(sfx[0]);
-        droneAudio.pitch = 1;
-        GameObject spawnObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation); // spawn the bullet at the fire point aimed forward
-        //create a copy of bullet stats and assign it to the bullet stats of spawn object
+        GameObject
+            spawnObject =
+                Instantiate(bulletPrefab, firePoint.position,
+                    firePoint.rotation); // spawn the object at the mouse click position with the correct rotation
+        //create a copy of bulletstats and assign it to the bulletstats of spawnobject
         spawnObject.GetComponent<BulletManager>().bulletStats = new BulletManager.BulletStats(droneBullet);
     }
 
@@ -315,7 +261,7 @@ public class DroneController : MonoBehaviour
                 rotationController.localRotation = Quaternion.identity;
                 break;
             case ViewfinderMode.GameObject:
-                if(viewfinderTarget == null) viewfinderMode = ViewfinderMode.Free;
+                if(ViewfinderTarget == null) viewfinderMode = ViewfinderMode.Free;
                 positionController.rotation = Quaternion.identity;
                     break;
             case ViewfinderMode.Free:
@@ -328,10 +274,10 @@ public class DroneController : MonoBehaviour
         print($"state switched to {stateToInitialize}, initializing");
             switch (stateToInitialize)
         {
-            case MovementStateMode.FollowTarget:
+            case MovementStateMode.followTarget:
                 if (followTarget == null)
                 {
-                    movementStateMode = MovementStateMode.Idle;
+                    movementStateMode = MovementStateMode.idle;
                     Debug.LogWarning("No follow target assigned, switching to idle state");
                 }
                 else
@@ -340,11 +286,10 @@ public class DroneController : MonoBehaviour
                     positionController.localPosition = Vector3.zero;
                 }
                 break;
-            case MovementStateMode.Idle:
-                print("movement state is idle, parent nullified");
+            case MovementStateMode.idle:
                 positionController.parent = null;
                 break;
-            case MovementStateMode.Patrol:
+            case MovementStateMode.patrol:
                 
                 break;
         }
@@ -352,57 +297,57 @@ public class DroneController : MonoBehaviour
     private void InitializeBehaviorState(BehaviorStateMode stateToInitialize)
     {
         print($"state switched to {stateToInitialize}, initializing");
-        burstTimer = 0;
+        timer = 0;
         switch (stateToInitialize)
         {
             case BehaviorStateMode.Idle:
-                movementStateMode = MovementStateMode.Idle;
-                InitializeMovementState(movementStateMode);
+                Debug.Log("Is Idle");
                 viewfinderMode = ViewfinderMode.Forward;
-                InitializeLookState(viewfinderMode);
+                movementStateMode = MovementStateMode.idle;
                 break;
             case BehaviorStateMode.Chase:
+                Debug.Log("Is Chasing");
                 viewfinderMode = ViewfinderMode.Forward;
                 break;
             case BehaviorStateMode.Attack:
-                if(viewfinderTarget == null) behaviorStateMode = BehaviorStateMode.Idle;
+                Debug.Log("Is Attacking");
+                if(ViewfinderTarget == null) behaviorStateMode = BehaviorStateMode.Idle;
                 viewfinderMode = ViewfinderMode.GameObject;
-                InitializeLookState(viewfinderMode);
                 break;
             case BehaviorStateMode.Dead:
+                Debug.Log("Is Dead");
 
                 break;
             case BehaviorStateMode.Searching:
+                Debug.Log("Is Searching");
 
-                break;
-            case BehaviorStateMode.LowerPlatform:
-                viewfinderMode = ViewfinderMode.GameObject;
-                movementStateMode = MovementStateMode.Idle;
-                InitializeMovementState(movementStateMode);
-                viewfinderTarget = platformButton.transform;
-                droneBullet.target = platformButton.transform;
-                droneBullet.homing = true;
-                Shoot();
                 break;
         }
     }
+    
+    private IEnumerator FireBullet(float delay)
+    {
+        
 
+        yield return new WaitForSeconds(delay);
+    }
+    
     private void LookToTarget(Transform trans)
     {
         //gets an angle between the object's forward vector and the vector between the object and the target.
         Vector3 pos = trans.position;
-        var targetRotation = invertViewfinding ? Quaternion.LookRotation(pos - viewVector) : Quaternion.LookRotation(viewVector - pos);
+        var targetRotation = invertViewfindAngle ? Quaternion.LookRotation(pos - viewVector) : Quaternion.LookRotation(viewVector - pos);
         Debug.DrawRay(pos, viewVector-pos, Color.cyan);
         // Smoothly rotate towards the target point.
         //if(Vector3.Angle(targetRotation.eulerAngles,transform.rotation.eulerAngles) > 1)
-        trans.rotation = Quaternion.Slerp(trans.rotation, targetRotation, viewfinderSpeed * Time.deltaTime);
+        trans.rotation = Quaternion.Slerp(trans.rotation, targetRotation, lookSpeed * Time.deltaTime);
     }
 
-    private void Kill()
+    public void Kill()
     {
         droneAudio.PlayOneShot(sfx[1]);
         behaviorStateMode = BehaviorStateMode.Dead;
-        movementStateMode = MovementStateMode.Idle;
+        movementStateMode = MovementStateMode.idle;
         viewfinderMode = ViewfinderMode.Free;
         foreach (var obj in droneBodyParts)
         {
@@ -410,7 +355,7 @@ public class DroneController : MonoBehaviour
                 obj.AddComponent<LifeTimeDespawn>();
         }
         foreach (var col in enableAfterShieldBreak)col.enabled = false;
-        foreach (var collider1 in droneBodyPartsColliders)collider1.enabled = true;
+        foreach (var collider in droneBodyPartsColliders)collider.enabled = true;
         foreach (var rb in droneBodyPartsRigidbodies)rb.useGravity = true;
         foreach (var matcher in droneBodyPartsRotationMatchers)
         {
@@ -426,68 +371,33 @@ public class DroneController : MonoBehaviour
         {
             Kill();
         }
-        //a button to kill the drone
-        if (GUI.Button(new Rect(110, 10, 100, 30), "Lower Platform"))
-        {
-            behaviorStateMode = BehaviorStateMode.LowerPlatform;
-        }
+    }
+
+    public void SetFollowTarget()
+    {
+        
     }
 
     public void ShieldBreak()
     {
-        switch (phase)
+        droneAudio.PlayOneShot(sfx[2]);
+        shieldUp = false;
+        foreach (var collider in enableAfterShieldBreak)
         {
-            case 1:
-                StartCoroutine(PauseAttack(5));
-                smallBullet = false;
-                invincibleShield.gameObject.SetActive(true);
-                leftGen.SetTrigger("Disable");
-                break;
-            case 2:
-                StartCoroutine(PauseAttack(5));
-                smallBullet = false;
-                invincibleShield.gameObject.SetActive(true);
-                invincibleShield.SpawnShield();
-                rightGen.SetTrigger("Disable");
-                break;
-            case 3:
-                
-                break;
-        }
-        // shieldUp = false;
-        // invincibleShield.gameObject.SetActive(true);
-        // if(shieldBreaks == 3) foreach (var collider1 in enableAfterShieldBreak) collider1.enabled = true;
-    }
-
-    public IEnumerator PauseAttack(int seconds)
-    {
-        print("pausing attack for a few seconds");
-        fire = false;
-        yield return new WaitForSeconds(seconds);
-        print("moving back to attack mode");
-        fire = true;
-    }
-
-    private void Ten_hit_count()
-    {
-        bullet_tracker_count = bullet_tracker_count + 1;
-
-        if(bullet_tracker_count >= bullet_large_activateion)
-        {
-            //change behavior state
-            smallBullet = true;
+            collider.enabled = true;
         }
     }
 
     public void ExternalHit(Collision collision)
     {
-        print("body received hit call from " + collision.gameObject.name);
-        if (collision.gameObject.CompareTag("DroneBullet") && !deathStarted && !shieldUp)
+        print("body recieved hit call from " + collision.gameObject.name);
+        if (collision.gameObject.CompareTag("Bullet") && !deathStarted && !shieldUp)
         {
-            //calls the hit count script which will increment it until it reach the limit (10) which is when it shoot a big bullets
-            Ten_hit_count();
             deathStarted = true;
-            foreach (var col in enableAfterShieldBreak)col.enabled = false;
+            foreach (var col in enableAfterShieldBreak)
+            {
+                col.enabled = false;
+            }
             Kill();
         }
     }

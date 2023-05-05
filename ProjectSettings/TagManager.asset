@@ -11,10 +11,6 @@ TagManager:
   - Ground
   - Debris
   - DroneBullet
-  - lower_platform_cranks
-  - TennisRacket
-  - DroneBulletBig
-  - Invincible
   layers:
   - Default
   - TransparentFX
@@ -27,8 +23,8 @@ TagManager:
   - Bullet
   - Player
   - Interactable
-  - Lava
-  - Windows
+  - 
+  - 
   - 
   - 
   - 

@@ -8,8 +8,6 @@ public class Rotator : MonoBehaviour
     public bool local = true;
 
     public bool sine = false;
-
-    public float speed = 1;
     // Update is called once per frame
     void Update()
     {
@@ -17,9 +15,9 @@ public class Rotator : MonoBehaviour
         if (rb!= null && rb.useGravity) return;
         if (sine)
         {
-            transform.Rotate(new Vector3(axis.x, axis.y, axis.z) * (Mathf.Sin(Time.time) * speed), local ? Space.Self : Space.World);
+            transform.Rotate(new Vector3(axis.x, axis.y, axis.z)*Mathf.Sin(Time.time), local ? Space.Self : Space.World);
         }
         else
-            transform.Rotate(new Vector3(axis.x, axis.y, axis.z)*speed, local ? Space.Self : Space.World);
+            transform.Rotate(new Vector3(axis.x, axis.y, axis.z), local ? Space.Self : Space.World);
     }
 }
