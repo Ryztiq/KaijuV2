@@ -310,8 +310,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88e916b9bf60e0e42a50f87bac60f37d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedCeiling: 3
-  speedFloor: 0.2
+  speedCeiling: 0.3
+  speedFloor: 0
   speedPercentage: 0
   prevPosition: {x: 0, y: 0, z: 0}
   speed: 0
