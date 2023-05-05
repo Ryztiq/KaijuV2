@@ -10,6 +10,6 @@ public class SceneTransition : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Bullet")) SceneManager.LoadScene(TransitionTo);
+        if(collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("TennisRacket")) SceneManager.LoadScene(TransitionTo);
     }
 }

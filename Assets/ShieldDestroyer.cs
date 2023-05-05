@@ -15,10 +15,12 @@ public class ShieldDestroyer : MonoBehaviour
 
     public void GeneratorDestroyed()
     {
+        drone.droneAudio.PlayOneShot(drone.sfx[0]);
+        if(drone.phase != 2) drone.shield.SpawnShield();
         drone.invincibleShield.DisableShield();
-        drone.shield.SpawnShield();
         drone.smallBullet = true;
         drone.StartCoroutine(drone.PauseAttack(3));
         drone.phase++;
+        drone.shieldUp = false;
     }
 }

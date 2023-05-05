@@ -105,7 +105,7 @@ public class BulletManager : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        print("Bullet collision:" + collision.gameObject.name);
+        // print("Bullet collision:" + collision.gameObject.name);
         
         //trigger VFX
         bulletVFX.SendEvent("Collided");
@@ -121,7 +121,7 @@ public class BulletManager : MonoBehaviour
         {
             //set bullet lifetime to 1 second and reset its lifetime.
             lifeTimeDespawn.lifeTime = 0;
-            lifeTimeDespawn.LastingTime = 1;
+            lifeTimeDespawn.LastingTime = 0.5f;
             
             if (collision.gameObject.CompareTag("Restart"))
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);

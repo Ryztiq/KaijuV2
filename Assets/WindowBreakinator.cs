@@ -17,6 +17,7 @@ public class WindowBreakinator : MonoBehaviour
     public GameObject pushPoint;
     public float velocityToBreak = 10;
     public AudioSource audioSource;
+    public AudioClip[] sounds;
 
 
     [Serializable]
@@ -50,11 +51,11 @@ public class WindowBreakinator : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("DroneBullet"))
+        if (collision.gameObject.CompareTag("DroneBullet") || collision.gameObject.CompareTag("DroneBulletBig"))
         {
             Rigidbody otherRb = collision.gameObject.GetComponent<Rigidbody>();
             float percent = Mathf.Clamp01(otherRb.velocity.magnitude/ velocityToBreak)*100;
-            print($"{collision.gameObject.name} collider velocity: {percent.ToString(CultureInfo.InvariantCulture)}%");
+            // print($"{collision.gameObject.name} collider velocity: {percent.ToString(CultureInfo.InvariantCulture)}%");
             if (!(otherRb.velocity.magnitude > velocityToBreak)) return;
             //no damage hit
             if (mesh.enabled)
@@ -62,6 +63,7 @@ public class WindowBreakinator : MonoBehaviour
                 //crack the window by turning off the mesh for the unbroken window and turning on the meshes for the broken window pieces
                 mesh.enabled = false;
                 foreach (var piece in windowPieceScripts) piece.gameObj.SetActive(true);
+                audioSource.PlayOneShot(sounds[0]);
             }
             //if the window has been hit before
             else
@@ -72,11 +74,13 @@ public class WindowBreakinator : MonoBehaviour
                     piece.rb.isKinematic = false;
                     piece.col.isTrigger = false;
                     var pushPosition = pushPoint.transform.position;
-                    piece.rb.AddForceAtPosition((transform.position - pushPosition).normalized*100, pushPosition);
+                    piece.rb.AddForceAtPosition((transform.position - pushPosition).normalized*500, pushPosition);
                     LifeTimeDespawn despawn = piece.gameObj.AddComponent<LifeTimeDespawn>();
                     despawn.LastingTime = 10;
                     despawn.waitForRB = false;
                 }
+                audioSource.PlayOneShot(sounds[1]);
+                audioSource.PlayOneShot(sounds[2]);
                 StartCoroutine(CloseShutter());
             }
         }
@@ -87,5 +91,6 @@ public class WindowBreakinator : MonoBehaviour
         yield return new WaitForSeconds(1);
         shutter.SetActive(true);
         LeanTween.moveLocalZ(shutter, 0, 2).setEaseOutBounce();
+        audioSource.PlayOneShot(sounds[3]);
     }
 }

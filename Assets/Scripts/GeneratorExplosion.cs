@@ -18,6 +18,7 @@ public class GeneratorExplosion : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("DroneBulletBig"))
         {
+            Destroy(collision.gameObject);
             Explode();
         }
     }

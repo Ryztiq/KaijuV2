@@ -60,6 +60,7 @@ public class ShieldController : MonoBehaviour
     public void SpawnShield()
     {
         health = 100;
+        droneController.droneAudio.PlayOneShot(droneController.sfx[2]);
         shieldRenderer.material.SetFloat(ShieldHealth, health/100);
         shieldVFX.SetFloat("ShieldHealth", health/100);
         shieldVFX.SendEvent("SpawnShield");
@@ -69,10 +70,10 @@ public class ShieldController : MonoBehaviour
 
     public void DisableShield()
     {
+        droneController.droneAudio.PlayOneShot(droneController.sfx[3]);
         sphereCollider.enabled = false;
         meshRenderer.enabled = false;
         shieldVFX.SendEvent("DespawnShield");
-
     }
 
     private IEnumerator SpawnMainShield()

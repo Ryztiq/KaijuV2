@@ -13,6 +13,7 @@ public class DroneController : MonoBehaviour
     [FormerlySerializedAs("invertViewfindAngle")] public bool invertViewfinding;
     [FormerlySerializedAs("lookSpeed")] public float viewfinderSpeed = 6;
     public float laserDistance;
+    private bool fire;
     
     //attack variables
     public int phase = 1;
@@ -180,7 +181,7 @@ public class DroneController : MonoBehaviour
         if(Math.Abs(laser.maxRange - laserDistance) > 0.05f) laser.maxRange = laserDistance;
         StateManager();
         //material updates to drone
-        if(Math.Abs(savedChargeAmount - chargeAmount) > 0.05f)
+        if(Math.Abs(savedChargeAmount - chargeAmount) > 0.01f)
         {
             bodyMat.SetFloat(ChargeAmount, chargeAmount);
             chargeMat.SetFloat(ChargeAmount, chargeAmount);
@@ -214,22 +215,19 @@ public class DroneController : MonoBehaviour
                 
                 break;
             case BehaviorStateMode.Attack:
-                burstTimer += Time.deltaTime;
-                //drone fires
-                // if(big_bullet_shoot_toggle)
-                // {
-                //     //shoot Big bullet
-                //     // Shoot();
-                //     big_bullet_shoot_toggle = false;
-                // }
-                float rate = smallBullet? attackVariables[phase-1].burstRate : attackVariables[phase-1].burstRateLarge;
-                float chargeTime = smallBullet? attackVariables[phase-1].chargeTime : attackVariables[phase-1].chargeTimeLarge;
-                if (burstTimer > (10 / rate)-chargeTime)
+                if (fire)
                 {
-                    animator.SetFloat(AnticipationSpeed, 1/chargeTime);
-                    animator.SetTrigger(Fire);
-                    burstTimer = 0;
+                    burstTimer += Time.deltaTime;
+                    float rate = smallBullet? attackVariables[phase-1].burstRate : attackVariables[phase-1].burstRateLarge;
+                    float chargeTime = smallBullet? attackVariables[phase-1].chargeTime : attackVariables[phase-1].chargeTimeLarge;
+                    if (burstTimer > (10 / rate)-chargeTime)
+                    {
+                        animator.SetFloat(AnticipationSpeed, 1/chargeTime);
+                        animator.SetTrigger(Fire);
+                        burstTimer = 0;
+                    }
                 }
+
                 break;
             case BehaviorStateMode.Dead:
                 
@@ -358,10 +356,10 @@ public class DroneController : MonoBehaviour
         switch (stateToInitialize)
         {
             case BehaviorStateMode.Idle:
-                viewfinderMode = ViewfinderMode.Forward;
-                InitializeLookState(viewfinderMode);
                 movementStateMode = MovementStateMode.Idle;
                 InitializeMovementState(movementStateMode);
+                viewfinderMode = ViewfinderMode.Forward;
+                InitializeLookState(viewfinderMode);
                 break;
             case BehaviorStateMode.Chase:
                 viewfinderMode = ViewfinderMode.Forward;
@@ -369,6 +367,7 @@ public class DroneController : MonoBehaviour
             case BehaviorStateMode.Attack:
                 if(viewfinderTarget == null) behaviorStateMode = BehaviorStateMode.Idle;
                 viewfinderMode = ViewfinderMode.GameObject;
+                InitializeLookState(viewfinderMode);
                 break;
             case BehaviorStateMode.Dead:
 
@@ -436,8 +435,6 @@ public class DroneController : MonoBehaviour
 
     public void ShieldBreak()
     {
-        droneAudio.PlayOneShot(sfx[2]);
-        
         switch (phase)
         {
             case 1:
@@ -450,6 +447,7 @@ public class DroneController : MonoBehaviour
                 StartCoroutine(PauseAttack(5));
                 smallBullet = false;
                 invincibleShield.gameObject.SetActive(true);
+                invincibleShield.SpawnShield();
                 rightGen.SetTrigger("Disable");
                 break;
             case 3:
@@ -463,11 +461,11 @@ public class DroneController : MonoBehaviour
 
     public IEnumerator PauseAttack(int seconds)
     {
-            behaviorStateMode = BehaviorStateMode.Idle;
-            movementStateMode = MovementStateMode.Idle;
+        print("pausing attack for a few seconds");
+        fire = false;
         yield return new WaitForSeconds(seconds);
-        behaviorStateMode = BehaviorStateMode.Attack;
-        movementStateMode = MovementStateMode.FollowTarget;
+        print("moving back to attack mode");
+        fire = true;
     }
 
     private void Ten_hit_count()
