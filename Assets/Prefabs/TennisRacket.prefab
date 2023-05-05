@@ -198,8 +198,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76d995a0626c2d64c8d4177676bfe0d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Thisrb: {fileID: 0}
+  Thisrb: {fileID: 496313492}
   bounceIntensity: 100
+  hitSound: {fileID: 8300000, guid: 4320ee84f23643b44a653730955b267d, type: 3}
+  audioSource: {fileID: 1694682500020881954}
 --- !u!82 &1694682500020881954
 AudioSource:
   m_ObjectHideFlags: 0
