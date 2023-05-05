@@ -9,10 +9,13 @@ public class Racketintator : MonoBehaviour
     public int bounceIntensity = 100;
     public AudioClip hitSound;
     public AudioSource audioSource;
+    public LayerMask hitMask;
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("DroneBullet") || collision.gameObject.CompareTag("DroneBulletBig"))
         {
+            //int LayerIgnoreRaycast = LayerMask.NameToLayer("Bullet");
+            //collision.gameObject.layer = LayerIgnoreRaycast;
             audioSource.volume = 1;
             audioSource.PlayOneShot(hitSound);
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();

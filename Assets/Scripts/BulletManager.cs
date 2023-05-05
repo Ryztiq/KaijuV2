@@ -120,10 +120,13 @@ public class BulletManager : MonoBehaviour
         }
         else
         {
-            //set bullet lifetime to 1 second and reset its lifetime.
-            lifeTimeDespawn.lifeTime = 0;
-            lifeTimeDespawn.LastingTime = 0.5f;
-            
+            if (!collision.gameObject.CompareTag("DroneBullet") && !collision.gameObject.CompareTag("DroneBulletBig"))
+            {
+                //set bullet lifetime to 1 second and reset its lifetime.
+                lifeTimeDespawn.lifeTime = 0;
+                lifeTimeDespawn.LastingTime = 0.25f;
+            }
+
             if (collision.gameObject.CompareTag("Restart"))
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 

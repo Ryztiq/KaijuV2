@@ -303,7 +303,7 @@ public class DroneController : MonoBehaviour
         droneAudio.pitch = 1;
         GameObject spawnObject = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation); // spawn the bullet at the fire point aimed forward
         //create a copy of bullet stats and assign it to the bullet stats of spawn object
-        spawnObject.GetComponent<BulletManager>().bulletStats = new BulletManager.BulletStats(droneBullet);
+        spawnObject.GetComponent<BulletManager>().bulletStats = new BulletManager.BulletStats(smallBullet ? droneBullet : bigBullet);
     }
 
     private void InitializeLookState(ViewfinderMode stateToInitialize)

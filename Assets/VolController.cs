@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class VolController : MonoBehaviour
 {
-    private Rigidbody rb;
-    private AudioSource audioSource;
+    public Rigidbody rb;
+    public AudioSource audioSource;
     public float speedCeiling = 0.3f;
     public float speedFloor = 0;
     [SerializeField]private float speedPercentage;

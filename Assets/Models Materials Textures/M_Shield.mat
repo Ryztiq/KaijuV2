@@ -57,6 +57,7 @@ Material:
     - _ShieldPower: 1.03
     - _ShieldPulseAmount: 0.05
     - _SphereMask: 0
+    - _SphereMaskSize: 2
     - _SphereRadius: 0.4
     - _SphereSmooth: 0.25
     m_Colors:
