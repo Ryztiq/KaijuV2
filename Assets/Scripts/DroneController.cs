@@ -13,7 +13,7 @@ public class DroneController : MonoBehaviour
     [FormerlySerializedAs("invertViewfindAngle")] public bool invertViewfinding;
     [FormerlySerializedAs("lookSpeed")] public float viewfinderSpeed = 6;
     public float laserDistance;
-    private bool fire;
+    public bool fire = true;
     
     //attack variables
     public int phase = 1;

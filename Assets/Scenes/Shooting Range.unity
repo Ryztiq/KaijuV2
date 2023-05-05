@@ -548,7 +548,7 @@ PrefabInstance:
     - target: {fileID: 4258456864118366024, guid: b2de75d4f0943a84d81773023c734505,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4258456864118366026, guid: b2de75d4f0943a84d81773023c734505,
         type: 3}
@@ -607,8 +607,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
         type: 3}
+      propertyPath: bulletStats.speed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
+        type: 3}
       propertyPath: bulletStats.target
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
+        type: 3}
+      propertyPath: bulletStats.sphereSize
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4258456864118366027, guid: b2de75d4f0943a84d81773023c734505,
+        type: 3}
+      propertyPath: bulletStats.homingAccuracy
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2de75d4f0943a84d81773023c734505, type: 3}
@@ -1500,6 +1515,16 @@ PrefabInstance:
       propertyPath: m_InteractionManager
       value: 
       objectReference: {fileID: 1240693806}
+    - target: {fileID: 761417546331161567, guid: 7b8d79ce31fb5eb45ae626faa77f1f28,
+        type: 3}
+      propertyPath: speedFloor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 761417546331161567, guid: 7b8d79ce31fb5eb45ae626faa77f1f28,
+        type: 3}
+      propertyPath: speedCeiling
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 1707283009851487850, guid: 7b8d79ce31fb5eb45ae626faa77f1f28,
         type: 3}
       propertyPath: m_RootOrder
@@ -1581,6 +1606,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100753774, guid: 7bba73d6cb1feed468d2d0deada87691, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3996144933518631159, guid: 7bba73d6cb1feed468d2d0deada87691,
         type: 3}
       propertyPath: m_RootOrder
@@ -1643,19 +1672,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6758684462091801265, guid: 7bba73d6cb1feed468d2d0deada87691,
         type: 3}
-      propertyPath: leftController
-      value: 
-      objectReference: {fileID: 796949447}
+      propertyPath: bulletStats.speed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6758684462091801265, guid: 7bba73d6cb1feed468d2d0deada87691,
         type: 3}
-      propertyPath: rightController
-      value: 
-      objectReference: {fileID: 2101364802}
-    - target: {fileID: 9066767052180550647, guid: 7bba73d6cb1feed468d2d0deada87691,
-        type: 3}
-      propertyPath: m_InteractionManager
-      value: 
-      objectReference: {fileID: 1240693806}
+      propertyPath: bulletStats.sphereSize
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bba73d6cb1feed468d2d0deada87691, type: 3}
 --- !u!1 &582973916 stripped
@@ -2009,18 +2033,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1804641551}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &796949447 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4430515079497041416, guid: 7c71c2af9cb23fb44946665b0addb02d,
-    type: 3}
-  m_PrefabInstance: {fileID: 233424173}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caff514de9b15ad48ab85dcff5508221, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &807150304 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6726961667789980458, guid: 50b4d6afbcc0fba40ae2ad7c95f1c0e9,
@@ -4081,18 +4093,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2b64e2a208101a49bd26b464f79e393, type: 3}
---- !u!114 &2101364802 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4430515079269256592, guid: 7c71c2af9cb23fb44946665b0addb02d,
-    type: 3}
-  m_PrefabInstance: {fileID: 233424173}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caff514de9b15ad48ab85dcff5508221, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &2123776280
 Mesh:
   m_ObjectHideFlags: 0
