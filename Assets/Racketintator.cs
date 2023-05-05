@@ -13,6 +13,7 @@ public class Racketintator : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("DroneBullet") || collision.gameObject.CompareTag("DroneBulletBig"))
         {
+            audioSource.volume = 1;
             audioSource.PlayOneShot(hitSound);
             Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
             rb.useGravity = true;
