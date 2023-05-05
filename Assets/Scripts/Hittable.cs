@@ -7,7 +7,7 @@ public class Hittable : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Rigidbody otherRb = collision.gameObject.GetComponent<Rigidbody>();
-        if(otherRb != null && collision.gameObject.CompareTag("bulletPrefab"))
+        if(otherRb != null && collision.gameObject.CompareTag("Bullet"))
         {
             Hit();
         }

@@ -41,7 +41,7 @@ public class ActiveButton : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         print($"SOMETHING ENTERED: {other.gameObject.name}");
-        if (other.gameObject.CompareTag("bulletPrefab") && !LeanTween.isTweening(gameObject)) ButtonAnimation();
+        if (other.gameObject.CompareTag("Bullet") && !LeanTween.isTweening(gameObject)) ButtonAnimation();
     }
 
     public void ButtonAnimation()

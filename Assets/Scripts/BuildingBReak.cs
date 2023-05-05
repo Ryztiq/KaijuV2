@@ -15,7 +15,7 @@ public class BuildingBReak : MonoBehaviour
     {
         if (rb.isKinematic)
         {
-            if(collision.gameObject.CompareTag("bulletPrefab")) rb.isKinematic = false;
+            if(collision.gameObject.CompareTag("Bullet")) rb.isKinematic = false;
             if(collision.gameObject.CompareTag("Debris") && !collision.gameObject.GetComponent<Rigidbody>().isKinematic) rb.isKinematic = false;
         }
     }
