@@ -5311,12 +5311,17 @@ PrefabInstance:
     - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
         type: 3}
       propertyPath: attackVariables.Array.data[2].chargeTime
-      value: 0.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+        type: 3}
+      propertyPath: attackVariables.Array.data[0].burstAmount
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
         type: 3}
       propertyPath: attackVariables.Array.data[2].burstAmount
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
         type: 3}
@@ -5332,6 +5337,16 @@ PrefabInstance:
         type: 3}
       propertyPath: attackVariables.Array.data[0].burstRateLarge
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+        type: 3}
+      propertyPath: attackVariables.Array.data[1].burstRateLarge
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 949293525577856587, guid: 0307a0e7c0fc3694aa49a0983a88f958,
+        type: 3}
+      propertyPath: attackVariables.Array.data[2].burstRateLarge
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1478738765136008541, guid: 0307a0e7c0fc3694aa49a0983a88f958,
         type: 3}
